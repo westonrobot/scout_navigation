@@ -1,0 +1,14 @@
+<launch>
+    <node name="keybord" pkg="scout_base" type="keybord" output="screen">
+
+    <param name="input" value="/dev/input/event3" />
+
+    <param name="walk_vel" value="0.5" />
+    <param name="run_vel" value="0.5" />
+
+    <param name="max_tv" value="2.0" />
+    <param name="max_rv" value="2.6" />
+
+    </node>
+
+</launch>
