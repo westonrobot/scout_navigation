@@ -6,6 +6,7 @@
 #include <chrono>
 #include <cstdint>
 #include <ratio>
+#include <thread>
 
 namespace stopwatch
 {
