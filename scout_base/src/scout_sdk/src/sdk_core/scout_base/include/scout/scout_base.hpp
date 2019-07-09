@@ -40,7 +40,7 @@ public:
     // motion control
     void SetMotionCommand(double linear_vel, double angular_vel,
                           ScoutMotionCmd::FaultClearFlag fault_clr_flag = ScoutMotionCmd::FaultClearFlag::NO_FAULT);
-    
+
     // light control
     void SetLightCommand(ScoutLightCmd cmd);
     void DisableLightCmdControl();
@@ -62,6 +62,8 @@ private:
     ScoutState scout_state_;
     ScoutMotionCmd current_motion_cmd_;
     ScoutLightCmd current_light_cmd_;
+
+    bool cmd_thread_started_ = false;
 
     bool light_ctrl_enabled_ = false;
     bool light_ctrl_requested_ = false;

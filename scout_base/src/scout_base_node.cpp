@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 
     // connect to scout and setup ROS subscription
     robot.ConnectCANBus(scout_can_port);
+    robot.StartCmdThread(10);
     messenger.SetupSubscription();
 
     // publish robot state at 20Hz while listening to twist commands

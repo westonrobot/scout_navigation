@@ -93,6 +93,7 @@ void ScoutBase::ConnectCANBus(const std::string &can_if_name)
 void ScoutBase::StartCmdThread(int32_t period_ms)
 {
     cmd_thread_ = std::thread(std::bind(&ScoutBase::ControlLoop, this, period_ms));
+    cmd_thread_started_ = true;
 }
 
 void ScoutBase::ControlLoop(int32_t period_ms)
@@ -180,6 +181,10 @@ ScoutState ScoutBase::GetScoutState()
 
 void ScoutBase::SetMotionCommand(double linear_vel, double angular_vel, ScoutMotionCmd::FaultClearFlag fault_clr_flag)
 {
+    // make sure cmd thread is started before attempting to send commands
+    if (!cmd_thread_started_)
+        StartCmdThread(10);
+
     if (linear_vel < ScoutMotionCmd::min_linear_velocity)
         linear_vel = ScoutMotionCmd::min_linear_velocity;
     if (linear_vel > ScoutMotionCmd::max_linear_velocity)

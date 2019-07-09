@@ -14,7 +14,7 @@ using namespace wescore;
 int main(int argc, char **argv)
 {
     ScoutBase scout;
-    scout.ConnectCANBus("can1");
+    scout.ConnectCANBus("can0");
     scout.StartCmdThread(10);
 
     scout.SetLightCommand({ScoutLightCmd::LightMode::CONST_ON, 0, ScoutLightCmd::LightMode::CONST_ON, 0});
