@@ -9,7 +9,16 @@
 
 ## Basic Usage
 
-1. Clone the packages into your catkin workspace and compile
+1. Install dependent ROS packages
+
+    ```
+    $ sudo apt install ros-melodic-controller-manager
+    $ sudo apt install ros-melodic-teleop-twist-keyboard
+    ```
+
+    Change ros-melodic-* in the command to ros-kinetic-* if you're using ROS Kinetic.
+
+2. Clone the packages into your catkin workspace and compile
 
     (the following instructions assume your catkin workspace is at: ~/catkin_ws/src)
 
@@ -20,7 +29,7 @@
     $ catkin_make
     ```
 
-2. Launch ROS nodes
+3. Launch ROS nodes
  
 * Start the base node 
 
