@@ -7,16 +7,16 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS 
     controller_manager 
     hardware_interface 
-    husky_msgs
-    diagnostic_updater 
     roslaunch 
     roslint 
     roscpp 
     sensor_msgs
     std_msgs
     geometry_msgs
+    scout_msgs
     tf)
-find_package(Boost REQUIRED COMPONENTS chrono)
+    
+# find_package(Boost REQUIRED COMPONENTS chrono)
 
 ###################################
 ## catkin specific configuration ##
@@ -24,8 +24,8 @@ find_package(Boost REQUIRED COMPONENTS chrono)
 
 catkin_package(
   INCLUDE_DIRS include
-#   LIBRARIES scout_base
-  CATKIN_DEPENDS diagnostic_updater hardware_interface scout_msgs roscpp sensor_msgs
+  LIBRARIES scout_base
+  CATKIN_DEPENDS hardware_interface scout_msgs roscpp sensor_msgs
 #   DEPENDS Boost
 )
 
@@ -43,11 +43,12 @@ include_directories(
 # add scout sdk
 add_subdirectory(src/scout_sdk)
 
-add_executable(scout_base_node src/scout_base_node.cpp src/scout_messenger.cpp)
-target_link_libraries(scout_base_node scout_base ${catkin_LIBRARIES})
+add_library(scout_messenger STATIC src/scout_messenger.cpp)
+target_link_libraries(scout_messenger scoutbase ${catkin_LIBRARIES})
+set_property(TARGET scout_messenger PROPERTY POSITION_INDEPENDENT_CODE ON)
 
-# add_executable(keybord src/keybord.cpp)
-# target_link_libraries(keybord ${catkin_LIBRARIES})
+add_executable(scout_base_node src/scout_base_node.cpp)
+target_link_libraries(scout_base_node scoutbase scout_messenger ${catkin_LIBRARIES})
 
 #############
 ## Install ##

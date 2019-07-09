@@ -1,0 +1,14 @@
+<launch>
+
+    <node name="scout_odom" pkg="scout_vrep_sim" type="scout_base_sim" output="screen">
+        <param name="odom_frame" type="string" value="odom" />
+        <param name="base_frame" type="string" value="base_link" />
+        <param name="simulated_robot" type="bool" value="true" />
+        <param name="sim_control_rate" value="50" />
+    </node>
+
+    <!-- Differential controller parameters and basic localization -->
+    <!--
+    <include file="$(find scout_control)/launch/control.launch" />
+    -->
+</launch>

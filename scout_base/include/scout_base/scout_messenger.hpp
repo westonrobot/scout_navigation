@@ -11,13 +11,12 @@
 #define SCOUT_MESSENGER_HPP
 
 #include <string>
-#include <boost/thread.hpp>
 
 #include <ros/ros.h>
-#include <sensor_msgs/JointState.h>
-#include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
+#include <tf/transform_broadcaster.h>
 
+#include "scout_msgs/ScoutLightCmd.h"
 #include "scout/scout_base.hpp"
 
 namespace wescore
@@ -25,25 +24,32 @@ namespace wescore
 class ScoutROSMessenger
 {
 public:
-    ScoutROSMessenger(ScoutBase &scout, ros::NodeHandle nh);
+    explicit ScoutROSMessenger(ros::NodeHandle nh);
+    ScoutROSMessenger(ScoutBase *scout, ros::NodeHandle nh);
 
-    int control_rate_;
     std::string odom_frame_;
     std::string base_frame_;
 
+    bool simulated_robot_;
+    int sim_control_rate_;
+
     void SetupSubscription();
     void PublishStateToROS();
+    void PublishSimStateToROS(double linear, double angular);
+
+    void GetCurrentMotionCmdForSim(double &linear, double &angular);
 
 private:
-    ScoutBase &scout_;
+    ScoutBase *scout_;
     ros::NodeHandle nh_;
-    int32_t cmd_timeout_counter_ = 0;
 
     std::mutex twist_mutex_;
     geometry_msgs::Twist current_twist_;
 
     ros::Publisher odom_publisher_;
-    ros::Subscriber cmd_subscriber_;
+    ros::Publisher status_publisher_;
+    ros::Subscriber motion_cmd_subscriber_;
+    ros::Subscriber light_cmd_subscriber_;
     tf::TransformBroadcaster tf_broadcaster_;
 
 private:
@@ -58,7 +64,9 @@ private:
     ros::Time current_time_;
 
     void TwistCmdCallback(const geometry_msgs::Twist::ConstPtr &msg);
+    void LightCmdCallback(const scout_msgs::ScoutLightCmd::ConstPtr &msg);
+    void PublishOdometryToROS(double linear, double angular, double dt);
 };
-} // namespace scout
+} // namespace wescore
 
 #endif /* SCOUT_MESSENGER_HPP */

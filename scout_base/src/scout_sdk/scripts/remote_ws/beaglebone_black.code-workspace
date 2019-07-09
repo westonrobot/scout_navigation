@@ -1,0 +1,6 @@
+{
+    "folders": [{
+        "uri": "sftp://rdu:rdu3317*@192.168.7.2/home/rdu/Workspace/scout_sdk",
+        "name": "Scout SDK Workspace"
+    }]
+}

@@ -5,6 +5,6 @@
         <param name="odom_frame" type="string" value="odom" />
         <param name="base_frame" type="string" value="base_footprint" />
 
-        <param name="control_rate" value="10" />
+        <param name="simulated_robot" type="bool" value="false" />
     </node>
 </launch>

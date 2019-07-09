@@ -1,9 +1,8 @@
 # Add source directories
 add_subdirectory(demo)
-add_subdirectory(scout)
-add_subdirectory(driver)
+add_subdirectory(sdk_core)
 add_subdirectory(third_party)
 
-if(BUILD_TESTS)
-    add_subdirectory(unit_tests)
+if(BUILD_MONITOR)
+add_subdirectory(monitor)
 endif()

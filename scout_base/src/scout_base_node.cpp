@@ -19,12 +19,13 @@ int main(int argc, char **argv)
 
     // instantiate a robot
     ScoutBase robot;
-    ScoutROSMessenger messenger(robot, node);
+    ScoutROSMessenger messenger(&robot, node);
 
     std::string scout_can_port;
-    private_node.param<std::string>("port_name_", scout_can_port, std::string("can1"));
-    private_node.param<std::string>("odom_frame_", messenger.odom_frame_, std::string("odom"));
-    private_node.param<std::string>("base_frame_", messenger.base_frame_, std::string("base_footprint"));
+    private_node.param<std::string>("port_name", scout_can_port, std::string("can1"));
+    private_node.param<std::string>("odom_frame", messenger.odom_frame_, std::string("odom"));
+    private_node.param<std::string>("base_frame", messenger.base_frame_, std::string("base_footprint"));
+    private_node.param<bool>("simulated_robot", messenger.simulated_robot_, false);
 
     // connect to scout and setup ROS subscription
     robot.ConnectCANBus(scout_can_port);

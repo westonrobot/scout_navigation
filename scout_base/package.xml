@@ -4,23 +4,17 @@
   <version>0.3.3</version>
   <description>AgileX Scout robot driver</description>
 
-  <author email="mpurvis@clearpathrobotics.com">Mike Purvis</author>
-  <author email="paul@bovbel.com">Paul Bovbel</author>
-
-  <maintainer email="paul@bovbel.com">Paul Bovbel</maintainer>
-  <maintainer email="tbaltovski@clearpathrobotics.com">Tony Baltovski</maintainer>
-
+  <author email="ruixiang.du@westonrobot.com">Ruixiang Du</author>
+  <maintainer email="info@westonrobot.com">WestonRobot</maintainer>
 
   <license>BSD</license>
 
-  <url type="website">http://ros.org/wiki/husky_base</url>
-  <url type="bugtracker">https://github.com/husky/husky_robot/issues</url>
-  <url type="repository">https://github.com/husky/husky_robot</url>
+  <url type="website">TODO</url>
+  <url type="bugtracker">TODO</url>
+  <url type="repository">TODO</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>controller_manager</build_depend>
-  <build_depend>diagnostic_updater</build_depend>
-  <build_depend>diagnostic_msgs</build_depend>
   <build_depend>hardware_interface</build_depend>
   <build_depend>scout_msgs</build_depend>
   <build_depend>roscpp</build_depend>
@@ -29,9 +23,6 @@
   <build_depend>sensor_msgs</build_depend>
 
   <run_depend>controller_manager</run_depend>
-  <run_depend>diagnostic_updater</run_depend>
-  <run_depend>diagnostic_msgs</run_depend>
-  <run_depend>diagnostic_aggregator</run_depend>
   <run_depend>diff_drive_controller</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>hardware_interface</run_depend>
