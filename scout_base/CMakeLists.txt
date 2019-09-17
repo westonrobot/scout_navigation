@@ -24,7 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES scout_base
+  LIBRARIES scoutbase
   CATKIN_DEPENDS hardware_interface scout_msgs roscpp sensor_msgs
 #   DEPENDS Boost
 )

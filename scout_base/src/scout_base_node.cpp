@@ -6,7 +6,7 @@
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
 
-#include "scout/scout_base.hpp"
+#include "scout_base/scout_base.hpp"
 #include "scout_base/scout_messenger.hpp"
 
 using namespace wescore;
@@ -28,17 +28,16 @@ int main(int argc, char **argv)
     private_node.param<bool>("simulated_robot", messenger.simulated_robot_, false);
 
     // connect to scout and setup ROS subscription
-    robot.ConnectCANBus(scout_can_port);
-    robot.StartCmdThread(10);
+    robot.Connect(scout_can_port);
     messenger.SetupSubscription();
 
     // publish robot state at 20Hz while listening to twist commands
-    ros::Rate rt(20); // 20Hz
+    ros::Rate rate_20hz(20); // 20Hz
     while (true)
     {
         messenger.PublishStateToROS();
         ros::spinOnce();
-        rt.sleep();
+        rate_20hz.sleep();
     }
 
     return 0;

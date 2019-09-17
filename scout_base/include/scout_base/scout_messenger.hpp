@@ -17,7 +17,7 @@
 #include <tf/transform_broadcaster.h>
 
 #include "scout_msgs/ScoutLightCmd.h"
-#include "scout/scout_base.hpp"
+#include "scout_base/scout_base.hpp"
 
 namespace wescore
 {
