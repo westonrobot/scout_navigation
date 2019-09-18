@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     ScoutROSMessenger messenger(&robot, node);
 
     std::string scout_can_port;
-    private_node.param<std::string>("port_name", scout_can_port, std::string("can1"));
+    private_node.param<std::string>("port_name", scout_can_port, std::string("can0"));
     private_node.param<std::string>("odom_frame", messenger.odom_frame_, std::string("odom"));
     private_node.param<std::string>("base_frame", messenger.base_frame_, std::string("base_footprint"));
     private_node.param<bool>("simulated_robot", messenger.simulated_robot_, false);

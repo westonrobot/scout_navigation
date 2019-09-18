@@ -37,13 +37,13 @@ void ScoutROSMessenger::TwistCmdCallback(const geometry_msgs::Twist::ConstPtr &m
     if (!simulated_robot_)
     {
         scout_->SetMotionCommand(msg->linear.x, msg->angular.z);
-        // ROS_INFO("cmd received:%f, %f", msg->linear.x, msg->angular.z);
     }
     else
     {
         std::lock_guard<std::mutex> guard(twist_mutex_);
         current_twist_ = *msg.get();
     }
+    // ROS_INFO("cmd received:%f, %f", msg->linear.x, msg->angular.z);
 }
 
 void ScoutROSMessenger::GetCurrentMotionCmdForSim(double &linear, double &angular)
