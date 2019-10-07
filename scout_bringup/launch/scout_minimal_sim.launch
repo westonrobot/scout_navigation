@@ -1,3 +1,0 @@
-<launch>
-    <include file="$(find scout_base)/launch/scout_base_sim.launch" />
-</launch>

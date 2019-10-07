@@ -12,7 +12,6 @@
 1. Install dependent ROS packages
 
     ```
-    $ sudo apt install ros-melodic-controller-manager
     $ sudo apt install ros-melodic-teleop-twist-keyboard
     ```
 
