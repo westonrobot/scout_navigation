@@ -14,24 +14,18 @@
   <url type="repository">TODO</url>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>controller_manager</build_depend>
-  <build_depend>hardware_interface</build_depend>
   <build_depend>scout_msgs</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>roslaunch</build_depend>
   <build_depend>roslint</build_depend>
   <build_depend>sensor_msgs</build_depend>
-
+  <build_depend>scout_sdk</build_depend>
   <run_depend>controller_manager</run_depend>
-  <run_depend>diff_drive_controller</run_depend>
   <run_depend>geometry_msgs</run_depend>
-  <run_depend>hardware_interface</run_depend>
-  <run_depend>scout_control</run_depend>
   <run_depend>scout_msgs</run_depend>
-  <run_depend>scout_description</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>topic_tools</run_depend>
-
+  <run_depend>scout_sdk</run_depend>
   <export></export>
 </package>

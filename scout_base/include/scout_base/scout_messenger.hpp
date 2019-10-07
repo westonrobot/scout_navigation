@@ -14,26 +14,28 @@
 
 #include <ros/ros.h>
 #include <nav_msgs/Odometry.h>
-#include <tf/transform_broadcaster.h>
+// #include <tf/transform_broadcaster.h>
+#include <tf2_ros/transform_broadcaster.h>
 
 #include "scout_msgs/ScoutLightCmd.h"
-#include "scout/scout_base.hpp"
+#include "scout_sdk/scout_base.hpp"
 
 namespace wescore
 {
 class ScoutROSMessenger
 {
 public:
-    explicit ScoutROSMessenger(ros::NodeHandle nh);
-    ScoutROSMessenger(ScoutBase *scout, ros::NodeHandle nh);
+    explicit ScoutROSMessenger(ros::NodeHandle *nh);
+    ScoutROSMessenger(ScoutBase *scout, ros::NodeHandle *nh);
 
     std::string odom_frame_;
     std::string base_frame_;
 
-    bool simulated_robot_;
-    int sim_control_rate_;
+    bool simulated_robot_ = false;
+    int sim_control_rate_ = 50;
 
     void SetupSubscription();
+
     void PublishStateToROS();
     void PublishSimStateToROS(double linear, double angular);
 
@@ -41,7 +43,7 @@ public:
 
 private:
     ScoutBase *scout_;
-    ros::NodeHandle nh_;
+    ros::NodeHandle *nh_;
 
     std::mutex twist_mutex_;
     geometry_msgs::Twist current_twist_;
@@ -50,9 +52,8 @@ private:
     ros::Publisher status_publisher_;
     ros::Subscriber motion_cmd_subscriber_;
     ros::Subscriber light_cmd_subscriber_;
-    tf::TransformBroadcaster tf_broadcaster_;
+    tf2_ros::TransformBroadcaster tf_broadcaster_;
 
-private:
     // speed variables
     double linear_speed_ = 0.0;
     double angular_speed_ = 0.0;
