@@ -1,3 +1,6 @@
 <launch>
-    <include file="$(find scout_base)/launch/scout_base.launch" />
+    <include file="$(find scout_base)/launch/scout_base.launch" >
+        <arg name="port_name" default="can0" />
+        <arg name="simulated_robot" default="false" />
+    </include>
 </launch>

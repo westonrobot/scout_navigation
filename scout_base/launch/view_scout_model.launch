@@ -1,0 +1,6 @@
+<launch>
+    <param name="robot_description" textfile="$(find scout_base)/urdf/agilex_scout.urdf" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(find scout_viz)/rviz/scout_model.rviz" />
+</launch>

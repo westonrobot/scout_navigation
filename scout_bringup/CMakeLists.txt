@@ -154,7 +154,7 @@ include_directories(
 ## Install ##
 #############
 
-install(DIRECTORY launch
+install(DIRECTORY launch scripts
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 
