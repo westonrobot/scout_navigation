@@ -82,22 +82,22 @@ Replace "<username>" in the above command with your Linux username. You need to 
  
 * Start the base node 
 
-```
-$ roslaunch scout_bringup scout_minimal.launch
-```
+    ```
+    $ roslaunch scout_bringup scout_minimal.launch
+    ```
 
-or (if you're using a serial port)
-    
-```
-$ roslaunch scout_bringup scout_minimal_uart.launch
-```
+    or (if you're using a serial port)
+        
+    ```
+    $ roslaunch scout_bringup scout_minimal_uart.launch
+    ```
 
 * Start the keyboard tele-op node
 
-```
-$ roslaunch scout_bringup scout_teleop_keyboard.launch
-```
+    ```
+    $ roslaunch scout_bringup scout_teleop_keyboard.launch
+    ```
 
-**SAFETY PRECAUSION**: 
+    **SAFETY PRECAUSION**: 
 
-The default command values of the keyboard teleop node are high, make sure you decrease the speed commands before starting to control the robot with your keyboard! Have your remote controller ready to take over the control whenever necessary. 
+    The default command values of the keyboard teleop node are high, make sure you decrease the speed commands before starting to control the robot with your keyboard! Have your remote controller ready to take over the control whenever necessary. 

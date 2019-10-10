@@ -44,7 +44,7 @@ catkin_package(
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
-    ${LCM_INCLUDE_DIRS}
+    # ${LCM_INCLUDE_DIRS}
 )
 
 add_library(scout_messenger STATIC src/scout_messenger.cpp)
@@ -71,8 +71,8 @@ install(TARGETS scout_messenger scout_base_node
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
-  install(DIRECTORY include/lcmtypes
-  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
+# install(DIRECTORY include/lcmtypes
+#   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
 
 install(DIRECTORY launch urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
