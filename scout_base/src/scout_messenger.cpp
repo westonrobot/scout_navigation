@@ -9,27 +9,29 @@
 
 #include "scout_base/scout_messenger.hpp"
 
+#include <tf/transform_broadcaster.h>
+
 #include "scout_msgs/ScoutStatus.h"
 
 namespace wescore
 {
-ScoutROSMessenger::ScoutROSMessenger(ros::NodeHandle nh) : scout_(nullptr), nh_(nh)
+ScoutROSMessenger::ScoutROSMessenger(ros::NodeHandle *nh) : scout_(nullptr), nh_(nh)
 {
 }
 
-ScoutROSMessenger::ScoutROSMessenger(ScoutBase *scout, ros::NodeHandle nh) : scout_(scout), nh_(nh)
+ScoutROSMessenger::ScoutROSMessenger(ScoutBase *scout, ros::NodeHandle *nh) : scout_(scout), nh_(nh)
 {
 }
 
 void ScoutROSMessenger::SetupSubscription()
 {
     // odometry publisher
-    odom_publisher_ = nh_.advertise<nav_msgs::Odometry>(odom_frame_, 50);
-    status_publisher_ = nh_.advertise<scout_msgs::ScoutStatus>("/scout_status", 10);
+    odom_publisher_ = nh_->advertise<nav_msgs::Odometry>(odom_frame_, 50);
+    status_publisher_ = nh_->advertise<scout_msgs::ScoutStatus>("/scout_status", 10);
 
     // cmd subscriber
-    motion_cmd_subscriber_ = nh_.subscribe<geometry_msgs::Twist>("/cmd_vel", 5, &ScoutROSMessenger::TwistCmdCallback, this); //不启用平滑包则订阅“cmd_vel”
-    light_cmd_subscriber_ = nh_.subscribe<scout_msgs::ScoutLightCmd>("/scout_light_control", 5, &ScoutROSMessenger::LightCmdCallback, this);
+    motion_cmd_subscriber_ = nh_->subscribe<geometry_msgs::Twist>("/cmd_vel", 5, &ScoutROSMessenger::TwistCmdCallback, this); //不启用平滑包则订阅“cmd_vel”
+    light_cmd_subscriber_ = nh_->subscribe<scout_msgs::ScoutLightCmd>("/scout_light_control", 5, &ScoutROSMessenger::LightCmdCallback, this);
 }
 
 void ScoutROSMessenger::TwistCmdCallback(const geometry_msgs::Twist::ConstPtr &msg)

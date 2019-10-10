@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find scout_base)/launch/scout_base.launch" >
+        <arg name="port_name" value="/dev/ttyUSB0" />
+        <arg name="simulated_robot" value="false" />
+    </include>
+</launch>

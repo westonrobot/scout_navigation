@@ -4,9 +4,10 @@ project(scout_base)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS 
-    controller_manager 
-    hardware_interface 
+# cmake module path
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+find_package(catkin REQUIRED COMPONENTS    
     roslaunch 
     roslint 
     roscpp 
@@ -14,8 +15,13 @@ find_package(catkin REQUIRED COMPONENTS
     std_msgs
     geometry_msgs
     scout_msgs
-    tf)
+    scout_sdk
+    tf2 
+    tf2_ros
+)
     
+# find_package(LCM REQUIRED)
+
 # find_package(Boost REQUIRED COMPONENTS chrono)
 
 ###################################
@@ -24,8 +30,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES scoutbase
-  CATKIN_DEPENDS hardware_interface scout_msgs roscpp sensor_msgs
+  LIBRARIES scout_messenger
+  CATKIN_DEPENDS scout_msgs roscpp sensor_msgs scout_sdk
 #   DEPENDS Boost
 )
 
@@ -38,31 +44,35 @@ catkin_package(
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
+    ${LCM_INCLUDE_DIRS}
 )
 
-# add scout sdk
-add_subdirectory(src/scout_sdk)
-
 add_library(scout_messenger STATIC src/scout_messenger.cpp)
-target_link_libraries(scout_messenger scoutbase ${catkin_LIBRARIES})
+target_link_libraries(scout_messenger ${catkin_LIBRARIES})
 set_property(TARGET scout_messenger PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 add_executable(scout_base_node src/scout_base_node.cpp)
-target_link_libraries(scout_base_node scoutbase scout_messenger ${catkin_LIBRARIES})
+target_link_libraries(scout_base_node scout_messenger ${catkin_LIBRARIES})
+
+# add_executable(imu_broadcast_node src/imu_broadcast_node.cpp)
+# target_link_libraries(imu_broadcast_node ${catkin_LIBRARIES} ${LCM_LIBRARIES})
 
 #############
 ## Install ##
 #############
 
-# roslaunch_add_file_check(launch)
+roslaunch_add_file_check(launch)
 
-# install(TARGETS scoutcpp scoutio scout_base
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+install(TARGETS scout_messenger scout_base_node
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
-# install(DIRECTORY launch config
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+  install(DIRECTORY include/lcmtypes
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
+
+install(DIRECTORY launch urdf
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
