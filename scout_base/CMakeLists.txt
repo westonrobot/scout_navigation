@@ -20,8 +20,6 @@ find_package(catkin REQUIRED COMPONENTS
     tf2_ros
 )
     
-# find_package(LCM REQUIRED)
-
 # find_package(Boost REQUIRED COMPONENTS chrono)
 
 ###################################
@@ -44,7 +42,6 @@ catkin_package(
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
-    # ${LCM_INCLUDE_DIRS}
 )
 
 add_library(scout_messenger STATIC src/scout_messenger.cpp)
@@ -53,9 +50,6 @@ set_property(TARGET scout_messenger PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 add_executable(scout_base_node src/scout_base_node.cpp)
 target_link_libraries(scout_base_node scout_messenger ${catkin_LIBRARIES})
-
-# add_executable(imu_broadcast_node src/imu_broadcast_node.cpp)
-# target_link_libraries(imu_broadcast_node ${catkin_LIBRARIES} ${LCM_LIBRARIES})
 
 #############
 ## Install ##
@@ -70,9 +64,6 @@ install(TARGETS scout_messenger scout_base_node
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
-# install(DIRECTORY include/lcmtypes
-#   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
 
 install(DIRECTORY launch urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
