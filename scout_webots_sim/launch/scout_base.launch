@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- start Webots -->
+  <arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
+  <include file="$(find scout_webots_sim)/launch/webots.launch">
+    <arg name="mode" value="realtime"/>
+    <arg name="no-gui" value="$(arg no-gui)"/>
+    <arg name="world" value="$(find scout_webots_sim)/worlds/scout_base.wbt"/>
+  </include>
+
+  <arg name="auto-close" default="false" doc="Startup mode"/>
+  <node name="scout_webots_node" pkg="scout_webots_sim" type="scout_webots_node" required="$(arg auto-close)">
+    <param name="use_sim_time" value="true" />
+    <param name="odom_frame" type="string" value="odom" />
+    <param name="base_frame" type="string" value="base_link" />
+    <param name="simulated_robot" type="bool" value="true" />
+    <param name="sim_control_rate" value="50" />
+  </node>
+
+  <param name="robot_description" textfile="$(find scout_webots_sim)/urdf/agilex_scout_webots.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+</launch>

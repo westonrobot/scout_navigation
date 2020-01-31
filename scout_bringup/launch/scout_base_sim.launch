@@ -1,0 +1,3 @@
+<launch>
+    <include file="$(find scout_webots_sim)/launch/scout_base.launch" />
+</launch>

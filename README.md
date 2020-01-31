@@ -78,7 +78,23 @@ Replace "<username>" in the above command with your Linux username. You need to 
     $ catkin_make
     ```
 
-3. Launch ROS nodes
+3. Setup Webots simulation    
+
+* Install Webots R2020a-rev1 (download from https://cyberbotics.com/ )
+
+* Install Webots ROS package
+
+    ```
+    $ sudo apt install ros-melodic-webots-ros
+    ```
+
+* Set WEBOTS_HOME variable, add the following line to your "~/.bashrc"
+
+    ```
+    export WEBOTS_HOME=/usr/local/webots
+    ```
+
+4. Launch ROS nodes
  
 * Start the base node 
 
@@ -90,6 +106,12 @@ Replace "<username>" in the above command with your Linux username. You need to 
         
     ```
     $ roslaunch scout_bringup scout_minimal_uart.launch
+    ```
+
+* Or you can start the Webots-based simulation
+
+    ```
+    $ roslaunch scout_bringup scout_base_sim.launch
     ```
 
 * Start the keyboard tele-op node
