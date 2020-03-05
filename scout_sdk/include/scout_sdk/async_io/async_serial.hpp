@@ -38,8 +38,13 @@
 #include <deque>
 #include <functional>
 
-#define ASIO_ENABLE_OLD_SERVICES 
+#ifndef ASIO_ENABLE_OLD_SERVICES
+#define ASIO_ENABLE_OLD_SERVICES
+#endif
+
+#ifndef ASIO_HAS_POSIX_STREAM_DESCRIPTOR
 #define ASIO_HAS_POSIX_STREAM_DESCRIPTOR
+#endif
 
 #include "asio.hpp"
 
