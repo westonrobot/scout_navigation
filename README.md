@@ -10,6 +10,16 @@
 
 ## Communication interface setup
 
+### Setup UART
+
+Generally your RS232-to-USB cable should be automatically recognized as "/dev/ttyUSB0" or something similar and ready for use. If you get the error "... permission denied ..." when trying to open the port, you need to grant access of the port to your user account:
+
+```
+$ sudo usermod -a -G dialout $USER
+```
+
+You need to re-login to get the change to take effect.
+
 ### Setup CAN-To-USB adapter 
  
 1. Enable gs_usb kernel module
@@ -46,16 +56,6 @@
     ```
 
 Two scripts inside the "scout_bringup/scripts" folder are provided for easy setup. You can run "./setup_can2usb.bash" for the first-time setup and run "./bringup_can2usb.bash" to bring up the device each time you unplug and re-plug the adapter.
-
-### Setup UART
-
-Generally your UART2USB cable should be automatically recognized as "/dev/ttyUSB0" or something similar and ready for use. If you get the error "... permission denied ..." when trying to open the port, you need to grant access of the port to your user accout:
-
-```
-$ sudo usermod -a -G dialout <username>
-```
-
-Replace "<username>" in the above command with your Linux username. You need to re-login to get the change to take effect.
 
 ## Basic usage of the ROS package
 
