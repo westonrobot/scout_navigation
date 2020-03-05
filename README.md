@@ -8,6 +8,12 @@
 * scout_msgs: scout related message definitions
 * (scout_ros: meta package for the Scout robot ROS packages)
 
+The following diagram may help you to understand how the components are inter-connected with each other:
+
+<img src="./docs/diagram.png" height="135" >
+
+The purple blocks represent ROS packages included within this repository.
+
 ## Communication interface setup
 
 ### Setup UART
