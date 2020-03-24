@@ -89,7 +89,7 @@
     <!-- For testing, hang the robot up in the air -->
     <!-- <link name="world" />
     <joint name="world_to_base_link=" type="fixed">
-        <origin xyz="0 0 1.0" rpy="0 0 0" />
+        <origin xyz="0 0 0.5" rpy="0 0 0" />
         <parent link="world"/>
         <child link="base_link"/>
     </joint> -->
