@@ -28,7 +28,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://scout_description/meshes/body_assembly.dae" />
+                <mesh filename="package://scout_description/meshes/base_link.dae" />
             </geometry>
         </visual>
         <collision>
@@ -69,13 +69,15 @@
         <child link="inertial_link" />
     </joint>
 
-    <!-- scout wheel macros -->
-    <xacro:scout_wheel_type2 wheel_prefix="front_left">
-        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
-    </xacro:scout_wheel_type2>
+    <!-- Scout wheel macros -->
+    <!-- wheel labeled from 0 to 3, conter-clockwise, starting from front right wheel -->
+    <!-- motor 1 and 2 (left side) are mechanically installed in a reversed direction -->
     <xacro:scout_wheel_type1 wheel_prefix="front_right">
         <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
     </xacro:scout_wheel_type1>
+    <xacro:scout_wheel_type2 wheel_prefix="front_left">
+        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_wheel_type2>
     <xacro:scout_wheel_type1 wheel_prefix="rear_left">
         <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
     </xacro:scout_wheel_type1>
@@ -83,54 +85,18 @@
         <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
     </xacro:scout_wheel_type2>
 
-    <!-- IMU Link is the standard mounting position for the UM6 IMU.-->
-    <!-- Can be modified with environment variables in /etc/ros/setup.bash -->
-    <!-- <link name="imu_link"/>
-  <joint name="imu_joint" type="fixed">
-    <origin xyz="$(optenv scout_IMU_XYZ 0.19 0 0.149)" rpy="$(optenv scout_IMU_RPY 0 -1.5708 3.1416)" />
-    <parent link="base_link" />
-    <child link="imu_link" />
-  </joint>
-  <gazebo reference="imu_link">
-  </gazebo> -->
 
-    <!-- <xacro:scout_decorate /> -->
+    <!-- For testing, hang the robot up in the air -->
+    <!-- <link name="world" />
+    <joint name="world_to_base_link=" type="fixed">
+        <origin xyz="0 0 1.0" rpy="0 0 0" />
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint> -->
 
-    <!-- <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-    </plugin>
-  </gazebo>
+    <!-- Additional definitions -->
+    <xacro:include filename="$(arg urdf_extras)" />
 
-  <gazebo>
-    <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
-      <updateRate>50.0</updateRate>
-      <bodyName>base_link</bodyName>
-      <topicName>imu/data</topicName>
-      <accelDrift>0.005 0.005 0.005</accelDrift>
-      <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
-      <rateDrift>0.005 0.005 0.005 </rateDrift>
-      <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
-      <headingDrift>0.005</headingDrift>
-      <headingGaussianNoise>0.005</headingGaussianNoise>
-    </plugin>
-  </gazebo>
-
-  <gazebo>
-    <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
-      <updateRate>40</updateRate>
-      <bodyName>base_link</bodyName>
-      <frameId>base_link</frameId>
-      <topicName>navsat/fix</topicName>
-      <velocityTopicName>navsat/vel</velocityTopicName>
-      <referenceLatitude>49.9</referenceLatitude>
-      <referenceLongitude>8.9</referenceLongitude>
-      <referenceHeading>0</referenceHeading>
-      <referenceAltitude>0</referenceAltitude>
-      <drift>0.0001 0.0001 0.0001</drift>
-    </plugin>
-  </gazebo> -->
-
-    <!-- Optional custom includes. -->
-    <!-- <xacro:include filename="$(arg urdf_extras)" /> -->
-
+    <!-- Gazebo definitions  -->
+    <xacro:include filename="$(find scout_description)/urdf/scout_v2.gazebo" />
 </robot>
