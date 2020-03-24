@@ -5,26 +5,25 @@
 
     <xacro:arg name="urdf_extras" default="empty.urdf" />
 
-    <!-- Included URDF/XACRO Files -->
-    <xacro:include filename="$(find scout_description)/urdf/scout_wheel.xacro" />
+    <xacro:include filename="$(find scout_description)/urdf/scout_wheel_type1.xacro" />
+    <xacro:include filename="$(find scout_description)/urdf/scout_wheel_type2.xacro" />
 
+    <!-- Variables -->
     <xacro:property name="M_PI" value="3.14159"/>
 
-    <!-- Base Size -->
+    <!-- Vehicle Geometries -->
     <xacro:property name="base_x_size" value="0.9250000" />
     <xacro:property name="base_y_size" value="0.380000" />
     <xacro:property name="base_z_size" value="0.210000" />
 
-    <!-- Wheel Mounting Positions -->
     <xacro:property name="wheelbase" value="0.498" />
     <xacro:property name="track" value="0.58306" />
     <xacro:property name="wheel_vertical_offset" value="-0.0702" />
 
-    <!-- Wheel Properties -->
     <xacro:property name="wheel_length" value="1.1653e-01" />
     <xacro:property name="wheel_radius" value="1.6459e-01" />
 
-    <!-- Base link is the center of the robot's bottom plate -->
+    <!-- Base link -->
     <link name="base_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
@@ -46,7 +45,7 @@
         </collision>
     </link>
 
-    <!-- Base footprint is on the ground under the robot -->
+    <!-- Base footprint: base_link projected to the gound plane -->
     <link name="base_footprint"/>
 
     <joint name="base_footprint_joint" type="fixed">
@@ -55,7 +54,7 @@
         <child link="base_footprint" />
     </joint>
 
-    <!-- Interial link stores the robot's inertial information -->
+    <!-- Interial link -->
     <link name="inertial_link">
         <inertial>
             <mass value="46.034" />
@@ -70,6 +69,20 @@
         <child link="inertial_link" />
     </joint>
 
+    <!-- scout wheel macros -->
+    <xacro:scout_wheel_type2 wheel_prefix="front_left">
+        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_wheel_type2>
+    <xacro:scout_wheel_type1 wheel_prefix="front_right">
+        <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
+    </xacro:scout_wheel_type1>
+    <xacro:scout_wheel_type1 wheel_prefix="rear_left">
+        <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_wheel_type1>
+    <xacro:scout_wheel_type2 wheel_prefix="rear_right">
+        <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
+    </xacro:scout_wheel_type2>
+
     <!-- IMU Link is the standard mounting position for the UM6 IMU.-->
     <!-- Can be modified with environment variables in /etc/ros/setup.bash -->
     <!-- <link name="imu_link"/>
@@ -80,20 +93,6 @@
   </joint>
   <gazebo reference="imu_link">
   </gazebo> -->
-
-    <!-- scout wheel macros -->
-    <xacro:scout_wheel wheel_prefix="front_left">
-        <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
-    </xacro:scout_wheel>
-    <xacro:scout_wheel wheel_prefix="front_right">
-        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
-    </xacro:scout_wheel>
-    <xacro:scout_wheel wheel_prefix="rear_left">
-        <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="3.14 0 0" />
-    </xacro:scout_wheel>
-    <xacro:scout_wheel wheel_prefix="rear_right">
-        <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
-    </xacro:scout_wheel>
 
     <!-- <xacro:scout_decorate /> -->
 
