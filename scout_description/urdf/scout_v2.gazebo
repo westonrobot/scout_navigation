@@ -1,9 +1,19 @@
 <?xml version="1.0"?>
-<robot>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" >
+    <xacro:include filename="$(find scout_description)/urdf/scout_wheel.gazebo" />
+
+    <!-- Additional definitions for simulation -->
     <!-- <gazebo reference="base_link">
         <material>Gazebo/Grey</material>
     </gazebo> -->
 
+    <!-- Actuator configurations -->
+    <xacro:scout_wheel_transmission wheel_prefix="front_right" />
+    <xacro:scout_wheel_transmission wheel_prefix="front_left" />
+    <xacro:scout_wheel_transmission wheel_prefix="rear_left" />
+    <xacro:scout_wheel_transmission wheel_prefix="rear_right" />
+
+    <!-- Controller configurations -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace></robotNamespace>
@@ -40,5 +50,5 @@
             <odometryRate>20.0</odometryRate>
             <robotBaseFrame>base_footprint</robotBaseFrame>
         </plugin>
-    </gazebo> -->    
+    </gazebo> -->
 </robot>

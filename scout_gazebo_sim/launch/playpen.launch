@@ -2,11 +2,9 @@
 <!--
 Software License Agreement (BSD)
 
-\file      scout_wheel.xacro (adapted from wheel.urdf.xacro in husky_description)
-\authors   Paul Bovbel <pbovbel@clearpathrobotics.com>
-           Ruixiang Du <ruixiang.du@westonrobot.com>
+\file      husky_playpen.launch
+\authors   Paul Bovbel <pbovbel@clearpathrobotics.com
 \copyright Copyright (c) 2015, Clearpath Robotics, Inc., All rights reserved.
-\copyright Copyright (c) 2020, Weston Robot Pte. Ltd., All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that
 the following conditions are met:
@@ -25,35 +23,15 @@ OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTE
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<robot xmlns:xacro="http://ros.org/wiki/xacro" name="scout_wheel">
+<launch>
 
-    <xacro:macro name="scout_wheel_type2" params="wheel_prefix *joint_pose">
-        <link name="${wheel_prefix}_wheel_link">
-            <inertial>
-                <mass value="2.637" />
-                <origin xyz="0 0 0" />
-                <inertia ixx="0.02467" ixy="0" ixz="0" iyy="0.04411" iyz="0" izz="0.02467" />
-            </inertial>
-            <visual>
-                <origin xyz="0 0 0" rpy="0 0 0" />
-                <geometry>
-                    <mesh filename="package://scout_description/meshes/wheel_type2.dae" />
-                </geometry>
-            </visual>
-            <collision>
-                <origin xyz="0 0 0" rpy="${M_PI/2} 0 0" />
-                <geometry>
-                    <cylinder length="${wheel_length}" radius="${wheel_radius}" />
-                </geometry>
-            </collision>
-        </link>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find husky_gazebo)/worlds/clearpath_playpen.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
 
-        <joint name="${wheel_prefix}_wheel" type="continuous">
-            <parent link="base_link"/>
-            <child link="${wheel_prefix}_wheel_link"/>
-            <xacro:insert_block name="joint_pose"/>
-            <axis xyz="0 -1 0" rpy="0 0 0" />
-        </joint>
-    </xacro:macro>
-
-</robot>
+</launch>
