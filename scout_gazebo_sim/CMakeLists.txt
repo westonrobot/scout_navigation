@@ -7,11 +7,9 @@ find_package(catkin REQUIRED COMPONENTS
     roslaunch 
     roslint 
     roscpp 
-    sensor_msgs
     std_msgs
+    sensor_msgs
     geometry_msgs
-    scout_msgs
-    scout_sdk
     tf2 
     tf2_ros
 )

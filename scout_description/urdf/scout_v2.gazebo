@@ -16,7 +16,7 @@
     <!-- Controller configurations -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace></robotNamespace>
+            <robotNamespace>$(arg robot_namespace)</robotNamespace>
         </plugin>
     </gazebo>
 

@@ -25,6 +25,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <launch>
 
+    <arg name="robot_namespace" default="/"/>
     <arg name="world_name" default="worlds/empty.world"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -37,7 +38,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         <arg name="debug" value="false"/>
     </include>
 
-    <include file="$(find scout_gazebo)/launch/spawn_scout_v2.launch"></include>
+    <include file="$(find scout_gazebo_sim)/launch/spawn_scout_v2.launch"></include>
         
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_description)/rviz/model_display.rviz" />
 </launch>
