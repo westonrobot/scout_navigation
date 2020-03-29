@@ -30,10 +30,19 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <xacro:macro name="scout_wheel_transmission" params="wheel_prefix">
         <gazebo reference="${wheel_prefix}_wheel_link">
             <mu1 value="1.0"/>
+            <mu2 value="0.6"/>
+            <kp value="10000000.0" />
+            <kd value="1.0" />
+            <fdir1 value="1 0 0"/> 
+            <maxContacts value="64"/>
+        </gazebo> 
+
+        <!-- <gazebo reference="${wheel_prefix}_wheel_link">
+            <mu1 value="1.0"/>
             <mu2 value="1.0"/>
             <kp value="10000000.0" />
             <kd value="1.0" />
-            <fdir1 value="1 0 0"/>
+            <fdir1 value="1 0 0"/> 
         </gazebo> -->
 
         <transmission name="${wheel_prefix}_wheel_trans" type="SimpleTransmission">

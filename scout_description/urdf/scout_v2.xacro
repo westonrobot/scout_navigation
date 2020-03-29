@@ -29,7 +29,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://scout_description/meshes/base_link.dae" />
+                <mesh filename="package://scout_description/meshes/base_link_full.dae" />
             </geometry>
         </visual>
         <collision>
@@ -87,12 +87,12 @@
     </xacro:scout_wheel_type2>
 
     <!-- For testing, hang the robot up in the air -->
-    <link name="world" />
+    <!-- <link name="world" />
     <joint name="world_to_base_link=" type="fixed">
         <origin xyz="0 0 0.5" rpy="0 0 0" />
         <parent link="world"/>
         <child link="base_link"/>
-    </joint>
+    </joint> -->
 
     <!-- Additional definitions -->
     <xacro:include filename="$(arg urdf_extras)" />

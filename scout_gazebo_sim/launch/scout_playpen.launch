@@ -2,8 +2,8 @@
 <!--
 Software License Agreement (BSD)
 
-\file      husky_playpen.launch
-\authors   Paul Bovbel <pbovbel@clearpathrobotics.com
+\file      husky_empty_world.launch
+\authors   Paul Bovbel <pbovbel@clearpathrobotics.com, Devon Ash <dash@clearpathrobotics.com>
 \copyright Copyright (c) 2015, Clearpath Robotics, Inc., All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that
@@ -25,13 +25,19 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <launch>
 
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find husky_gazebo)/worlds/clearpath_playpen.world"/>
-    <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="true"/>
-    <arg name="headless" value="false"/>
-    <arg name="debug" value="false"/>
-  </include>
+    <arg name="robot_namespace" default="/"/>
+    <arg name="world_name" default="$(find scout_gazebo_sim)/worlds/clearpath_playpen.world"/>
 
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <include file="$(find scout_gazebo_sim)/launch/spawn_scout_v2.launch"></include>
+        
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_description)/rviz/model_display.rviz" />
 </launch>
