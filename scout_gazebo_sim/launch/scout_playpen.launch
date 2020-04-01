@@ -29,6 +29,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <arg name="world_name" default="$(find scout_gazebo_sim)/worlds/clearpath_playpen.world"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="physics" value="bullet" />
         <arg name="world_name" value="$(arg world_name)"/>
         <arg name="paused" value="false"/>
         <arg name="use_sim_time" value="true"/>

@@ -24,14 +24,30 @@
     <xacro:property name="wheel_length" value="1.1653e-01" />
     <xacro:property name="wheel_radius" value="1.6459e-01" />
 
+    <!-- Virtual link as root -->
+    <link name="vehicle_reference" />
+    <joint name="veh_ref_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="vehicle_reference" />
+        <child link="base_link" />
+    </joint>
+
     <!-- Base link -->
     <link name="base_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://scout_description/meshes/base_link_full.dae" />
+                <mesh filename="package://scout_description/meshes/base_link.dae" />
             </geometry>
         </visual>
+        <inertial>
+            <mass value="40" />
+            <!-- <mass value="50" /> -->
+            <!-- <origin xyz="-0.00065 -0.085 0.062" />
+            <inertia ixx="0.6022" ixy="-0.02364" ixz="-0.1197" iyy="1.7386" iyz="-0.001544" izz="2.0296" /> -->
+            <origin xyz="0.0 0.0 0.0" />
+            <inertia ixx="2.288641" ixy="0" ixz="0" iyy="5.103976" iyz="0" izz="3.431465" />
+        </inertial>
         <collision>
             <origin xyz="0 0 0.008" rpy="0 0 0" />
             <geometry>
@@ -53,21 +69,6 @@
         <origin xyz="0 0 ${wheel_vertical_offset - wheel_radius}" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="base_footprint" />
-    </joint>
-
-    <!-- Interial link -->
-    <link name="inertial_link">
-        <inertial>
-            <mass value="46.034" />
-            <origin xyz="-0.00065 -0.085 0.062" />
-            <inertia ixx="0.6022" ixy="-0.02364" ixz="-0.1197" iyy="1.7386" iyz="-0.001544" izz="2.0296" />
-        </inertial>
-    </link>
-
-    <joint name="inertial_joint" type="fixed">
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <parent link="base_link" />
-        <child link="inertial_link" />
     </joint>
 
     <!-- Scout wheel macros -->
