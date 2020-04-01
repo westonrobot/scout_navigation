@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro" >
+
+Reference:
+[1] https://answers.ros.org/question/246914/four-wheeled-skid-steering-in-gazebo-and-ros-using-gazebo-ros-control/
+[2] https://answers.ros.org/question/10119/gazebo-controller-for-skid-steering/
+[3] https://answers.ros.org/question/9640/rotation-error-in-gazebo-simulation/
+[4] https://www.youtube.com/watch?v=fuRAv6PDwdw
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:include filename="$(find scout_description)/urdf/scout_wheel.gazebo" />
 
     <!-- Additional definitions for simulation -->
@@ -18,6 +25,17 @@
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>$(arg robot_namespace)</robotNamespace>
         </plugin>
+    </gazebo>
+
+    <!-- kp spring constant, kd damping constant -->
+    <gazebo>
+        <mu1 value="1.0"/>
+        <mu2 value="0.9"/>
+        <kp value="10000000.0" />
+        <kd value="1.0" />
+        <fdir1 value="1 0 0"/>
+        <minDepth value="0.001" />
+        <maxContacts value="64"/>
     </gazebo>
 
     <!-- <gazebo>
