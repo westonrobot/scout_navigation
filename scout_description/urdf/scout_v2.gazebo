@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 
+<!-- 
 Reference:
-[1] https://answers.ros.org/question/246914/four-wheeled-skid-steering-in-gazebo-and-ros-using-gazebo-ros-control/
-[2] https://answers.ros.org/question/10119/gazebo-controller-for-skid-steering/
-[3] https://answers.ros.org/question/9640/rotation-error-in-gazebo-simulation/
-[4] https://www.youtube.com/watch?v=fuRAv6PDwdw
+    [1] https://answers.ros.org/question/246914/four-wheeled-skid-steering-in-gazebo-and-ros-using-gazebo-ros-control/
+    [2] https://answers.ros.org/question/10119/gazebo-controller-for-skid-steering/
+    [3] https://answers.ros.org/question/9640/rotation-error-in-gazebo-simulation/
+    [4] https://www.youtube.com/watch?v=fuRAv6PDwdw 
+-->
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:include filename="$(find scout_description)/urdf/scout_wheel.gazebo" />

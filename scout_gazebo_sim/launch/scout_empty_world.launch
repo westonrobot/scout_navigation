@@ -14,5 +14,5 @@
 
     <include file="$(find scout_gazebo_sim)/launch/spawn_scout_v2.launch"></include>
         
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_description)/rviz/model_display.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_description)/rviz/navigation.rviz" />
 </launch>

@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find scout_gazebo_sim)/launch/scout_empty_world.launch" />
+    <include file="$(find scout_base)/launch/scout_base_sim.launch" />
+</launch>
