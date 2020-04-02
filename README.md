@@ -69,6 +69,8 @@ Two scripts inside the "scout_bringup/scripts" folder are provided for easy setu
 
     ```
     $ sudo apt install ros-melodic-teleop-twist-keyboard
+    $ sudo apt-get install ros-melodic-joint-state-publisher-gui
+    $ sudo apt install ros-melodic-ros-controllers
     ```
 
     Change ros-melodic-* in the command to ros-kinetic-* if you're using ROS Kinetic.

@@ -40,13 +40,13 @@ int main(int argc, char **argv)
     }
     messenger.SetupSubscription();
 
-    // publish robot state at 20Hz while listening to twist commands
-    ros::Rate rate_20hz(20); // 20Hz
+    // publish robot state at 50Hz while listening to twist commands
+    ros::Rate rate_50hz(50); // 50Hz
     while (true)
     {
         messenger.PublishStateToROS();
         ros::spinOnce();
-        rate_20hz.sleep();
+        rate_50hz.sleep();
     }
 
     return 0;

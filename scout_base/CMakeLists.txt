@@ -51,6 +51,10 @@ set_property(TARGET scout_messenger PROPERTY POSITION_INDEPENDENT_CODE ON)
 add_executable(scout_base_node src/scout_base_node.cpp)
 target_link_libraries(scout_base_node scout_messenger ${catkin_LIBRARIES})
 
+add_executable(scout_base_sim_node src/scout_base_sim_node.cpp)
+target_link_libraries(scout_base_sim_node scout_messenger ${catkin_LIBRARIES})
+
+
 #############
 ## Install ##
 #############
