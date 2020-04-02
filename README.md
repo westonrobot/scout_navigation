@@ -104,7 +104,7 @@ Two scripts inside the "scout_bringup/scripts" folder are provided for easy setu
 
 4. Launch ROS nodes
  
-* Start the base node 
+* Start the base node for the real robot
 
     ```
     $ roslaunch scout_bringup scout_minimal.launch
@@ -116,10 +116,16 @@ Two scripts inside the "scout_bringup/scripts" folder are provided for easy setu
     $ roslaunch scout_bringup scout_minimal_uart.launch
     ```
 
-* Or you can start the Webots-based simulation
+* Start the Webots-based simulation (Scout V1)
 
     ```
-    $ roslaunch scout_bringup scout_base_sim.launch
+    $ roslaunch scout_bringup scout_base_webots_sim.launch
+    ```
+
+* Start the Gazebo-based simulation (Scout V2)
+
+    ```
+    $ roslaunch scout_bringup scout_base_gazebo_sim.launch
     ```
 
 * Start the keyboard tele-op node
