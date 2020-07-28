@@ -4,9 +4,6 @@ project(scout_base)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
-# cmake module path
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
 find_package(catkin REQUIRED COMPONENTS    
     roslaunch 
     roslint 
