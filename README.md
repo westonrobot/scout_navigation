@@ -4,7 +4,6 @@
 
 * scout_bringup: launch and configuration files to start ROS nodes 
 * scout_base: a ROS wrapper around Scout SDK to monitor and control the robot
-* scout_sdk: Scout SDK customized for ROS
 * scout_msgs: scout related message definitions
 * (scout_ros: meta package for the Scout robot ROS packages)
 

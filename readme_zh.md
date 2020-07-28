@@ -4,13 +4,12 @@
 
 * scout_bringup: launch and configuration files to start ROS nodes 
 * scout_base: a ROS wrapper around Scout SDK to monitor and control the robot
-* scout_sdk: Scout SDK customized for ROS
 * scout_msgs: scout related message definitions
 * (scout_ros: meta package for the Scout robot ROS packages)
 
 
 下图是是整个ros package的一个基本框架说明，或许它可以帮助你理解你理解整个ros package内部是如何工作的，他们之间的是相互联系的。
-其中最底层的是移动机器人底盘，它通过can或者usart实现运行在计算平台的sdK进行基本信息的获取，具体可以根据scout_sdk了解更多信息，进而对scout_sdk，仿真部分是基于Webots，构建起的仿真环境。
+其中最底层的是移动机器人底盘，它通过can或者usart实现运行在计算平台的sdk进行基本信息的获取，具体可以根据wrp_sdk了解更多信息。 仿真部分是基于Webots，构建起的仿真环境。
 
 <img src="./docs/diagram.png" height="135" >
 

@@ -5,10 +5,10 @@
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
 
-#include "scout_sdk/scout_base.hpp"
+#include "wrp_sdk/platforms/scout/scout_base.hpp"
 #include "scout_base/scout_messenger.hpp"
 
-using namespace wescore;
+using namespace westonrobot;
 
 int main(int argc, char **argv)
 {

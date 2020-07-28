@@ -19,13 +19,13 @@
   <build_depend>roslaunch</build_depend>
   <build_depend>roslint</build_depend>
   <build_depend>sensor_msgs</build_depend>
-  <build_depend>scout_sdk</build_depend>
+  <build_depend>wrp_sdk</build_depend>
   <run_depend>controller_manager</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>scout_msgs</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>sensor_msgs</run_depend>
   <run_depend>topic_tools</run_depend>
-  <run_depend>scout_sdk</run_depend>
+  <run_depend>wrp_sdk</run_depend>
   <export></export>
 </package>
