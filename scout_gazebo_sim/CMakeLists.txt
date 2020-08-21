@@ -5,7 +5,6 @@ add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS    
     roslaunch 
-    roslint 
     roscpp 
     std_msgs
     sensor_msgs
