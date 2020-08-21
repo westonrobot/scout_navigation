@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="scout">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00040316 0.00018112 0.054777"
+        rpy="0 0 0" />
+      <mass
+        value="50.594" />
+      <inertia
+        ixx="3.1632"
+        ixy="0.0095354"
+        ixz="-0.0052362"
+        iyy="3.4936"
+        iyz="0.00027654"
+        izz="5.9359" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="front left_Link">
+    <inertial>
+      <origin
+        xyz="-2.6549E-09 -3.2717E-05 -1.1121E-07"
+        rpy="0 0 0" />
+      <mass
+        value="6.2792" />
+      <inertia
+        ixx="0.048957"
+        ixy="-1.6382E-09"
+        ixz="-8.6738E-09"
+        iyy="0.087434"
+        iyz="6.3603E-10"
+        izz="0.048957" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/front left_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/front left_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front left_joint"
+    type="revolute">
+    <origin
+      xyz="0.249 0.29153 0.024097"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="front left_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-180"
+      upper="180"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="back left_Link">
+    <inertial>
+      <origin
+        xyz="1.087E-07 3.2717E-05 -2.3629E-08"
+        rpy="0 0 0" />
+      <mass
+        value="6.2792" />
+      <inertia
+        ixx="0.048957"
+        ixy="8.5452E-10"
+        ixz="1.5173E-09"
+        iyy="0.087434"
+        iyz="-2.6266E-09"
+        izz="0.048957" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/back left_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/back left_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back left_joint"
+    type="revolute">
+    <origin
+      xyz="-0.249 0.29153 0.024097"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="back left_Link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-180"
+      upper="180"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="front right_Link">
+    <inertial>
+      <origin
+        xyz="-3.3128E-07 -3.2716E-05 2.169E-08"
+        rpy="0 0 0" />
+      <mass
+        value="6.2792" />
+      <inertia
+        ixx="0.048958"
+        ixy="0.00026119"
+        ixz="-1.925E-08"
+        iyy="0.087432"
+        iyz="3.2348E-09"
+        izz="0.048957" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/front right_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/front right_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front right_joint"
+    type="revolute">
+    <origin
+      xyz="0.24702 -0.29093 0.024097"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="front right_Link" />
+    <axis
+      xyz="0.0067885 0.99998 0" />
+    <limit
+      lower="-180"
+      upper="180"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="back right_Link">
+    <inertial>
+      <origin
+        xyz="-1.135E-07 3.2717E-05 -2.3624E-08"
+        rpy="0 0 0" />
+      <mass
+        value="6.2792" />
+      <inertia
+        ixx="0.048958"
+        ixy="-0.0002612"
+        ixz="1.5517E-09"
+        iyy="0.087432"
+        iyz="-2.626E-09"
+        izz="0.048957" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/back right_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://scout_robot/meshes/back right_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back right_joint"
+    type="revolute">
+    <origin
+      xyz="-0.24702 -0.29093 0.024097"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="back right_Link" />
+    <axis
+      xyz="0.0067885 -0.99998 0" />
+    <limit
+      lower="-180"
+      upper="180"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>
