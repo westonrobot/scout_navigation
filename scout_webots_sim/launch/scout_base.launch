@@ -17,8 +17,4 @@
     <param name="simulated_robot" type="bool" value="true" />
     <param name="sim_control_rate" value="50" />
   </node>
-
-  <!-- <include file="$(find scout_description)/launch/load_nav_model.launch"/> -->
-  <include file="$(find scout_base)/launch/scout_base_sim.launch" />
-
 </launch>

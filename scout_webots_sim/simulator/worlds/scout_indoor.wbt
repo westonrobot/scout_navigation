@@ -8,8 +8,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.4652040874566815 0.8561896749159525 0.22477632789266733 0.679720263995668
-  position 11.624836472011632 1.6784422950735556 14.350506499584437
+  orientation -0.8127795484296348 -0.5761094026548509 0.08652954308899335 0.32768581777204103
+  position 9.493806123793105 1.5843023207694318 15.161113332042188
   exposure 0.5
   ambientOcclusionRadius 1
 }
@@ -1436,4 +1436,16 @@ DEF TREES Transform {
 ScoutV2 {
   translation 10.06 0.241 11.26
   rotation -3.3891510791584073e-09 0.7068252250641434 0.7073882252434113 3.14159
+  extensionSlot [
+    Transform {
+      translation 0 0 0.1
+      children [
+        Accelerometer {
+          name "accel"
+        }
+        Gyro {
+        }
+      ]
+    }
+  ]
 }

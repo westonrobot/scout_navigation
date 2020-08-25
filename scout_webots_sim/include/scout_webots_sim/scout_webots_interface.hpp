@@ -13,8 +13,9 @@
 #include <string>
 
 #include <ros/ros.h>
-#include <sensor_msgs/PointCloud.h>
 #include <sensor_msgs/Imu.h>
+#include <sensor_msgs/PointCloud.h>
+#include <tf2_ros/static_transform_broadcaster.h>
 
 #include "scout_base/scout_messenger.hpp"
 #include "scout_base/scout_params.hpp"
@@ -33,6 +34,12 @@ class ScoutWebotsInterface {
   ScoutROSMessenger* messenger_;
 
   ros::NodeHandle* nh_;
+  ros::Subscriber gyro_sub_;
+  ros::Subscriber accel_sub_;
+  ros::Publisher imu_pub_;
+
+  sensor_msgs::Imu accel_data_;
+  tf2_ros::StaticTransformBroadcaster static_broadcaster_;
 
   std::string robot_name_ = "scout_v2";
   const std::vector<std::string> motor_names_{
@@ -40,6 +47,10 @@ class ScoutWebotsInterface {
       "rear_right_wheel"};
 
   void SetupRobot();
+  void SetupIMU();
+
+  void GyroNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
+  void AccelNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
 };
 }  // namespace westonrobot
 

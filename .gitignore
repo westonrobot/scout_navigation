@@ -20,7 +20,7 @@ devel_isolated/
 
 # Webots temporary files
 scout_webots_sim/simulator/model
-scout_webots_sim/**/*.scout_v2.wbproj
+scout_webots_sim/**/*.*.wbproj
 scout_webots_sim/simulator/protos/*.cache
 scout_webots_sim/simulator/protos/*.sample
 

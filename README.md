@@ -5,6 +5,7 @@
 This repository contains navigation and simulation packages for scout robot. 
 
 * scout_description: urdf definitions for scout-based mobile platforms
+* scout_gazebo_sim: gazebo-based simulator (experimental)
 * scout_webots_sim: webots-based simulator for scout
 * scout_navigation: a demonstration navigation setup for scout
 
@@ -29,7 +30,8 @@ Please setup "[scout_base](https://github.com/westonrobot/scout_base.git)" prope
 
     ```
     $ cd ~/catkin_ws/src
-    $ git clone https://github.com/westonrobot/scout_nav.git
+    $ git clone https://github.com/westonrobot/scout_base.git
+    $ git clone https://github.com/westonrobot/scout_navigation.git
     $ cd ..
     $ catkin_make
     ```

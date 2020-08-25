@@ -29,6 +29,7 @@ void ScoutWebotsInterface::InitComponents(std::string controller_name) {
   robot_name_ = controller_name;
 
   SetupRobot();
+  SetupIMU();
 }
 
 void ScoutWebotsInterface::SetupRobot() {
@@ -67,12 +68,67 @@ void ScoutWebotsInterface::SetupRobot() {
   }
 }
 
+void ScoutWebotsInterface::SetupIMU() {
+  gyro_sub_ = nh_->subscribe(robot_name_ + "/gyro/values", 1000,
+                             &ScoutWebotsInterface::GyroNewDataCallback, this);
+  accel_sub_ =
+      nh_->subscribe(robot_name_ + "/accel/values", 1000,
+                     &ScoutWebotsInterface::AccelNewDataCallback, this);
+  imu_pub_ = nh_->advertise<sensor_msgs::Imu>("/imu", 1000);
+
+  std::string gyro_enable_srv_name = robot_name_ + "/gyro/enable";
+  std::string accel_enable_srv_name = robot_name_ + "/accel/enable";
+
+  if (ros::service::exists(gyro_enable_srv_name, true)) {
+    // enable gyro
+    ros::ServiceClient enable_gyro_client;
+    webots_ros::set_int enable_gyro_srv;
+    enable_gyro_client =
+        nh_->serviceClient<webots_ros::set_int>(gyro_enable_srv_name);
+    enable_gyro_srv.request.value = 100;
+    if (enable_gyro_client.call(enable_gyro_srv) &&
+        enable_gyro_srv.response.success == 1)
+      ROS_INFO("Gyro Enabled.");
+    else
+      ROS_ERROR("Failed to enable Gyro");
+
+    // enable accel
+    ros::ServiceClient enable_accel_client;
+    webots_ros::set_int enable_accel_srv;
+    enable_accel_client =
+        nh_->serviceClient<webots_ros::set_int>(accel_enable_srv_name);
+    enable_accel_srv.request.value = 100;
+    if (enable_accel_client.call(enable_accel_srv) &&
+        enable_accel_srv.response.success == 1)
+      ROS_INFO("Gyro Enabled.");
+    else
+      ROS_ERROR("Failed to enable Gyro");
+  }
+
+  // publish tf
+  geometry_msgs::TransformStamped static_transformStamped;
+  static_transformStamped.header.stamp = ros::Time::now();
+  static_transformStamped.header.frame_id = "imu_link";
+  static_transformStamped.child_frame_id = robot_name_ + "/imu";
+  static_transformStamped.transform.translation.x = 0.32;
+  static_transformStamped.transform.translation.y = 0;
+  static_transformStamped.transform.translation.z = 0.18;
+  tf2::Quaternion quat;
+  quat.setRPY(0, 0, 0);
+  static_transformStamped.transform.rotation.x = quat.x();
+  static_transformStamped.transform.rotation.y = quat.y();
+  static_transformStamped.transform.rotation.z = quat.z();
+  static_transformStamped.transform.rotation.w = quat.w();
+  static_broadcaster_.sendTransform(static_transformStamped);
+}
+
 void ScoutWebotsInterface::UpdateSimState() {
   // constants for calculation
-  constexpr double rotation_radius =
-      std::hypot(ScoutParams::wheelbase / 2.0, ScoutParams::track / 2.0) * 2.0;
-  constexpr double rotation_theta =
-      std::atan2(ScoutParams::wheelbase, ScoutParams::track);
+  //   constexpr double rotation_radius =
+  //       std::hypot(ScoutParams::wheelbase / 2.0, ScoutParams::track / 2.0)
+  //       * 2.0;
+  //   constexpr double rotation_theta =
+  //       std::atan2(ScoutParams::wheelbase, ScoutParams::track);
 
   // update robot state
   double wheel_speeds[4];
@@ -93,10 +149,14 @@ void ScoutWebotsInterface::UpdateSimState() {
       (wheel_speeds[1] + wheel_speeds[2]) / 2.0 * ScoutParams::wheel_radius;
   float right_speed =
       (wheel_speeds[0] + wheel_speeds[3]) / 2.0 * ScoutParams::wheel_radius;
+  left_speed = -left_speed;
   double linear_speed = (right_speed + left_speed) / 2.0;
-  double angular_speed =
-      (right_speed - left_speed) * std::cos(rotation_theta) / rotation_radius;
+  double angular_speed = (right_speed - left_speed) / ScoutParams::wheelbase;
 
+  //   std::cout << "left: " << left_speed << " , right : " << right_speed
+  //             << " , linear: " << linear_speed << " , angular: " <<
+  //             angular_speed
+  //             << std::endl;
   messenger_->PublishSimStateToROS(linear_speed, angular_speed);
 
   // send robot command
@@ -113,12 +173,10 @@ void ScoutWebotsInterface::UpdateSimState() {
   if (angular < -ScoutParams::max_angular_speed)
     angular = -ScoutParams::max_angular_speed;
 
-  double vel_left_cmd =
-      (linear - angular * rotation_radius / std::cos(rotation_theta)) /
-      ScoutParams::wheel_radius;
-  double vel_right_cmd =
-      (linear + angular * rotation_radius / std::cos(rotation_theta)) /
-      ScoutParams::wheel_radius;
+  double vel_left_cmd = (linear - angular * ScoutParams::wheelbase / 2.0) /
+                        ScoutParams::wheel_radius;
+  double vel_right_cmd = (linear + angular * ScoutParams::wheelbase / 2.0) /
+                         ScoutParams::wheel_radius;
 
   // left side motor are installed in a opposite direction, so negated
   double wheel_cmds[4];
@@ -143,6 +201,22 @@ void ScoutWebotsInterface::UpdateSimState() {
                 motor_names_[i].c_str());
     }
   }
+}
+
+void ScoutWebotsInterface::GyroNewDataCallback(
+    const sensor_msgs::Imu::ConstPtr &msg) {
+  sensor_msgs::Imu imu_msg;
+  imu_msg = *msg;
+  imu_msg.header.frame_id = "imu_link";
+  imu_msg.linear_acceleration = accel_data_.linear_acceleration;
+  imu_msg.linear_acceleration_covariance =
+      accel_data_.linear_acceleration_covariance;
+  imu_pub_.publish(imu_msg);
+}
+
+void ScoutWebotsInterface::AccelNewDataCallback(
+    const sensor_msgs::Imu::ConstPtr &msg) {
+  accel_data_ = *msg;
 }
 
 }  // namespace westonrobot
