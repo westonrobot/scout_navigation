@@ -136,10 +136,9 @@ void ScoutWebotsInterface::UpdateSimState() {
     set_velocity_srv.request.value = wheel_cmds[i];
     if (set_velocity_client.call(set_velocity_srv) &&
         set_velocity_srv.response.success == 1) {
-    //   ROS_INFO("Velocity set to %.2f for motor %s.", wheel_cmds[i],
-    //            motor_names_[i].c_str());
-    }
-    else {
+      //   ROS_INFO("Velocity set to %.2f for motor %s.", wheel_cmds[i],
+      //            motor_names_[i].c_str());
+    } else {
       ROS_ERROR("Failed to call service set_velocity on motor %s.",
                 motor_names_[i].c_str());
     }
