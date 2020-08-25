@@ -2,7 +2,7 @@
 
 ## Packages
 
-This repository contains navigation and simulation packages for scout robot. You will need packages from "scout_base" to use this repository. 
+This repository contains navigation and simulation packages for scout robot. 
 
 * scout_description: urdf definitions for scout-based mobile platforms
 * scout_webots_sim: webots-based simulator for scout
@@ -10,16 +10,17 @@ This repository contains navigation and simulation packages for scout robot. You
 
 ## Basic usage of the ROS package
 
-Please setup "scout_base" properly before proceeding to the following steps.
+Please setup "[scout_base](https://github.com/westonrobot/scout_base.git)" properly before proceeding to the following steps.
 
 1. Install dependent libraries
 
     ```
-    $ sudo apt-get install -y ros-$ROS_DISTRO-ros-controllers
-    $ sudo apt-get install -y ros-$ROS_DISTRO-joint-state-publisher-gui
-    $ sudo apt-get install -y ros-$ROS_DISTRO-navigation
-    $ sudo apt-get install -y ros-$ROS_DISTRO-teb-local-planner
-    $ sudo apt-get install -y ros-$ROS_DISTRO-webots-ros 
+    $ sudo apt-get install -y ros-$ROS_DISTRO-ros-controllers \
+                              ros-$ROS_DISTRO-joint-state-publisher-gui \
+                              ros-$ROS_DISTRO-navigation \
+                              ros-$ROS_DISTRO-teb-local-planner \
+                              ros-melodic-pcl-ros \
+                              ros-$ROS_DISTRO-webots-ros 
     ```
 
 2. Clone the packages into your catkin workspace and compile
