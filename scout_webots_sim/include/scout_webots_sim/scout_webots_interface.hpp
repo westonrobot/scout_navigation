@@ -34,6 +34,8 @@ class ScoutWebotsInterface {
   ScoutROSMessenger* messenger_;
 
   ros::NodeHandle* nh_;
+  ros::Subscriber pc_sub_;
+  ros::Publisher pc2_pub_;
   ros::Subscriber gyro_sub_;
   ros::Subscriber accel_sub_;
   ros::Publisher imu_pub_;
@@ -47,10 +49,12 @@ class ScoutWebotsInterface {
       "rear_right_wheel"};
 
   void SetupRobot();
+  void SetupLidar();
   void SetupIMU();
 
   void GyroNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
   void AccelNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
+  void LidarNewPointCloudCallback(const sensor_msgs::PointCloud::ConstPtr& msg);
 };
 }  // namespace westonrobot
 

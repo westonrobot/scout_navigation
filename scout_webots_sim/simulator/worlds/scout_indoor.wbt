@@ -8,8 +8,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.8127795484296348 -0.5761094026548509 0.08652954308899335 0.32768581777204103
-  position 9.493806123793105 1.5843023207694318 15.161113332042188
+  orientation -0.7176118671582095 0.657544544573956 0.2294959259218716 0.43478503662281326
+  position 11.099699605049153 2.5155733263567512 17.138445082515698
   exposure 0.5
   ambientOcclusionRadius 1
 }
@@ -1437,6 +1437,11 @@ ScoutV2 {
   translation 10.06 0.241 11.26
   rotation -3.3891510791584073e-09 0.7068252250641434 0.7073882252434113 3.14159
   extensionSlot [
+    VelodyneVLP-16 {
+      translation 0.2 0 0.3
+      rotation 1 0 0 1.57
+      name "rslidar"
+    }
     Transform {
       translation 0 0 0.1
       children [
