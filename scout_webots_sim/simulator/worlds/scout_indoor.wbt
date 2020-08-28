@@ -1436,6 +1436,8 @@ DEF TREES Transform {
 ScoutV2 {
   translation 10.06 0.241 11.26
   rotation -3.3891510791584073e-09 0.7068252250641434 0.7073882252434113 3.14159
+  controllerArgs "--synchronize	--clock"
+  synchronization TRUE
   extensionSlot [
     VelodyneVLP-16 {
       translation 0.2 0 0.3
