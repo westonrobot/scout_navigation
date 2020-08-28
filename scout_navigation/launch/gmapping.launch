@@ -1,11 +1,11 @@
 <!-- -->
 <launch>
-    <param name="/use_sim_time" value="true"/>
-
     <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
-        <remap from="scan" to="/scan"/>
-        <param name="base_link" value="base_footprint"/>
+        <remap from="scan" to="scan"/>
+        <param name="odom_frame" value="odom"/>
+        <param name="map_frame" value="map"/>
+        <param name="base_link" value="base_link"/>
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_robot)/rviz/mapping.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_navigation)/rviz/mapping.rviz"/>
 </launch>

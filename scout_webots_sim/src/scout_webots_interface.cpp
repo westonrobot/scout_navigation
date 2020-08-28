@@ -292,6 +292,7 @@ void ScoutWebotsInterface::LidarNewPointCloudCallback(
   transform(3, 3) = 1;
   sensor_msgs::PointCloud2 pc_transformed;
   pcl_ros::transformPointCloud(transform, pc2_msg, pc_transformed);
+  pc_transformed.header.frame_id = "laser";
 
   //   sensor_msgs::PointCloud2 cloud_publish;
   //   pcl::toROSMsg(*pc_transformed, cloud_publish);

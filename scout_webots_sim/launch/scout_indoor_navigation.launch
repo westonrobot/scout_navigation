@@ -1,5 +1,7 @@
 <launch>
 
+  <param name="/use_sim_time" value="true"/>
+
   <!-- start Webots -->
   <arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
   <include file="$(find scout_webots_sim)/launch/webots.launch">

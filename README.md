@@ -19,9 +19,11 @@ Please setup "[scout_base](https://github.com/westonrobot/scout_base.git)" prope
     $ sudo apt-get install -y ros-$ROS_DISTRO-ros-controllers \
                               ros-$ROS_DISTRO-joint-state-publisher-gui \
                               ros-$ROS_DISTRO-navigation \
+                              ros-$ROS_DISTRO-gmapping \
+                              ros-$ROS_DISTRO-pointcloud-to-laserscan \
                               ros-$ROS_DISTRO-teb-local-planner \
-                              ros-melodic-pcl-ros \
-                              ros-$ROS_DISTRO-webots-ros 
+                              ros-$ROS_DISTRO-pcl-ros \
+                              ros-$ROS_DISTRO-webots-ros
     ```
 
 2. Clone the packages into your catkin workspace and compile

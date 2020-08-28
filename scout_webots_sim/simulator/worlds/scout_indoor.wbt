@@ -94,7 +94,7 @@ DEF FLOOR Solid {
       translation 1.87 0 6.29
       children [
         Shape {
-          appearance SlatePavement {
+          appearance Pavement {
             textureTransform TextureTransform {
               scale 9.8 2.6
             }
@@ -567,11 +567,6 @@ DEF KITCHEN_BLOCK Transform {
         Shape {
           appearance PBRAppearance {
             baseColor 0.8 0.8 0.8
-            baseColorMap ImageTexture {
-              url [
-                "textures/exhaust_hood.jpg"
-              ]
-            }
             roughness 0.5
             metalness 0
           }
@@ -1436,7 +1431,11 @@ DEF TREES Transform {
 ScoutV2 {
   translation 10.06 0.241 11.26
   rotation -3.3891510791584073e-09 0.7068252250641434 0.7073882252434113 3.14159
-  controllerArgs "--synchronize	--clock"
+  controllerArgs [
+    "--use-sim-time"
+    "--clock"
+    "--synchronize"
+  ]
   synchronization TRUE
   extensionSlot [
     VelodyneVLP-16 {
