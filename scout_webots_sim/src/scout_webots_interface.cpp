@@ -95,26 +95,13 @@ void ScoutWebotsInterface::SetupLidar() {
         ROS_INFO("Lidar Pointcloud Enabled.");
 
         pc_sub_ = nh_->subscribe(
-            robot_name_ + "/rslidar/point_cloud", 1000,
+            robot_name_ + "/rslidar/point_cloud", 20,
             &ScoutWebotsInterface::LidarNewPointCloudCallback, this);
         pc2_pub_ =
-            nh_->advertise<sensor_msgs::PointCloud2>("/rslidar_points", 1000);
+            nh_->advertise<sensor_msgs::PointCloud2>("/rslidar_points", 1);
 
         // publish tf
-        geometry_msgs::TransformStamped static_transformStamped;
-        static_transformStamped.header.stamp = ros::Time::now();
-        static_transformStamped.header.frame_id = "rslidar";
-        static_transformStamped.child_frame_id = robot_name_ + "/rslidar";
-        static_transformStamped.transform.translation.x = 0;
-        static_transformStamped.transform.translation.y = 0;
-        static_transformStamped.transform.translation.z = 0;
-        tf2::Quaternion quat;
-        quat.setRPY(0, 0, 0);
-        static_transformStamped.transform.rotation.x = quat.x();
-        static_transformStamped.transform.rotation.y = quat.y();
-        static_transformStamped.transform.rotation.z = quat.z();
-        static_transformStamped.transform.rotation.w = quat.w();
-        static_broadcaster_.sendTransform(static_transformStamped);
+        PublishLidarTF();
       } else {
         ROS_ERROR("Failed to enable Lidar Pointcloud");
       }
@@ -125,12 +112,12 @@ void ScoutWebotsInterface::SetupLidar() {
 }
 
 void ScoutWebotsInterface::SetupIMU() {
-  gyro_sub_ = nh_->subscribe(robot_name_ + "/gyro/values", 1000,
+  gyro_sub_ = nh_->subscribe(robot_name_ + "/gyro/values", 1,
                              &ScoutWebotsInterface::GyroNewDataCallback, this);
   accel_sub_ =
-      nh_->subscribe(robot_name_ + "/accel/values", 1000,
+      nh_->subscribe(robot_name_ + "/accel/values", 1,
                      &ScoutWebotsInterface::AccelNewDataCallback, this);
-  imu_pub_ = nh_->advertise<sensor_msgs::Imu>("/imu", 1000);
+  imu_pub_ = nh_->advertise<sensor_msgs::Imu>("/imu", 1);
 
   std::string gyro_enable_srv_name = robot_name_ + "/gyro/enable";
   std::string accel_enable_srv_name = robot_name_ + "/accel/enable";
@@ -159,20 +146,7 @@ void ScoutWebotsInterface::SetupIMU() {
       ROS_INFO("Gyro Enabled.");
 
       // publish tf
-      geometry_msgs::TransformStamped static_transformStamped;
-      static_transformStamped.header.stamp = ros::Time::now();
-      static_transformStamped.header.frame_id = "imu_link";
-      static_transformStamped.child_frame_id = robot_name_ + "/imu";
-      static_transformStamped.transform.translation.x = 0.32;
-      static_transformStamped.transform.translation.y = 0;
-      static_transformStamped.transform.translation.z = 0.18;
-      tf2::Quaternion quat;
-      quat.setRPY(0, 0, 0);
-      static_transformStamped.transform.rotation.x = quat.x();
-      static_transformStamped.transform.rotation.y = quat.y();
-      static_transformStamped.transform.rotation.z = quat.z();
-      static_transformStamped.transform.rotation.w = quat.w();
-      static_broadcaster_.sendTransform(static_transformStamped);
+      PublishIMUTF();
     } else {
       ROS_ERROR("Failed to enable Gyro");
     }
@@ -181,11 +155,10 @@ void ScoutWebotsInterface::SetupIMU() {
 
 void ScoutWebotsInterface::UpdateSimState() {
   // constants for calculation
-  //   constexpr double rotation_radius =
-  //       std::hypot(ScoutParams::wheelbase / 2.0, ScoutParams::track / 2.0)
-  //       * 2.0;
-  //   constexpr double rotation_theta =
-  //       std::atan2(ScoutParams::wheelbase, ScoutParams::track);
+  constexpr double rotation_radius =
+      std::hypot(ScoutParams::wheelbase / 2.0, ScoutParams::track / 2.0) * 2.0;
+  constexpr double rotation_theta =
+      std::atan2(ScoutParams::wheelbase, ScoutParams::track);
 
   // update robot state
   double wheel_speeds[4];
@@ -208,7 +181,10 @@ void ScoutWebotsInterface::UpdateSimState() {
       (wheel_speeds[0] + wheel_speeds[3]) / 2.0 * ScoutParams::wheel_radius;
   left_speed = -left_speed;
   double linear_speed = (right_speed + left_speed) / 2.0;
-  double angular_speed = (right_speed - left_speed) / ScoutParams::wheelbase;
+  //   double angular_speed = (right_speed - left_speed) /
+  //   ScoutParams::wheelbase;
+  double angular_speed =
+      (right_speed - left_speed) * std::cos(rotation_theta) / rotation_radius;
 
   //   std::cout << "left: " << left_speed << " , right : " << right_speed
   //             << " , linear: " << linear_speed << " , angular: " <<
@@ -260,6 +236,41 @@ void ScoutWebotsInterface::UpdateSimState() {
   }
 }
 
+void ScoutWebotsInterface::PublishLidarTF() {
+  geometry_msgs::TransformStamped static_transformStamped;
+  static_transformStamped.header.stamp = ros::Time::now();
+  static_transformStamped.header.frame_id = "base_laser";
+  static_transformStamped.child_frame_id = robot_name_ + "/rslidar";
+  static_transformStamped.transform.translation.x = 0;
+  static_transformStamped.transform.translation.y = 0;
+  static_transformStamped.transform.translation.z = 0;
+  tf2::Quaternion quat;
+  quat.setRPY(0, 0, 0);
+  static_transformStamped.transform.rotation.x = quat.x();
+  static_transformStamped.transform.rotation.y = quat.y();
+  static_transformStamped.transform.rotation.z = quat.z();
+  static_transformStamped.transform.rotation.w = quat.w();
+  static_broadcaster_.sendTransform(static_transformStamped);
+}
+
+void ScoutWebotsInterface::PublishIMUTF() {
+  // publish tf
+  geometry_msgs::TransformStamped static_transformStamped;
+  static_transformStamped.header.stamp = ros::Time::now();
+  static_transformStamped.header.frame_id = "imu_link";
+  static_transformStamped.child_frame_id = robot_name_ + "/imu";
+  static_transformStamped.transform.translation.x = 0.32;
+  static_transformStamped.transform.translation.y = 0;
+  static_transformStamped.transform.translation.z = 0.18;
+  tf2::Quaternion quat;
+  quat.setRPY(0, 0, 0);
+  static_transformStamped.transform.rotation.x = quat.x();
+  static_transformStamped.transform.rotation.y = quat.y();
+  static_transformStamped.transform.rotation.z = quat.z();
+  static_transformStamped.transform.rotation.w = quat.w();
+  static_broadcaster_.sendTransform(static_transformStamped);
+}
+
 void ScoutWebotsInterface::GyroNewDataCallback(
     const sensor_msgs::Imu::ConstPtr &msg) {
   sensor_msgs::Imu imu_msg;
@@ -281,6 +292,9 @@ void ScoutWebotsInterface::LidarNewPointCloudCallback(
   sensor_msgs::PointCloud2 pc2_msg;
   sensor_msgs::convertPointCloudToPointCloud2(*msg.get(), pc2_msg);
 
+  pc2_msg.header.stamp = ros::Time::now();
+  pc2_msg.header.frame_id = "base_laser";
+
   // transform pointcloud
   Eigen::Matrix4f transform;
   Eigen::Quaternionf quat = Eigen::Quaternionf{
@@ -292,14 +306,8 @@ void ScoutWebotsInterface::LidarNewPointCloudCallback(
   transform(3, 3) = 1;
   sensor_msgs::PointCloud2 pc_transformed;
   pcl_ros::transformPointCloud(transform, pc2_msg, pc_transformed);
-  pc_transformed.header.frame_id = "laser";
-
-  //   sensor_msgs::PointCloud2 cloud_publish;
-  //   pcl::toROSMsg(*pc_transformed, cloud_publish);
-  //   cloud_publish.header = pc2_msg.header;
 
   // publish to ROS
   pc2_pub_.publish(pc_transformed);
-  //   pc2_pub_.publish(pc2_msg);
 }
 }  // namespace westonrobot

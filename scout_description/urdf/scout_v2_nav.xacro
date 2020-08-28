@@ -94,7 +94,7 @@
         <origin xyz="0.32 0.0 0.18" rpy="0 0 0" />
     </joint>
 
-    <link name="rslidar">
+    <link name="base_laser">
         <visual>
             <origin xyz="0.0 0.0 0.0" />
             <geometry>
@@ -104,10 +104,10 @@
         </visual>
     </link>
 
-    <joint name="rslidar_joint" type="fixed">
+    <joint name="base_laser_joint" type="fixed">
         <parent link="base_link" />
-        <child link="rslidar" />
-        <origin xyz="0.2 0.0 0.3" rpy="0 0 0" />
+        <child link="base_laser" />
+        <origin xyz="0.3 0.0 0.2" rpy="0 0 0" />
     </joint>
 
     <!-- For testing, hang the robot up in the air -->
@@ -135,9 +135,9 @@
     </xacro:scout_wheel_type2>
 
     <!-- Onboard sensors -->
-    <xacro:if value="$(arg onboard_sensors)">
+    <!-- <xacro:if value="$(arg onboard_sensors)">
         <xacro:include filename="$(find scout_description)/urdf/onboard_sensors.urdf" />
-    </xacro:if>
+    </xacro:if> -->
 
     <!-- Additional definitions -->
     <xacro:include filename="$(arg urdf_extras)" />

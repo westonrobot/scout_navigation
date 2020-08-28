@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<robot name="scout_v2" 
+    xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find scout_description)/urdf/scout_v2.xacro" />
+
+    <link name="imu_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" />
+            <geometry>
+                <cylinder length="0.03" radius="0.02" />
+            </geometry>
+            <material name="red" />
+        </visual>
+    </link>
+
+    <joint name="imu_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="imu_link" />
+        <origin xyz="0.32 0.0 0.18" rpy="0 0 0" />
+    </joint>
+
+    <link name="rslidar">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" />
+            <geometry>
+                <cylinder length="0.03" radius="0.02" />
+            </geometry>
+            <material name="red" />
+        </visual>
+    </link>
+
+    <joint name="rslidar_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="rslidar" />
+        <origin xyz="0.2 0.0 0.3" rpy="0 0 0" />
+    </joint>
+</robot>

@@ -1,5 +1,4 @@
 <launch>
-
   <param name="/use_sim_time" value="true"/>
 
   <!-- start Webots -->
@@ -21,5 +20,28 @@
   </node>
 
   <include file="$(find scout_description)/launch/load_nav_model.launch"/>
+
+  <node name="pointcloud_to_laserscan" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node">
+      <remap from="cloud_in" to="rslidar_points"/>
+      <rosparam>
+        transform_tolerance: 0.01
+        min_height: -0.6
+        max_height: -0.1
+        
+        angle_min: -3.14
+        angle_max: 3.14
+        angle_increment: 0.00314
+        scan_time: 0.1
+        range_min: 0.2
+        range_max: 60.0
+        use_inf: true
+        
+        #concurrency_level affects number of pc queued for processing and the number of threadsused
+        # 0: Detect number of cores
+        # 1: Single threaded
+        # 2: inf : Parallelism level
+        concurrency_level: 1
+      </rosparam>
+    </node>
 
 </launch>

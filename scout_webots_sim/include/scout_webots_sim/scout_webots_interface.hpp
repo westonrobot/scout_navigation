@@ -52,6 +52,9 @@ class ScoutWebotsInterface {
   void SetupLidar();
   void SetupIMU();
 
+  void PublishLidarTF();
+  void PublishIMUTF();
+
   void GyroNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
   void AccelNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
   void LidarNewPointCloudCallback(const sensor_msgs::PointCloud::ConstPtr& msg);

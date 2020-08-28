@@ -104,8 +104,8 @@ int main(int argc, char *argv[]) {
 //   uint32_t cnt = 0;
   while (ros::ok()) {
     if (timeStepClient.call(timeStepSrv) && timeStepSrv.response.success) {
-      scout_webots.UpdateSimState();
       ros::spinOnce();
+      scout_webots.UpdateSimState();
     } else {
       ROS_ERROR("Failed to call service time_step for next step.");
     //   break;

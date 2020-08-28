@@ -5,7 +5,7 @@
 
     <xacro:arg name="robot_namespace" default="/" />
     <xacro:arg name="urdf_extras" default="empty.urdf" />
-    <xacro:arg name="onboard_sensors" default="true" />
+    <xacro:arg name="onboard_sensors" default="false" />
 
     <xacro:include filename="$(find scout_description)/urdf/scout_wheel_type1.xacro" />
     <xacro:include filename="$(find scout_description)/urdf/scout_wheel_type2.xacro" />

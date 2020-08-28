@@ -12,7 +12,12 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 Floor {
+  tileSize 1 1
 }
 ScoutV2 {
-  controllerArgs "--clock --use-sim-time"
+  controllerArgs [
+    "--synchronize"
+    "--clock"
+    "--use-sim-time"
+  ]
 }
