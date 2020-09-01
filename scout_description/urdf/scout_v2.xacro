@@ -4,7 +4,6 @@
     xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:arg name="robot_namespace" default="/" />
-    <xacro:arg name="urdf_extras" default="empty.urdf" />
     <xacro:arg name="onboard_sensors" default="false" />
 
     <xacro:include filename="$(find scout_description)/urdf/scout_wheel_type1.xacro" />
@@ -47,12 +46,6 @@
         </collision>
     </link>
 
-    <!-- <joint name="chassis_link_joint" type="fixed">
-        <origin xyz="0 0 ${wheel_radius - wheel_vertical_offset}" rpy="0 0 0" />
-        <parent link="base_link" />
-        <child link="chassis_link" />
-    </joint> -->
-
     <link name="base_footprint"/>
 
     <joint name="base_footprint_joint" type="fixed">
@@ -64,9 +57,6 @@
     <link name="inertial_link">
         <inertial>
             <mass value="40" />
-            <!-- <mass value="50" /> -->
-            <!-- <origin xyz="-0.00065 -0.085 0.062" />
-            <inertia ixx="0.6022" ixy="-0.02364" ixz="-0.1197" iyy="1.7386" iyz="-0.001544" izz="2.0296" /> -->
             <origin xyz="0.0 0.0 0.0" />
             <inertia ixx="2.288641" ixy="0" ixz="0" iyy="5.103976" iyz="0" izz="3.431465" />
         </inertial>
@@ -77,14 +67,6 @@
         <parent link="base_link" />
         <child link="inertial_link" />
     </joint>
-
-    <!-- For testing, hang the robot up in the air -->
-    <!-- <link name="world" />
-    <joint name="world_to_base_link=" type="fixed">
-        <origin xyz="0 0 0.5" rpy="0 0 0" />
-        <parent link="world"/>
-        <child link="base_link"/>
-    </joint> -->
 
     <!-- Scout wheel macros -->
     <!-- wheel labeled from 0 to 3, conter-clockwise, starting from front right wheel -->
@@ -106,9 +88,6 @@
     <xacro:if value="$(arg onboard_sensors)">
         <xacro:include filename="$(find scout_description)/urdf/onboard_sensors.urdf" />
     </xacro:if>
-
-    <!-- Additional definitions -->
-    <xacro:include filename="$(arg urdf_extras)" />
 
     <!-- Gazebo definitions  -->
     <xacro:include filename="$(find scout_description)/urdf/scout_v2.gazebo" />

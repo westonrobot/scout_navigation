@@ -7,7 +7,6 @@
  * Copyright (c) 2019 Ruixiang Du (rdu)
  */
 
-
 #include <ros/ros.h>
 #include <signal.h>
 #include <std_msgs/String.h>
@@ -57,7 +56,10 @@ int main(int argc, char *argv[]) {
 
   const uint32_t time_step = 1000 / messenger.sim_control_rate_;
   ScoutWebotsInterface scout_webots(&nh, &messenger, time_step);
-  ROS_INFO("Chosen time step: '%d', make sure you set the same time step in Webots scene", time_step);
+  ROS_INFO(
+      "Chosen time step: '%d', make sure you set the same time step in Webots "
+      "scene",
+      time_step);
 
   signal(SIGINT, quit);
 
@@ -100,22 +102,24 @@ int main(int argc, char *argv[]) {
   timeStepClient = nh.serviceClient<webots_ros::set_int>("/" + controllerName +
                                                          "/robot/time_step");
   timeStepSrv.request.value = time_step;
-  ros::Rate loop_rate(messenger.sim_control_rate_); 
-//   uint32_t cnt = 0;
+  ros::Rate loop_rate(messenger.sim_control_rate_);
+  ros::AsyncSpinner spinner(2);
+  spinner.start();
   while (ros::ok()) {
     if (timeStepClient.call(timeStepSrv) && timeStepSrv.response.success) {
-      ros::spinOnce();
       scout_webots.UpdateSimState();
     } else {
+      static int32_t error_cnt = 0;
       ROS_ERROR("Failed to call service time_step for next step.");
-    //   break;
+      if (++error_cnt > 50) break;
     }
-    // if(++cnt == 166) break;
+    // ros::spinOnce();
     loop_rate.sleep();
   }
   timeStepSrv.request.value = 0;
   timeStepClient.call(timeStepSrv);
 
+  spinner.stop();
   ros::shutdown();
   return 0;
 }
