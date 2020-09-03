@@ -1,0 +1,7 @@
+<!-- -->
+<launch>
+    <include file="$(find scout_description)/launch/load_nav_model.launch"/>
+
+    <include file="$(find scout_navigation)/launch/sensors/rplidar.launch" />
+    <include file="$(find scout_navigation)/launch/gmapping.launch" />
+</launch>

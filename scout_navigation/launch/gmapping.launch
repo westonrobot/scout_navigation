@@ -7,5 +7,5 @@
         <param name="base_link" value="base_link"/>
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_navigation)/rviz/mapping.rviz"/>
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_navigation)/rviz/mapping.rviz"/> -->
 </launch>
