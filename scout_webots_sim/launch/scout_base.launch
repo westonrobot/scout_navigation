@@ -1,14 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="simulated_robot" default="false" />
-  <arg name = "model_xacro" default = "$(find scout_base)/description/scout_v2.xacro" />
+  <arg name="simulated_robot" default="true" />
+  <arg name = "model_xacro" default = "$(find scout_description)/urdf/scout_v2.xacro" />
   <arg name ="odom_topic_name" default = "odom"/>  
-  <param name="/use_sim_time" value="true"/>
-
-  <param name="robot_description" command="$(find xacro)/xacro $(arg model_xacro)"/>
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
   <!-- start Webots -->
   <arg name="no-gui" default="false," doc="Start Webots with minimal GUI"/>
@@ -26,5 +21,11 @@
     <param name="base_frame" type="string" value="base_link" />
     <param name="simulated_robot" type="bool" value="true" />
     <param name="sim_control_rate" value="50" />
+    <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
   </node>
+  <include file="$(find scout_description)/launch/description.launch" >
+    <arg name = "model_xacro" default = "$(arg model_xacro)" />
+</include>
+
+  
 </launch>
