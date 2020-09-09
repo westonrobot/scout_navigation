@@ -148,7 +148,7 @@ include_directories(
 # )
 
 ## Declare a C++ executable
-add_executable(scout_webots_node src/scout_webots_node.cpp src/scout_webots_interface.cpp)
+add_executable(scout_webots_node src/scout_webots_basic_node.cpp src/scout_webots_interface.cpp src/webots_extension_samples.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
 target_link_libraries(scout_webots_node ${catkin_LIBRARIES})
 

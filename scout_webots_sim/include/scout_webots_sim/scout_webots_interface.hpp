@@ -16,9 +16,12 @@
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/PointCloud.h>
 #include <tf2_ros/static_transform_broadcaster.h>
-
+#include <vector>
+#include <memory>
 #include "scout_base/scout_messenger.hpp"
 #include "scout_base/scout_params.hpp"
+#include "scout_webots_extension.hpp"
+
 
 namespace westonrobot {
 class ScoutWebotsInterface {
@@ -28,18 +31,15 @@ class ScoutWebotsInterface {
 
   void InitComponents(std::string controller_name);
   void UpdateSimState();
+  
+  void AddExtensionVector(std::shared_ptr<westonrobot::WebotsExtension> extension);
+  void InitExtensions();
 
  private:
   uint32_t time_step_;
   ScoutROSMessenger* messenger_;
-
+  std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extension_vector;
   ros::NodeHandle* nh_;
-  ros::Subscriber pc_sub_;
-  ros::Publisher pc2_pub_;
-  ros::Subscriber gyro_sub_;
-  ros::Subscriber accel_sub_;
-  ros::Publisher imu_pub_;
-
   sensor_msgs::Imu accel_data_;
   tf2_ros::StaticTransformBroadcaster static_broadcaster_;
 
@@ -50,14 +50,7 @@ class ScoutWebotsInterface {
 
   void SetupRobot();
   void SetupLidar();
-  void SetupIMU();
 
-  void PublishLidarTF();
-  void PublishIMUTF();
-
-  void GyroNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
-  void AccelNewDataCallback(const sensor_msgs::Imu::ConstPtr& msg);
-  void LidarNewPointCloudCallback(const sensor_msgs::PointCloud::ConstPtr& msg);
 };
 }  // namespace westonrobot
 
