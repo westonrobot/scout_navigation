@@ -147,6 +147,12 @@ target_include_directories(scout_webots_sim PUBLIC
 #   ${catkin_LIBRARIES}
 # )
 
+
+add_library(scout_webots_extension STATIC include/scout_webots_sim/scout_webots_extension.hpp src/scout_webots_extension.cpp)
+
+
+add_library(scout_webots_interface STATIC include/scout_webots_sim/scout_webots_interface.hpp src/scout_webots_interface.cpp)
+target_link_libraries(scout_webots_interface PRIVATE scout_webots_extension)
 ## Declare a C++ executable
 add_executable(scout_webots_node src/scout_webots_basic_node.cpp src/scout_webots_interface.cpp src/webots_extension_samples.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
