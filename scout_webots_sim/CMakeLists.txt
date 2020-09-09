@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(scout_webots_sim)
+project(scout_webots_sim CXX)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -148,15 +148,21 @@ target_include_directories(scout_webots_sim PUBLIC
 # )
 
 
-add_library(scout_webots_extension STATIC include/scout_webots_sim/scout_webots_extension.hpp src/scout_webots_extension.cpp)
+# add_library(scout_webots_extension STATIC include/scout_webots_sim/scout_webots_extension.hpp)
 
+add_library(
+  scout_webots_interface STATIC include/scout_webots_sim/scout_webots_interface.hpp src/scout_webots_interface.cpp include/scout_webots_sim/scout_webots_extension.hpp
+  )
 
-add_library(scout_webots_interface STATIC include/scout_webots_sim/scout_webots_interface.hpp src/scout_webots_interface.cpp)
-target_link_libraries(scout_webots_interface PRIVATE scout_webots_extension)
+add_library(
+  scout_webots_runner STATIC include/scout_webots_sim/scout_webots_runner.hpp src/scout_webots_runner.cpp
+)
+target_link_libraries(scout_webots_runner scout_webots_interface) 
+# target_link_libraries(scout_webots_interface scout_webots_extension)
 ## Declare a C++ executable
-add_executable(scout_webots_node src/scout_webots_basic_node.cpp src/scout_webots_interface.cpp src/webots_extension_samples.cpp)
+add_executable(scout_webots_node src/scout_webots_basic_node.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
-target_link_libraries(scout_webots_node ${catkin_LIBRARIES} )
+target_link_libraries(scout_webots_node ${catkin_LIBRARIES} scout_webots_interface)
 
 #############
 ## Install ##

@@ -1,3 +1,5 @@
+#ifndef SCOUT_WEBOTS_EXTENSION_HPP
+#define SCOUT_WEBOTS_EXTENSION_HPP
 #include <string>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <ros/ros.h>
@@ -11,3 +13,5 @@ namespace westonrobot
     };
 
 } // namespace westonrobot
+
+#endif

@@ -32,7 +32,7 @@ class ScoutWebotsInterface {
   void InitComponents(std::string controller_name);
   void UpdateSimState();
   
-  void AddExtension(std::shared_ptr<westonrobot::WebotsExtension> extension);
+  void AddExtensions(std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensionVec);
   void InitExtensions();
 
  private:

@@ -37,10 +37,8 @@ void ScoutWebotsInterface::InitExtensions(){
 }
 
 
-void ScoutWebotsInterface::AddExtension(std::shared_ptr<westonrobot::WebotsExtension> extension){
- 
-  extension_vector.push_back(extension);
-  //TODO unable to add abstract class into vector bcos it doessnnt make sennse, try unnique pointerss
+void ScoutWebotsInterface::AddExtensions(std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensionVec){ 
+  extension_vector = extensionVec;
 }
 
 void ScoutWebotsInterface::SetupRobot() {
