@@ -25,7 +25,8 @@ webots_ros::set_int timeStepSrv;
 static int controllerCount;
 static std::vector<std::string> controllerList;
 
-void quit(int sig) {
+void quit(int sig)
+{
   ROS_INFO("User stopped the 'scout_webots_node'.");
   timeStepSrv.request.value = 0;
   timeStepClient.call(timeStepSrv);
@@ -34,14 +35,16 @@ void quit(int sig) {
 }
 
 // catch names of the controllers availables on ROS network
-void controllerNameCallback(const std_msgs::String::ConstPtr &name) {
+void controllerNameCallback(const std_msgs::String::ConstPtr &name)
+{
   controllerCount++;
   controllerList.push_back(name->data);
   ROS_INFO("Controller #%d: %s.", controllerCount,
            controllerList.back().c_str());
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   ros::init(argc, argv, "scout_webots_node", ros::init_options::AnonymousName);
   ros::NodeHandle nh, private_node("~");
 
@@ -50,6 +53,8 @@ int main(int argc, char *argv[]) {
                                   std::string("odom"));
   private_node.param<std::string>("base_frame", messenger.base_frame_,
                                   std::string("base_link"));
+  private_node.param<std::string>("odom_topic_name", messenger.odom_topic_name_,
+                                  std::string("odom"));
   private_node.param<int>("sim_control_rate", messenger.sim_control_rate_, 50);
   private_node.param<bool>("simulated_robot", messenger.simulated_robot_, true);
   messenger.SetupSubscription();
@@ -67,7 +72,8 @@ int main(int argc, char *argv[]) {
   std::string controllerName;
   ros::Subscriber nameSub =
       nh.subscribe("model_name", 100, controllerNameCallback);
-  while (controllerCount == 0 || controllerCount < nameSub.getNumPublishers()) {
+  while (controllerCount == 0 || controllerCount < nameSub.getNumPublishers())
+  {
     ros::spinOnce();
     ros::spinOnce();
     ros::spinOnce();
@@ -77,13 +83,15 @@ int main(int argc, char *argv[]) {
   // if there is more than one controller available, it let the user choose
   if (controllerCount == 1)
     controllerName = controllerList[0];
-  else {
+  else
+  {
     int wantedController = 0;
     std::cout << "Choose the # of the controller you want to use:\n";
     std::cin >> wantedController;
     if (1 <= wantedController && wantedController <= controllerCount)
       controllerName = controllerList[wantedController - 1];
-    else {
+    else
+    {
       ROS_ERROR("Invalid number for controller choice.");
       return 1;
     }
@@ -105,13 +113,20 @@ int main(int argc, char *argv[]) {
   ros::Rate loop_rate(messenger.sim_control_rate_);
   ros::AsyncSpinner spinner(2);
   spinner.start();
-  while (ros::ok()) {
-    if (timeStepClient.call(timeStepSrv) && timeStepSrv.response.success) {
+  while (ros::ok())
+  {
+    if (timeStepClient.call(timeStepSrv) && timeStepSrv.response.success)
+    {
+
+      ROS_INFO("updating sim state");
       scout_webots.UpdateSimState();
-    } else {
+    }
+    else
+    {
       static int32_t error_cnt = 0;
       ROS_ERROR("Failed to call service time_step for next step.");
-      if (++error_cnt > 50) break;
+      if (++error_cnt > 50)
+        break;
     }
     // ros::spinOnce();
     loop_rate.sleep();

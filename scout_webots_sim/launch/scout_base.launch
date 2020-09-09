@@ -20,6 +20,7 @@
     <param name="use_sim_time" value="true" />
     <param name="clock" value="/clock" />
     <param name="odom_frame" type="string" value="odom" />
+    <param name="odom_topic_name" type="string" value="$(arg odom_topic_name)" />
     <param name="base_frame" type="string" value="base_link" />
     <param name="simulated_robot" type="bool" value="true" />
     <param name="sim_control_rate" value="50" />
