@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
     if (timeStepClient.call(timeStepSrv) && timeStepSrv.response.success)
     {
 
-      ROS_INFO("updating sim state");
+
       scout_webots.UpdateSimState();
     }
     else

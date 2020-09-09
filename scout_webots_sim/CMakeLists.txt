@@ -115,8 +115,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES scout_webots_sim
+ INCLUDE_DIRS include
+ LIBRARIES scout_webots_sim
  CATKIN_DEPENDS geometry_msgs roscpp rospy scout_base sensor_msgs std_msgs message_runtime tf webots_ros pcl_ros
 #  DEPENDS system_lib
 )
@@ -136,12 +136,12 @@ include_directories(
 # set(SCOUT_WEBOTS_SRC
 #     src/scout_webots_interface.cpp
 # )
-# add_library(scout_webots_sim STATIC ${SCOUT_WEBOTS_SRC})
-# target_link_libraries(scout_webots_sim ${catkin_LIBRARIES})
-# target_include_directories(scout_webots_sim PUBLIC
-#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-#   $<INSTALL_INTERFACE:include>
-#   PRIVATE src)
+add_library(scout_webots_sim STATIC src/scout_webots_interface.cpp)
+target_link_libraries(scout_webots_sim ${catkin_LIBRARIES})
+target_include_directories(scout_webots_sim PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+   $<INSTALL_INTERFACE:include>
+   PRIVATE src)
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
@@ -150,7 +150,7 @@ include_directories(
 ## Declare a C++ executable
 add_executable(scout_webots_node src/scout_webots_basic_node.cpp src/scout_webots_interface.cpp src/webots_extension_samples.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
-target_link_libraries(scout_webots_node ${catkin_LIBRARIES})
+target_link_libraries(scout_webots_node ${catkin_LIBRARIES} )
 
 #############
 ## Install ##
@@ -158,7 +158,7 @@ target_link_libraries(scout_webots_node ${catkin_LIBRARIES})
 
 # roslaunch_add_file_check(launch)
 
-install(TARGETS scout_webots_node
+install(TARGETS scout_webots_node 
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})

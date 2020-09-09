@@ -1,0 +1,32 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.4871744922620681 0.8652019538738651 0.11868695422009307 5.68689076183024
+  position -1.166367721133582 1.0261819362189144 2.6885181098212296
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+}
+ScoutV2 {
+  extensionSlot [
+    Transform {
+      translation 0 0 0.1
+      children [
+        Gyro {
+        }
+        Accelerometer {
+          name "accel"
+        }
+      ]
+    }
+    VelodyneVLP-16 {
+      translation 0.2 0 0.3
+      rotation 1 0 0 1.5708
+    }
+  ]
+}
