@@ -157,12 +157,21 @@ add_library(
 add_library(
   scout_webots_runner STATIC include/scout_webots_sim/scout_webots_runner.hpp src/scout_webots_runner.cpp
 )
+
+add_library(
+  scout_webots_extension_sample STATIC include/scout_webots_sim/webots_extension_samples.hpp src/webots_extension_samples.cpp
+)
 target_link_libraries(scout_webots_runner scout_webots_interface ) 
 # target_link_libraries(scout_webots_interface scout_webots_extension)
 ## Declare a C++ executable
 add_executable(scout_webots_node src/scout_webots_basic_node.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
 target_link_libraries(scout_webots_node scout_webots_interface scout_webots_runner ${catkin_LIBRARIES})
+
+
+add_executable(scout_webots_indoor_nav_node src/scout_webots_indoor_nav_node.cpp)
+add_dependencies(scout_webots_indoor_nav_node webots_ros_generate_messages_cpp)
+target_link_libraries(scout_webots_indoor_nav_node scout_webots_interface scout_webots_runner scout_webots_extension_sample ${catkin_LIBRARIES})
 
 #############
 ## Install ##

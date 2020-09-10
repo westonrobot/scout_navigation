@@ -70,7 +70,8 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "forward_list": "cpp"
     },
     "cmake.sourceDirectory": "${workspaceFolder}/scout_webots_sim"
 }
