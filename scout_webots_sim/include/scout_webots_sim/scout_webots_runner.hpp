@@ -27,7 +27,7 @@ namespace westonrobot
         void ControllerNameCallback(const std_msgs::String::ConstPtr &name); 
 
         std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensions;
-        int controllerCount;
+        int controllerCount = 0;
         ros::ServiceClient timeStepClient;
         webots_ros::set_int timeStepSrv;
         
