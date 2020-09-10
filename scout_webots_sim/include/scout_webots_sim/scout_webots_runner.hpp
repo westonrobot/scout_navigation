@@ -1,3 +1,5 @@
+#ifndef SCOUT_WEBOTS_RUNNER_HPP
+#define SCOUT_WEBOTS_RUNNER_HPP
 
 #include "scout_webots_extension.hpp"
 #include "scout_webots_interface.hpp"
@@ -11,26 +13,26 @@
 
 namespace westonrobot
 {
-    class scout_webots_runner
+    class ScoutWebotsRunner
     {
     public:
-        int Run(int argc, char *argv[]);        
+        ScoutWebotsRunner();
+        int Run(int argc, char *argv[]);
         void AddExtension(std::shared_ptr<WebotsExtension> extensionPointer);
-        void InitExtensions(); 
+        void InitExtensions();
 
-    private:
-        westonrobot::ScoutWebotsInterface webotsInterface;
+    private:        
 
         std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensions;
 
-        static ros::ServiceClient timeStepClient;
-        static webots_ros::set_int timeStepSrv;
-        static int controllerCount;
-        static std::vector<std::string> controllerList;
+        ros::ServiceClient timeStepClient;
+        webots_ros::set_int timeStepSrv;
+        int controllerCount;
+        std::vector<std::string> controllerList;
 
         static void Quit(int sig);
         static void ControllerNameCallback(const std_msgs::String::ConstPtr &name);
-  
     };
 
-} // namespace westonrobots
+} // namespace westonrobot
+#endif

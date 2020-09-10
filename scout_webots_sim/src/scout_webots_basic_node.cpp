@@ -15,35 +15,14 @@
 
 #include <iostream>
 
-#include "scout_webots_sim/scout_webots_interface.hpp"
 
+
+#include "scout_webots_sim/scout_webots_runner.hpp"
 using namespace westonrobot;
-
-ros::ServiceClient timeStepClient;
-webots_ros::set_int timeStepSrv;
-
-static int controllerCount;
-static std::vector<std::string> controllerList;
-
-void quit(int sig)
-{
-  ROS_INFO("User stopped the 'scout_webots_node'.");
-  timeStepSrv.request.value = 0;
-  timeStepClient.call(timeStepSrv);
-  ros::shutdown();
-  exit(0);
-}
-
-// catch names of the controllers availables on ROS network
-void controllerNameCallback(const std_msgs::String::ConstPtr &name)
-{
-  controllerCount++;
-  controllerList.push_back(name->data);
-  ROS_INFO("Controller #%d: %s.", controllerCount,
-           controllerList.back().c_str());
-}
 
 int main(int argc, char *argv[])
 {
+  ScoutWebotsRunner runner;
+  return runner.Run(argc,argv);
   
 }

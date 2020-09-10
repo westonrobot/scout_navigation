@@ -2,14 +2,18 @@
 
 namespace westonrobot
 {
+    ScoutWebotsRunner::ScoutWebotsRunner()
+    {
+        std::cout<<"Creating runner"<<std::endl;
+    }
 
-    void scout_webots_runner::AddExtension(std::shared_ptr<WebotsExtension> extensionPointer)
+    void ScoutWebotsRunner::AddExtension(std::shared_ptr<WebotsExtension> extensionPointer)
 
     {
         extensions.push_back(extensionPointer);
     }
 
-    int scout_webots_runner::Run(int argc, char *argv[])
+    int ScoutWebotsRunner::Run(int argc, char *argv[])
     {
         ros::init(argc, argv, "scout_webots_node", ros::init_options::AnonymousName);
         ros::NodeHandle nh, private_node("~");
@@ -109,8 +113,9 @@ namespace westonrobot
         return 0;
     }
 
-    void scout_webots_runner::Quit(int sig)
+    void ScoutWebotsRunner::Quit(int sig)
     {
+
         ROS_INFO("User stopped the 'scout_webots_node'.");
         timeStepSrv.request.value = 0;
         timeStepClient.call(timeStepSrv);
@@ -118,7 +123,7 @@ namespace westonrobot
         exit(0);
     }
 
-    void scout_webots_runner::ControllerNameCallback(const std_msgs::String::ConstPtr &name)
+    void ScoutWebotsRunner::ControllerNameCallback(const std_msgs::String::ConstPtr &name)
     {
         controllerCount++;
         controllerList.push_back(name->data);
