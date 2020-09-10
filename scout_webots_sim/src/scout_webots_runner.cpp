@@ -1,5 +1,5 @@
 #include "scout_webots_sim/scout_webots_runner.hpp"
-
+#include <signal.h>
 namespace westonrobot
 {
     ScoutWebotsRunner::ScoutWebotsRunner()
@@ -15,7 +15,6 @@ namespace westonrobot
 
     int ScoutWebotsRunner::Run(int argc, char *argv[])
     {
-        Quit(2);
         ros::init(argc, argv, "scout_webots_node", ros::init_options::AnonymousName);
         ros::NodeHandle nh, private_node("~");
 
