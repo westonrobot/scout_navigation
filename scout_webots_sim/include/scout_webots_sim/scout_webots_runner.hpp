@@ -21,17 +21,19 @@ namespace westonrobot
         void AddExtension(std::shared_ptr<WebotsExtension> extensionPointer);
         void InitExtensions();
 
-    private:        
-
-        std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensions;
-
-        ros::ServiceClient timeStepClient;
-        webots_ros::set_int timeStepSrv;
-        int controllerCount;
-        std::vector<std::string> controllerList;
+    private:      
 
         void Quit(int sig);
-        void ControllerNameCallback(const std_msgs::String::ConstPtr &name);
+        void ControllerNameCallback(const std_msgs::String::ConstPtr &name); 
+
+        std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensions;
+        int controllerCount;
+        ros::ServiceClient timeStepClient;
+        webots_ros::set_int timeStepSrv;
+        
+        std::vector<std::string> controllerList;
+
+
     };
 
 } // namespace westonrobot
