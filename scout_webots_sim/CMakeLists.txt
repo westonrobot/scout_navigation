@@ -162,7 +162,7 @@ target_link_libraries(scout_webots_runner scout_webots_interface )
 ## Declare a C++ executable
 add_executable(scout_webots_node src/scout_webots_basic_node.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
-target_link_libraries(scout_webots_node ${catkin_LIBRARIES} scout_webots_interface scout_webots_runner)
+target_link_libraries(scout_webots_node scout_webots_interface scout_webots_runner ${catkin_LIBRARIES})
 
 #############
 ## Install ##

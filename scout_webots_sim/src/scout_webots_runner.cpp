@@ -2,7 +2,7 @@
 #include <signal.h>
 namespace westonrobot
 {
-    ScoutWebotsRunner::ScoutWebotsRunner()
+    ScoutWebotsRunner::ScoutWebotsRunner(ros::NodeHandle nh,)
     {
         std::cout<<"Creating runner"<<std::endl;
     }
@@ -36,12 +36,12 @@ namespace westonrobot
             "scene",
             time_step);
 
-        signal(SIGINT, Quit);
+        // signal(SIGINT, Quit);
 
         // subscribe to the topic model_name to get the list of availables controllers
         std::string controllerName;
         ros::Subscriber nameSub =
-            nh.subscribe("model_name", 100, ControllerNameCallback);
+            nh.subscribe("model_name", 100, &ScoutWebotsRunner::ControllerNameCallback, this);
         while (controllerCount == 0 || controllerCount < nameSub.getNumPublishers())
         {
             ros::spinOnce();
