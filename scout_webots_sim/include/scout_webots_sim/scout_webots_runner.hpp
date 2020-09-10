@@ -30,8 +30,8 @@ namespace westonrobot
         int controllerCount;
         std::vector<std::string> controllerList;
 
-        static void Quit(int sig);
-        static void ControllerNameCallback(const std_msgs::String::ConstPtr &name);
+        void Quit(int sig);
+        void ControllerNameCallback(const std_msgs::String::ConstPtr &name);
     };
 
 } // namespace westonrobot
