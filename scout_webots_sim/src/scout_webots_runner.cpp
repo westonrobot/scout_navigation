@@ -2,7 +2,7 @@
 #include <signal.h>
 namespace westonrobot
 {
-    ScoutWebotsRunner::ScoutWebotsRunner(ros::NodeHandle nh,)
+    ScoutWebotsRunner::ScoutWebotsRunner()
     {
         std::cout<<"Creating runner"<<std::endl;
     }

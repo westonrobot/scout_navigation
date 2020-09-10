@@ -22,6 +22,7 @@ using namespace westonrobot;
 
 int main(int argc, char *argv[])
 {
+  ROS_INFO("RUNINGN FROM THE RIGHT PLACACCE");
   ScoutWebotsRunner runner;
   return runner.Run(argc,argv);
   
