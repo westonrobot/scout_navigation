@@ -15,7 +15,7 @@
 namespace westonrobot
 {
 
-    class Lidar_extension : WebotsExtension
+    class Lidar_extension : public WebotsExtension
     {
     public:
         void setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_);
@@ -27,7 +27,7 @@ namespace westonrobot
         ros::Publisher pub;
     };
 
-    class IMU_extension : WebotsExtension
+    class IMU_extension : public WebotsExtension
     {
 
     public:

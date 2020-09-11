@@ -32,13 +32,13 @@ class ScoutWebotsInterface {
   void InitComponents(std::string controller_name);
   void UpdateSimState();
   
-  void AddExtensions(std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensionVec);
+  void AddExtensions(std::vector<WebotsExtension*> extension_vector);
   void InitExtensions();
 
  private:
   uint32_t time_step_;
   ScoutROSMessenger* messenger_;
-  std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extension_vector;
+  std::vector<WebotsExtension*> extension_vector_;
   ros::NodeHandle* nh_;
   sensor_msgs::Imu accel_data_;
   tf2_ros::StaticTransformBroadcaster static_broadcaster_;

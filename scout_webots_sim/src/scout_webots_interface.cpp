@@ -31,14 +31,14 @@ void ScoutWebotsInterface::InitComponents(std::string controller_name) {
 
 }
 void ScoutWebotsInterface::InitExtensions(){
-  for(std::shared_ptr<westonrobot::WebotsExtension> extension: extension_vector){
+  for(WebotsExtension* extension: extension_vector){
     extension->setup(*nh_,robot_name_, static_broadcaster_);
   }
 }
 
 
-void ScoutWebotsInterface::AddExtensions(std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensionVec){ 
-  extension_vector = extensionVec;
+void ScoutWebotsInterface::AddExtensions(std::vector<WebotsExtension*> extension_vector){ 
+  extension_vector_ = extension_vector;
 }
 
 void ScoutWebotsInterface::SetupRobot() {
