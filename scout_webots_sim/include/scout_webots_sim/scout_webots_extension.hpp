@@ -10,6 +10,8 @@ namespace westonrobot
     {
     public:
         virtual void setup(ros::NodeHandle& nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster& static_broadcaster_) = 0;
+        virtual ~WebotsExtension() =default;
+        WebotsExtension() = default;
     };
 
 } // namespace westonrobot

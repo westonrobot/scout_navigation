@@ -116,7 +116,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
  INCLUDE_DIRS include
- LIBRARIES scout_webots_sim scout_webots_runner
+ LIBRARIES scout_webots_runner
  CATKIN_DEPENDS geometry_msgs roscpp rospy scout_base sensor_msgs std_msgs message_runtime tf webots_ros pcl_ros
 #  DEPENDS system_lib
 )

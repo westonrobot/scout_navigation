@@ -11,15 +11,16 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   message_generation
   pcl_ros
+  pointcloud_to_laserscan
   roscpp
   roslaunch
   rospy
   scout_base
+  scout_webots_sim
   sensor_msgs
   std_msgs
   tf
   webots_ros
-  scout_webots_sim
 )
 
 ## System dependencies are found with CMake's conventions
@@ -112,9 +113,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES scout_webots_nav_sample
-#  CATKIN_DEPENDS geometry_msgs message_generation pcl_ros roscpp roslaunch rospy scout_base sensor_msgs std_msgs tf webots_ros
+ INCLUDE_DIRS include
+ CATKIN_DEPENDS geometry_msgs pcl_ros pointcloud_to_laserscan roscpp roslaunch rospy scout_base scout_webots_sim sensor_msgs std_msgs tf webots_ros
 #  DEPENDS system_lib
 )
 
@@ -130,10 +130,23 @@ include_directories(
 )
 
 ## Declare a C++ library
+# add_library(${PROJECT_NAME}
+#   src/${PROJECT_NAME}/testest.cpp
+# )
+
+
 add_library(scout_webots_sample_extensions src/IMU_extension.cpp src/lidar_extension.cpp include/scout_webots_nav_sample/lidar_extension.hpp include/scout_webots_nav_sample/IMU_extension.hpp
 )
-#   src/${PROJECT_NAME}/scout_webots_nav_sample.cpp
-# )
+add_executable(${PROJECT_NAME}_node src/scout_webots_nav_sample_node.cpp)
+
+add_dependencies(${PROJECT_NAME}_node webots_ros_generate_messages_cpp scout_webots_runner)
+
+target_link_libraries(${PROJECT_NAME}_node
+   ${catkin_LIBRARIES}
+   scout_webots_runner
+   scout_webots_sample_extensions
+ 
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -143,9 +156,8 @@ add_library(scout_webots_sample_extensions src/IMU_extension.cpp src/lidar_exten
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/scout_webots_nav_sample_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/testest_node.cpp)
 
-add_dependencies(${PROJECT_NAME}_node webots_ros_generate_messages_cpp scout_webots_runner)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -157,11 +169,9 @@ add_dependencies(${PROJECT_NAME}_node webots_ros_generate_messages_cpp scout_web
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
-   ${catkin_LIBRARIES}
-   scout_webots_sample_extensions
- 
-)
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+# )
 
 #############
 ## Install ##
@@ -177,11 +187,19 @@ target_link_libraries(${PROJECT_NAME}_node
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-## Mark executables for installation
-## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-# install(TARGETS ${PROJECT_NAME}_node
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+# Mark executables for installation
+# See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
+install(TARGETS scout_webots_nav_sample_node
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+
+install(DIRECTORY launch urdf worlds
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
 
 ## Mark libraries for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
@@ -210,7 +228,7 @@ target_link_libraries(${PROJECT_NAME}_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_scout_webots_nav_sample.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_testest.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

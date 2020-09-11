@@ -8,7 +8,7 @@ Weston Robot ROS - Scout Simulation
 
 ## 1. Seting up package and directory
 ```
-$ catkin_create_package ${YOUR_PACKAGE_NAME} roslaunch geometry_msgs roscpp rospy scout_base sensor_msgs std_msgs message_generation tf webots_ros pcl_ros
+$ catkin_create_package ${YOUR_PACKAGE_NAME} scout_webots_sim geometry_msgs message_generation pcl_ros roscpp roslaunch rospy scout_base sensor_msgs std_msgs tf webots_ros pointcloud_to_laserscan
 $ cd ${YOUR_PACKAGE_DIRECTORY}
 $ mkdir simulation description/urdf
 

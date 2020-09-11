@@ -18,7 +18,8 @@ namespace westonrobot
     {
 
     public:
-        void setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_);
+        void setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_) override;
+        ~IMUExtension() = default;
     private:
         ros::Subscriber gyro_sub_;
         ros::Subscriber accel_sub_;
