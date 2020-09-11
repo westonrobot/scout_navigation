@@ -15,7 +15,7 @@ namespace westonrobot
     // Lidar_extension::Lidar_extension(){
     //     ROS_INFO("MADE LIDAR");
     // }
-    void Lidar_extension::setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
+    void LidarExtension::setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
     {
         std::string lidar_enable_srv_name = robot_name_ + "/rslidar/enable";
         if (ros::service::exists(lidar_enable_srv_name, true))
@@ -65,7 +65,7 @@ namespace westonrobot
         }
     }
 
-    void Lidar_extension::subscriber_callback(
+    void LidarExtension::subscriber_callback(
         const sensor_msgs::PointCloud::ConstPtr &msg)
     {
         sensor_msgs::PointCloud2 pc2_msg;
@@ -90,7 +90,7 @@ namespace westonrobot
         pub.publish(pc_transformed);
     }
 
-    void Lidar_extension::publish_TF(std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
+    void LidarExtension::publish_TF(std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
     {
         geometry_msgs::TransformStamped static_transformStamped;
         static_transformStamped.header.stamp = ros::Time::now();
@@ -110,7 +110,7 @@ namespace westonrobot
     // IMU_extension::IMU_extension(){
     //     ROS_INFO("MADE IMU");
     // }
-    void IMU_extension::setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
+    void IMUExtension::setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
     {
         gyro_sub_ = nh_.subscribe(robot_name_ + "/gyro/values", 1,
                                   &IMU_extension ::GyroNewDataCallback, this);
@@ -157,11 +157,11 @@ namespace westonrobot
         }
     }
 
-    void IMU_extension::AccelNewDataCallback(const sensor_msgs::Imu::ConstPtr &msg)
+    void IMUExtension::AccelNewDataCallback(const sensor_msgs::Imu::ConstPtr &msg)
     {
         accel_data_ = *msg;
     }
-    void IMU_extension::GyroNewDataCallback(const sensor_msgs::Imu::ConstPtr &msg)
+    void IMUExtension::GyroNewDataCallback(const sensor_msgs::Imu::ConstPtr &msg)
     {
         sensor_msgs::Imu imu_msg;
         imu_msg = *msg;
@@ -171,7 +171,7 @@ namespace westonrobot
             accel_data_.linear_acceleration_covariance;
         imu_pub_.publish(imu_msg);
     }
-    void IMU_extension::PublishIMUTF(std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
+    void IMUExtension::PublishIMUTF(std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
     {
         // publish tf
         geometry_msgs::TransformStamped static_transformStamped;
