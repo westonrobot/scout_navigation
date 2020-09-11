@@ -18,7 +18,7 @@ namespace westonrobot
     public:
         ScoutWebotsRunner();
         int Run(int argc, char *argv[]);
-        void AddExtension(std::shared_ptr<WebotsExtension> extensionPointer);
+        void AddExtension(WebotsExtension* extension_pointer);
         void InitExtensions();
 
     private:      
@@ -26,12 +26,11 @@ namespace westonrobot
         void Quit(int sig);
         void ControllerNameCallback(const std_msgs::String::ConstPtr &name); 
 
-        std::vector<std::shared_ptr<westonrobot::WebotsExtension>> extensions;
-        int controllerCount = 0;
-        ros::ServiceClient timeStepClient;
-        webots_ros::set_int timeStepSrv;
-        
-        std::vector<std::string> controllerList;
+        std::vector<WebotsExtension*> extensions_;
+        int controller_count_ = 0
+        ros::ServiceClient time_step_client_;
+        webots_ros::set_int time_step_srv_;        
+        std::vector<std::string> controller_list_;
 
 
     };

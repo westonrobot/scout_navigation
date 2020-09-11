@@ -7,10 +7,10 @@ namespace westonrobot
         std::cout<<"Creating runner"<<std::endl;
     }
 
-    void ScoutWebotsRunner::AddExtension(std::shared_ptr<WebotsExtension> extensionPointer)
+    void ScoutWebotsRunner::AddExtension(WebotsExtension* extension_pointer)
 
     {
-        extensions.push_back(extensionPointer);
+        extensions_.push_back(extension_pointer);
     }
 
     int ScoutWebotsRunner::Run(int argc, char *argv[])
@@ -42,7 +42,7 @@ namespace westonrobot
         std::string controllerName;
         ros::Subscriber nameSub =
             nh.subscribe("model_name", 100, &ScoutWebotsRunner::ControllerNameCallback, this);
-        while (controllerCount == 0 || controllerCount < nameSub.getNumPublishers())
+        while (controller_count_ == 0 || controller_count_ < nameSub.getNumPublishers())
         {
             ros::spinOnce();
             ros::spinOnce();
@@ -51,7 +51,7 @@ namespace westonrobot
         ros::spinOnce();
 
         // if there is more than one controller available, it let the user choose
-        if (controllerCount == 1)
+        if (controller_count_ == 1)
             controllerName = controllerList[0];
         else
         {
@@ -73,24 +73,24 @@ namespace westonrobot
 
         // init robot components
         scout_webots.InitComponents(controllerName);
-        if (!extensions.empty())
+        if (!extensions_.empty())
         {
-            scout_webots.AddExtensions(extensions);
+            scout_webots.AddExtensions(extensions_);
             scout_webots.InitExtensions();
         }
 
         ROS_INFO("Entering ROS main loop...");
 
         // main loop
-        timeStepClient = nh.serviceClient<webots_ros::set_int>("/" + controllerName +
+        time_step_client_ = nh.serviceClient<webots_ros::set_int>("/" + controllerName +
                                                                "/robot/time_step");
-        timeStepSrv.request.value = time_step;
+        time_step_srv_.request.value = time_step;
         ros::Rate loop_rate(messenger.sim_control_rate_);
         ros::AsyncSpinner spinner(2);
         spinner.start();
         while (ros::ok())
         {
-            if (timeStepClient.call(timeStepSrv) && timeStepSrv.response.success)
+            if (time_step_client_.call(time_step_srv_) && time_step_srv_.response.success)
             {
 
                 scout_webots.UpdateSimState();
@@ -105,8 +105,8 @@ namespace westonrobot
             // ros::spinOnce();
             loop_rate.sleep();
         }
-        timeStepSrv.request.value = 0;
-        timeStepClient.call(timeStepSrv);
+        time_step_srv_.request.value = 0;
+        time_step_client_.call(time_step_srv_);
 
         spinner.stop();
         ros::shutdown();
@@ -117,17 +117,17 @@ namespace westonrobot
     {
 
         ROS_INFO("User stopped the 'scout_webots_node'.");
-        timeStepSrv.request.value = 0;
-        timeStepClient.call(timeStepSrv);
+        time_step_srv_.request.value = 0;
+        time_step_client_.call(time_step_srv_);
         ros::shutdown();
         exit(0);
     }
 
     void ScoutWebotsRunner::ControllerNameCallback(const std_msgs::String::ConstPtr &name)
     {
-        controllerCount++;
-        controllerList.push_back(name->data);
+        controller_count_++;
+        controllerlList_.push_back(name->data);
         ROS_INFO("Controller #%d: %s.", controllerCount,
-                 controllerList.back().c_str());
+                 controller_list_.back().c_str());
     }
 } // namespace westonrobot

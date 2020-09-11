@@ -31,7 +31,7 @@ void ScoutWebotsInterface::InitComponents(std::string controller_name) {
 
 }
 void ScoutWebotsInterface::InitExtensions(){
-  for(WebotsExtension* extension: extension_vector){
+  for(WebotsExtension* extension: extension_vector_){
     extension->setup(*nh_,robot_name_, static_broadcaster_);
   }
 }
