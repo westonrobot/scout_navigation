@@ -46,7 +46,7 @@ namespace westonrobot
 
                     sub = nh_.subscribe(
                         robot_name_ + "/rslidar/point_cloud", 20,
-                        &Lidar_extension::subscriber_callback, this);
+                        &LidarExtension::subscriber_callback, this);
                     pub =
                         nh_.advertise<sensor_msgs::PointCloud2>("/rslidar_points", 1);
 
@@ -113,10 +113,10 @@ namespace westonrobot
     void IMUExtension::setup(ros::NodeHandle &nh_, std::string robot_name_, tf2_ros::StaticTransformBroadcaster &static_broadcaster_)
     {
         gyro_sub_ = nh_.subscribe(robot_name_ + "/gyro/values", 1,
-                                  &IMU_extension ::GyroNewDataCallback, this);
+                                  &IMUExtension::GyroNewDataCallback, this);
         accel_sub_ =
             nh_.subscribe(robot_name_ + "/accel/values", 1,
-                          &IMU_extension ::AccelNewDataCallback, this);
+                          &IMUExtension::AccelNewDataCallback, this);
         imu_pub_ = nh_.advertise<sensor_msgs::Imu>("/imu", 1);
 
         std::string gyro_enable_srv_name = robot_name_ + "/gyro/enable";

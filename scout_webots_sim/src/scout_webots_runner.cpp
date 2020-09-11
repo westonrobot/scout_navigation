@@ -52,14 +52,14 @@ namespace westonrobot
 
         // if there is more than one controller available, it let the user choose
         if (controller_count_ == 1)
-            controllerName = controllerList[0];
+            controllerName = controller_list_[0];
         else
         {
             int wantedController = 0;
             std::cout << "Choose the # of the controller you want to use:\n";
             std::cin >> wantedController;
-            if (1 <= wantedController && wantedController <= controllerCount)
-                controllerName = controllerList[wantedController - 1];
+            if (1 <= wantedController && wantedController <= controller_count_)
+                controllerName = controller_list_[wantedController - 1];
             else
             {
                 ROS_ERROR("Invalid number for controller choice.");
@@ -126,8 +126,8 @@ namespace westonrobot
     void ScoutWebotsRunner::ControllerNameCallback(const std_msgs::String::ConstPtr &name)
     {
         controller_count_++;
-        controllerlList_.push_back(name->data);
-        ROS_INFO("Controller #%d: %s.", controllerCount,
+        controller_list_.push_back(name->data);
+        ROS_INFO("Controller #%d: %s.", controller_count_,
                  controller_list_.back().c_str());
     }
 } // namespace westonrobot

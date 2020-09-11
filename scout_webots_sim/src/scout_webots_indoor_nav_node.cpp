@@ -22,11 +22,11 @@ using namespace westonrobot;
 int main(int argc, char *argv[])
 {
   ScoutWebotsRunner runner;
-  std::shared_ptr<Lidar_extension> lidar = std::make_shared<Lidar_extension>();
-  std::shared_ptr<IMU_extension> IMU = std::make_shared<IMU_extension>();
+  LidarExtension lidar = LidarExtension();
+  IMUExtension IMU = IMUExtension();
 
-  runner.AddExtension(lidar);
-  runner.AddExtension(IMU);
+  runner.AddExtension(&lidar);
+  runner.AddExtension(&IMU);
   return runner.Run(argc,argv);
   
 }
