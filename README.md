@@ -30,7 +30,9 @@ Adding your own extension consists of 3 main steps:
 The example of adding a RPLIDAR module is explained in this example. 
 ### webots model
 1. Under ScoutV2, select extensionSlot and click <add> to add your desired extension
-2. #TODO
+2. Create folder "${YOUR_PACKAGE_DIRECTORY}/simulation/exported_models"
+3. Export model with extensions into the exported models folder
+4. The exported model can now be imported into any world within the project.
 
 ### .xacro
 1. Create a new .xacro file
