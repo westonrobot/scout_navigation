@@ -7,5 +7,5 @@
         <param name="frame_id" value="map"/>
     </node>
 
-    <include file="$(find scout_webots_nav_sample)/launch/navigation.launch" />
+    <include file="$(find scout_webots_nav_sample)/launch/tools/navigation.launch" />
 </launch>
