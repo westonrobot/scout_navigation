@@ -2,14 +2,15 @@
 #define SCOUT_WEBOTS_RUNNER_HPP
 
 #include "scout_webots_extension.hpp"
-#include "scout_webots_interface.hpp"
+#include <std_msgs/String.h>
 #include <memory>
 #include <ros/ros.h>
-#include <signal.h>
-#include <std_msgs/String.h>
-#include <webots_ros/set_float.h>
+
+
 #include <webots_ros/set_int.h>
 #include <iostream>
+
+
 
 namespace westonrobot
 {

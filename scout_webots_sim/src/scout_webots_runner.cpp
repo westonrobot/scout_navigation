@@ -1,5 +1,9 @@
-#include "scout_webots_sim/scout_webots_runner.hpp"
+
 #include <signal.h>
+#include <webots_ros/set_float.h>
+
+#include "scout_webots_sim/scout_webots_runner.hpp"
+#include "scout_webots_sim/scout_webots_interface.hpp"
 namespace westonrobot
 {
     ScoutWebotsRunner::ScoutWebotsRunner()
