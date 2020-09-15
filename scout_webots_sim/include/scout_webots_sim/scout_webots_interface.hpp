@@ -11,15 +11,13 @@
 #define SCOUT_WEBOTS_INTERFACE_HPP
 
 #include <string>
-
-#include <ros/ros.h>
-#include <sensor_msgs/Imu.h>
-#include <sensor_msgs/PointCloud.h>
-#include <tf2_ros/static_transform_broadcaster.h>
 #include <vector>
-#include <memory>
+#include <ros/ros.h>
+
+
+#include <tf2_ros/static_transform_broadcaster.h>
+
 #include "scout_base/scout_messenger.hpp"
-#include "scout_base/scout_params.hpp"
 #include "scout_webots_extension.hpp"
 
 
@@ -40,7 +38,7 @@ class ScoutWebotsInterface {
   ScoutROSMessenger* messenger_;
   std::vector<WebotsExtension*> extension_vector_;
   ros::NodeHandle* nh_;
-  sensor_msgs::Imu accel_data_;
+  
   tf2_ros::StaticTransformBroadcaster static_broadcaster_;
 
   std::string robot_name_ = "scout_v2";

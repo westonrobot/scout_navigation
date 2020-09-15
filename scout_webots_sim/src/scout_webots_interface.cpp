@@ -9,14 +9,10 @@
 
 #include "scout_webots_sim/scout_webots_interface.hpp"
 
-#include <sensor_msgs/PointCloud2.h>
-#include <sensor_msgs/point_cloud_conversion.h>
-#include <pcl_ros/transforms.h>
-
 #include <webots_ros/set_float.h>
 #include <webots_ros/get_float.h>
-#include <webots_ros/set_int.h>
-#include <webots_ros/set_bool.h>
+
+#include "scout_base/scout_params.hpp"
 
 namespace westonrobot {
 ScoutWebotsInterface::ScoutWebotsInterface(ros::NodeHandle *nh,
