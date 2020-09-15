@@ -9,8 +9,7 @@
 // and/or to add some other includes
 #include <webots/Robot.hpp>
 #include <webots/Motor.hpp>
-#include <webots/Camera.hpp>
-#include <webots/Lidar.hpp>
+
 
 // All the webots classes are defined in the "webots" namespace
 using namespace webots;

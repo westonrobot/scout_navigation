@@ -7,15 +7,6 @@
  * Copyright (c) 2019 Ruixiang Du (rdu)
  */
 
-#include <ros/ros.h>
-#include <signal.h>
-#include <std_msgs/String.h>
-#include <webots_ros/set_float.h>
-#include <webots_ros/set_int.h>
-
-#include <iostream>
-
-
 
 #include "scout_webots_sim/scout_webots_runner.hpp"
 using namespace westonrobot;
