@@ -8,7 +8,7 @@
 // <webots/DistanceSensor.hpp>, <webots/Motor.hpp>, etc.
 // and/or to add some other includes
 #include <webots/Robot.hpp>
-#include <webots/Motor.hpp>
+
 
 
 // All the webots classes are defined in the "webots" namespace
