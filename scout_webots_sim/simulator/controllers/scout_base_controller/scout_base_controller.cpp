@@ -8,13 +8,6 @@
 // <webots/DistanceSensor.hpp>, <webots/Motor.hpp>, etc.
 // and/or to add some other includes
 #include <webots/Robot.hpp>
-<<<<<<< HEAD
-#include <webots/Motor.hpp>
-#include <webots/Camera.hpp>
-#include <webots/Lidar.hpp>
-=======
-
->>>>>>> scout_simulation/main_dev
 
 // All the webots classes are defined in the "webots" namespace
 using namespace webots;
