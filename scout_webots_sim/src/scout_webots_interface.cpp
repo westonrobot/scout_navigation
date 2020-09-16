@@ -9,6 +9,7 @@
 
 #include "scout_webots_sim/scout_webots_interface.hpp"
 
+<<<<<<< HEAD
 #include <sensor_msgs/PointCloud2.h>
 #include <sensor_msgs/point_cloud_conversion.h>
 #include <pcl_ros/transforms.h>
@@ -17,6 +18,12 @@
 #include <webots_ros/get_float.h>
 #include <webots_ros/set_int.h>
 #include <webots_ros/set_bool.h>
+=======
+#include <webots_ros/set_float.h>
+#include <webots_ros/get_float.h>
+
+#include "scout_base/scout_params.hpp"
+>>>>>>> scout_simulation/main_dev
 
 namespace westonrobot {
 ScoutWebotsInterface::ScoutWebotsInterface(ros::NodeHandle *nh,
@@ -27,10 +34,25 @@ ScoutWebotsInterface::ScoutWebotsInterface(ros::NodeHandle *nh,
 void ScoutWebotsInterface::InitComponents(std::string controller_name) {
   // reset controller name
   robot_name_ = controller_name;
+<<<<<<< HEAD
 
   SetupRobot();
   SetupLidar();
   SetupIMU();
+=======
+  SetupRobot();
+
+}
+void ScoutWebotsInterface::InitExtensions(){
+  for(WebotsExtension* extension: extension_vector_){
+    extension->setup(*nh_,robot_name_, static_broadcaster_);
+  }
+}
+
+
+void ScoutWebotsInterface::AddExtensions(std::vector<WebotsExtension*> extension_vector){ 
+  extension_vector_ = extension_vector;
+>>>>>>> scout_simulation/main_dev
 }
 
 void ScoutWebotsInterface::SetupRobot() {
@@ -69,6 +91,7 @@ void ScoutWebotsInterface::SetupRobot() {
   }
 }
 
+<<<<<<< HEAD
 void ScoutWebotsInterface::SetupLidar() {
   std::string lidar_enable_srv_name = robot_name_ + "/rslidar/enable";
   if (ros::service::exists(lidar_enable_srv_name, true)) {
@@ -153,6 +176,8 @@ void ScoutWebotsInterface::SetupIMU() {
   }
 }
 
+=======
+>>>>>>> scout_simulation/main_dev
 void ScoutWebotsInterface::UpdateSimState() {
   // constants for calculation
   constexpr double rotation_radius =
@@ -236,6 +261,7 @@ void ScoutWebotsInterface::UpdateSimState() {
   }
 }
 
+<<<<<<< HEAD
 void ScoutWebotsInterface::PublishLidarTF() {
   geometry_msgs::TransformStamped static_transformStamped;
   static_transformStamped.header.stamp = ros::Time::now();
@@ -311,3 +337,6 @@ void ScoutWebotsInterface::LidarNewPointCloudCallback(
   pc2_pub_.publish(pc_transformed);
 }
 }  // namespace westonrobot
+=======
+}
+>>>>>>> scout_simulation/main_dev

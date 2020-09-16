@@ -76,6 +76,11 @@
   <exec_depend>message_runtime</exec_depend>
   <exec_depend>webots_ros</exec_depend>
   <exec_depend>pcl_ros</exec_depend>
+<<<<<<< HEAD
+=======
+  <exec_depend>pointcloud_to_laserscan</exec_depend>
+  
+>>>>>>> scout_simulation/main_dev
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

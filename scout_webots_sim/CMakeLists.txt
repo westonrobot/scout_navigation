@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
+<<<<<<< HEAD
 project(scout_webots_sim)
+=======
+project(scout_webots_sim CXX)
+>>>>>>> scout_simulation/main_dev
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -19,6 +23,11 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   webots_ros
   pcl_ros
+<<<<<<< HEAD
+=======
+  pointcloud_to_laserscan
+
+>>>>>>> scout_simulation/main_dev
 )
 
 ## System dependencies are found with CMake's conventions
@@ -113,8 +122,13 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
+<<<<<<< HEAD
 #  INCLUDE_DIRS include
 #  LIBRARIES scout_webots_sim
+=======
+ INCLUDE_DIRS include
+ LIBRARIES scout_webots_runner
+>>>>>>> scout_simulation/main_dev
  CATKIN_DEPENDS geometry_msgs roscpp rospy scout_base sensor_msgs std_msgs message_runtime tf webots_ros pcl_ros
 #  DEPENDS system_lib
 )
@@ -134,21 +148,51 @@ include_directories(
 # set(SCOUT_WEBOTS_SRC
 #     src/scout_webots_interface.cpp
 # )
+<<<<<<< HEAD
 # add_library(scout_webots_sim STATIC ${SCOUT_WEBOTS_SRC})
 # target_link_libraries(scout_webots_sim ${catkin_LIBRARIES})
 # target_include_directories(scout_webots_sim PUBLIC
 #   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 #   $<INSTALL_INTERFACE:include>
 #   PRIVATE src)
+=======
+
+>>>>>>> scout_simulation/main_dev
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
 
+<<<<<<< HEAD
 ## Declare a C++ executable
 add_executable(scout_webots_node src/scout_webots_node.cpp src/scout_webots_interface.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
 target_link_libraries(scout_webots_node ${catkin_LIBRARIES})
+=======
+
+# add_library(scout_webots_extension STATIC include/scout_webots_sim/scout_webots_extension.hpp)
+
+add_library(
+  scout_webots_runner STATIC include/scout_webots_sim/scout_webots_runner.hpp src/scout_webots_runner.cpp include/scout_webots_sim/scout_webots_interface.hpp src/scout_webots_interface.cpp include/scout_webots_sim/scout_webots_extension.hpp
+
+)
+target_link_libraries(scout_webots_runner ${catkin_LIBRARIES})
+target_include_directories(scout_webots_runner PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+   $<INSTALL_INTERFACE:include>
+   PRIVATE src)
+
+# target_link_libraries(scout_webots_interface scout_webots_extension)
+## Declare a C++ executable
+add_executable(scout_webots_node src/scout_webots_basic_node.cpp)
+add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
+target_link_libraries(scout_webots_node scout_webots_runner ${catkin_LIBRARIES})
+
+
+# add_executable(scout_webots_indoor_nav_node src/scout_webots_indoor_nav_node.cpp)
+
+# target_link_libraries(scout_webots_indoor_nav_node scout_webots_runner scout_webots_extension_sample ${catkin_LIBRARIES})
+>>>>>>> scout_simulation/main_dev
 
 #############
 ## Install ##
@@ -156,7 +200,11 @@ target_link_libraries(scout_webots_node ${catkin_LIBRARIES})
 
 # roslaunch_add_file_check(launch)
 
+<<<<<<< HEAD
 install(TARGETS scout_webots_node
+=======
+install(TARGETS scout_webots_node 
+>>>>>>> scout_simulation/main_dev
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
