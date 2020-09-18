@@ -1,0 +1,4 @@
+<!-- -->
+<launch>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_ros_nav)/rviz/navigation.rviz" />
+</launch>

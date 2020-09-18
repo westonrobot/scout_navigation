@@ -140,12 +140,12 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-
 # add_library(scout_webots_extension STATIC include/scout_webots_sim/scout_webots_extension.hpp)
 
 add_library(
-  scout_webots_runner STATIC include/scout_webots_sim/scout_webots_runner.hpp src/scout_webots_runner.cpp include/scout_webots_sim/scout_webots_interface.hpp src/scout_webots_interface.cpp include/scout_webots_sim/scout_webots_extension.hpp
-
+  scout_webots_runner STATIC include/scout_webots_sim/scout_webots_runner.hpp 
+  src/scout_webots_runner.cpp include/scout_webots_sim/scout_webots_interface.hpp 
+  src/scout_webots_interface.cpp include/scout_webots_sim/scout_webots_extension.hpp
 )
 target_link_libraries(scout_webots_runner ${catkin_LIBRARIES})
 target_include_directories(scout_webots_runner PUBLIC
