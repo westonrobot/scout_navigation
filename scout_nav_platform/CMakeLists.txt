@@ -125,9 +125,9 @@ add_library(scout_nav_sim_extensions
 )
 
 ## Add executables
-add_executable(${PROJECT_NAME}_node src/scout_webots_nav_node.cpp)
-add_dependencies(${PROJECT_NAME}_node webots_ros_generate_messages_cpp scout_webots_runner)
-target_link_libraries(${PROJECT_NAME}_node
+add_executable(scout_nav_sim_node src/scout_nav_sim_node.cpp)
+add_dependencies(scout_nav_sim_node webots_ros_generate_messages_cpp scout_webots_runner)
+target_link_libraries(scout_nav_sim_node
    ${catkin_LIBRARIES}
    scout_webots_runner
    scout_nav_sim_extensions

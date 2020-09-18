@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="simulated_robot" default="true" />
+    <arg name="model_xacro" default="$(find scout_nav_platform)/urdf/scout_v2_nav.xacro" />
+    <arg name="odom_topic_name" default="odom" />
+    <include file="$(find scout_nav_platform)/launch/scout_sim_indoor.launch">
+        <arg name="mode" value="realtime" />
+        <arg name="no-gui" value="$(arg no-gui)" />
+        <arg name="world" value="$(find scout_nav_platform)/webots_setup/worlds/scout_indoor.wbt" />
+    </include>
+    <include file="$(find scout_ros_nav)/launch/scout_navigation.launch" />
+
+</launch>

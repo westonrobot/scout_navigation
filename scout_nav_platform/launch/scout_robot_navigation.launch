@@ -9,7 +9,7 @@
     </include>
 
 
-    <include file="$(find scout_ros_nav)/launch/scout_mapping.launch" />
+    <include file="$(find scout_ros_nav)/launch/scout_navigation.launch" />
     <include file="$(find scout_base)/launch/scout_base.launch">
         <arg name="port_name" default="$(arg port_name)" />
         <arg name="simulated_robot" default="$(arg simulated_robot)" />
