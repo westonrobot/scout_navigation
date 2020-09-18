@@ -2,5 +2,5 @@
 <launch>
     <param name="/use_sim_time" value="true"/>
 
-    <include file="$(find scout_webots_sim)/launch/configs/gmapping.launch" />
+    <include file="$(find scout_ros_nav)/launch/configs/gmapping.launch" />
 </launch>
