@@ -10,6 +10,6 @@
     </include>
     <include file="$(find scout_ros_nav)/launch/scout_navigation.launch">
         <arg name="map_file" default="$(find scout_ros_nav)/maps/webots_indoor.yaml"/>
+        <arg name="use_sim_time" value="true"/>
     </include> />
-
 </launch>

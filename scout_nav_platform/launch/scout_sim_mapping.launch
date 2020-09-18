@@ -8,6 +8,8 @@
         <arg name="model_xacro" default="$(find scout_nav_platform)/urdf/scout_v2_nav.xacro" />
         <arg name="odom_topic_name" default="odom" />
     </include>
-    <include file="$(find scout_ros_nav)/launch/scout_mapping.launch" />
+    <include file="$(find scout_ros_nav)/launch/scout_mapping.launch">
+        <arg name="use_sim_time" value="true"/>
+    </include> />
 
 </launch>

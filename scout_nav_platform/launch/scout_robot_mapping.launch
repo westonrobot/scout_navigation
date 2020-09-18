@@ -8,13 +8,16 @@
         <arg name="model_xacro" default="$(arg model_xacro)" />
     </include>
 
-
-    <include file="$(find scout_ros_nav)/launch/scout_mapping.launch" />
+    <include file="$(find scout_nav_platform)/launch/sensors/rplidar.launch"/>
+    
     <include file="$(find scout_base)/launch/scout_base.launch">
         <arg name="port_name" default="$(arg port_name)" />
         <arg name="simulated_robot" default="$(arg simulated_robot)" />
         <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
     </include>
-    <include file="$(find scout_nav_platform)/launch/tools/mapping_rviz.launch"/>
+    <include file="$(find scout_ros_nav)/launch/scout_mapping.launch">
+        <arg name="use_sim_time" value="false"/>
+    </include> />
+
 
 </launch>
