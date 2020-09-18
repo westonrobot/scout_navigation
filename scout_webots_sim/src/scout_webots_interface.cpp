@@ -24,16 +24,16 @@ void ScoutWebotsInterface::InitComponents(std::string controller_name) {
   // reset controller name
   robot_name_ = controller_name;
   SetupRobot();
-
 }
-void ScoutWebotsInterface::InitExtensions(){
-  for(WebotsExtension* extension: extension_vector_){
-    extension->setup(*nh_,robot_name_, static_broadcaster_);
+
+void ScoutWebotsInterface::InitExtensions() {
+  for (WebotsExtension *extension : extension_vector_) {
+    extension->Setup(*nh_, robot_name_, static_broadcaster_);
   }
 }
 
-
-void ScoutWebotsInterface::AddExtensions(std::vector<WebotsExtension*> extension_vector){ 
+void ScoutWebotsInterface::AddExtensions(
+    std::vector<WebotsExtension *> extension_vector) {
   extension_vector_ = extension_vector;
 }
 
@@ -155,5 +155,4 @@ void ScoutWebotsInterface::UpdateSimState() {
     }
   }
 }
-
-}
+}  // namespace westonrobot

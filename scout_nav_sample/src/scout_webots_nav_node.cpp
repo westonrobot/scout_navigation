@@ -8,19 +8,19 @@
  */
 
 #include "scout_webots_sim/scout_webots_runner.hpp"
-#include "scout_webots_nav_sample/IMU_extension.hpp"
-#include "scout_webots_nav_sample/lidar_extension.hpp"
+#include "scout_nav_sample/imu_extension.hpp"
+#include "scout_nav_sample/lidar_extension.hpp"
 
 using namespace westonrobot;
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   ScoutWebotsRunner runner;
+
   LidarExtension lidar = LidarExtension();
-  IMUExtension IMU = IMUExtension();
+  ImuExtension IMU = ImuExtension();
 
   runner.AddExtension(&lidar);
   runner.AddExtension(&IMU);
-  return runner.Run(argc,argv);
-  
+
+  return runner.Run(argc, argv);
 }

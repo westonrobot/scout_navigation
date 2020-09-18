@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(scout_webots_nav_sample)
+project(scout_nav_sample)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -125,27 +125,24 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
- include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/testest.cpp
-# )
-
-
-add_library(scout_webots_sample_extensions src/IMU_extension.cpp src/lidar_extension.cpp include/scout_webots_nav_sample/lidar_extension.hpp include/scout_webots_nav_sample/IMU_extension.hpp
+add_library(scout_webots_sample_extensions 
+    src/imu_extension.cpp src/lidar_extension.cpp 
+    include/scout_nav_sample/lidar_extension.hpp 
+    include/scout_nav_sample/imu_extension.hpp
 )
-add_executable(${PROJECT_NAME}_node src/scout_webots_nav_sample_node.cpp)
 
+## Add executables
+add_executable(${PROJECT_NAME}_node src/scout_webots_nav_node.cpp)
 add_dependencies(${PROJECT_NAME}_node webots_ros_generate_messages_cpp scout_webots_runner)
-
 target_link_libraries(${PROJECT_NAME}_node
    ${catkin_LIBRARIES}
    scout_webots_runner
    scout_webots_sample_extensions
- 
 )
 
 ## Add cmake target dependencies of the library
@@ -189,7 +186,7 @@ target_link_libraries(${PROJECT_NAME}_node
 
 # Mark executables for installation
 # See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
-install(TARGETS scout_webots_nav_sample_node
+install(TARGETS ${PROJECT_NAME}_node
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})

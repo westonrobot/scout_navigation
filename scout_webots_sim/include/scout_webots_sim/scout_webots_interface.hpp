@@ -12,14 +12,12 @@
 
 #include <string>
 #include <vector>
+
 #include <ros/ros.h>
-
-
 #include <tf2_ros/static_transform_broadcaster.h>
 
 #include "scout_base/scout_messenger.hpp"
 #include "scout_webots_extension.hpp"
-
 
 namespace westonrobot {
 class ScoutWebotsInterface {
@@ -29,7 +27,7 @@ class ScoutWebotsInterface {
 
   void InitComponents(std::string controller_name);
   void UpdateSimState();
-  
+
   void AddExtensions(std::vector<WebotsExtension*> extension_vector);
   void InitExtensions();
 
@@ -38,7 +36,7 @@ class ScoutWebotsInterface {
   ScoutROSMessenger* messenger_;
   std::vector<WebotsExtension*> extension_vector_;
   ros::NodeHandle* nh_;
-  
+
   tf2_ros::StaticTransformBroadcaster static_broadcaster_;
 
   std::string robot_name_ = "scout_v2";

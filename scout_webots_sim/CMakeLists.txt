@@ -20,7 +20,6 @@ find_package(catkin REQUIRED COMPONENTS
   webots_ros
   pcl_ros
   pointcloud_to_laserscan
-
 )
 
 ## System dependencies are found with CMake's conventions

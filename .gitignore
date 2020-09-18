@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .vscode
 
 devel/
@@ -61,7 +60,5 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
-=======
 /build
 .vscode
->>>>>>> scout_simulation/main_dev

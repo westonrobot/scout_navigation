@@ -7,7 +7,7 @@ This repository contains navigation and simulation packages for scout robot.
 
 * scout_gazebo_sim: gazebo-based simulator (experimental)
 * scout_webots_sim: webots-based simulator for scout
-* scout_webots_nav_sample: a demonstration navigation setup for scout
+* scout_nav_sample: a demonstration navigation setup for scout
 
 ## Basic usage of the ROS package
 
@@ -104,7 +104,7 @@ The example of adding a RPLIDAR module is explained in this example.
 
 #### ROS/webots interface
 1. Create a class "ExtensionExample" that inherits the WebotsExtension class
-2. Define the setup protocol as shown in [lidar_extension.cpp](scout_webots_nav_sample/src/lidar_extension.cpp)
+2. Define the setup protocol as shown in [lidar_extension.cpp](scout_nav_sample/src/lidar_extension.cpp)
 
 
 ### 3. Exporting your new model to a different world

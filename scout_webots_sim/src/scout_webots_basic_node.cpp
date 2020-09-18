@@ -7,13 +7,11 @@
  * Copyright (c) 2019 Ruixiang Du (rdu)
  */
 
-
 #include "scout_webots_sim/scout_webots_runner.hpp"
+
 using namespace westonrobot;
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   ScoutWebotsRunner runner;
-  return runner.Run(argc,argv);
-  
+  return runner.Run(argc, argv);
 }

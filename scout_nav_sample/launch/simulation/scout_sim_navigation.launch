@@ -2,10 +2,10 @@
 <launch>
     <param name="/use_sim_time" value="true"/>
 
-    <arg name="map_file" default="$(find scout_webots_nav_sample)/maps/webots_indoor.yaml"/>
+    <arg name="map_file" default="$(find scout_nav_sample)/maps/webots_indoor.yaml"/>
     <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" output="screen">
         <param name="frame_id" value="map"/>
     </node>
 
-    <include file="$(find scout_webots_nav_sample)/launch/tools/navigation.launch" />
+    <include file="$(find scout_nav_sample)/launch/tools/navigation.launch" />
 </launch>
