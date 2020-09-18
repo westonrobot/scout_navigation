@@ -4,19 +4,18 @@
 
 This repository contains navigation and simulation packages for scout robot. 
 
-
 * scout_nav_platform: a demostrational navigation platform with lidar and IMU
 * scout_ros_nav: a demonstrational ROS navigation setup for scout
 * scout_webots_sim: webots-based simulation support for scout
 
-## Basic usage of the ROS package
+## Basic usage
 
 Please setup "[scout_base](https://github.com/westonrobot/scout_base.git)" repository properly before proceeding to the following steps.
 
 ### 1. Install dependent libraries
 
-    ```
-    $ sudo apt-get install -y ros-$ROS_DISTRO-ros-controllers \
+```
+$ sudo apt-get install -y ros-$ROS_DISTRO-ros-controllers \
                               ros-$ROS_DISTRO-joint-state-publisher-gui \
                               ros-$ROS_DISTRO-navigation \
                               ros-$ROS_DISTRO-gmapping \
@@ -24,19 +23,19 @@ Please setup "[scout_base](https://github.com/westonrobot/scout_base.git)" repos
                               ros-$ROS_DISTRO-teb-local-planner \
                               ros-$ROS_DISTRO-pcl-ros \
                               ros-$ROS_DISTRO-webots-ros
-    ```
+```
 
 ### 2. Clone the packages into your catkin workspace and compile
 
-    (the following instructions assume your catkin workspace is at: ~/catkin_ws/src)
+(the following instructions assume your catkin workspace is at: ~/catkin_ws/src)
 
-    ```
-    $ cd ~/catkin_ws/src
-    $ git clone https://github.com/westonrobot/scout_base.git
-    $ git clone https://github.com/westonrobot/scout_navigation.git
-    $ cd ..
-    $ catkin_make
-    ```
+```
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/westonrobot/scout_base.git
+$ git clone https://github.com/westonrobot/scout_navigation.git
+$ cd ..
+$ catkin_make
+```
 
 ### 3. Launch ROS nodes
  
@@ -104,7 +103,7 @@ The example of adding a RPLIDAR module is explained in this example.
 * Export model with extensions into the exported models folder
 * The exported model can now be imported into any world within the project.
 
-#### .xacro
+#### urdf/xacro model
 
 * Create a new .xacro file
 * Import the base .xacro file of the scout model using: ```<xacro:include filename="$(find scout_description)/urdf/scout_v2.xacro" />```
@@ -115,18 +114,18 @@ The example of adding a RPLIDAR module is explained in this example.
 * Create a class "ExtensionExample" that inherits the WebotsExtension class
 * Define the setup protocol as shown in [lidar_extension.cpp](scout_ros_nav/src/lidar_extension.cpp)
 
-### 3. Exporting your new model to a different world
+### 4. Exporting your new model to a different world
 
 Note: this is to export the model to a new world but within the same project. If a new project directory is required, the new directory must be set up again
 
 After the robot and its additional sensors has been modeled in the webots world, it is like that you would like to place this robots in different simulated environments, such as a workshop space or an indoor apartment. This sections brief outlines the main steps involved
 
-1. Export the new robot model (with extensions) using the webots GUI:
+* Export the new robot model (with extensions) using the webots GUI:
    * Right-click the model node
    * Click Export
    * Save the model in a the folder ${YOUR_PACKAGE_DIRECTORY}/simulation/exported models
-2. Load the world in webots you want to import the model into.
-3. Add the export robot model
+* Load the world in webots you want to import the model into.
+* Add the export robot model
    * Add node
    * Import...
    * Select the model file that you exported in step 1
