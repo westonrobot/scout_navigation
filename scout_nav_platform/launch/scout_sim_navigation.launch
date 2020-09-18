@@ -9,7 +9,7 @@
         <arg name="odom_topic_name" default="odom" />
     </include>
     <include file="$(find scout_ros_nav)/launch/scout_navigation.launch">
-    
+        <arg name="map_file" default="$(find scout_ros_nav)/maps/webots_indoor.yaml"/>
     </include> />
 
 </launch>
