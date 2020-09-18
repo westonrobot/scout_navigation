@@ -36,5 +36,5 @@
         <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_ros_nav)/rviz/rviz_navigation.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_ros_nav)/rviz/navigation.rviz"/>
 </launch>
