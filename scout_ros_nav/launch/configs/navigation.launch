@@ -37,5 +37,5 @@
         <param name='controller_frequency' value="50.0"/>
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find scout_ros_nav)/rviz/navigation.rviz"/>
+   
 </launch>

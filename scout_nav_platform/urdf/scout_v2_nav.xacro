@@ -29,7 +29,7 @@
         <origin xyz="0.32 0.0 0.18" rpy="0 0 0" />
     </joint>
 
-    <link name="base_laser">
+    <link name="laser_link">
         <visual>
             <origin xyz="0.0 0.0 0.0" />
             <geometry>
@@ -41,8 +41,8 @@
 
     <joint name="base_laser_joint" type="fixed">
         <parent link="base_link" />
-        <child link="base_laser" />
-        <origin xyz="0.3 0.0 0.2" rpy="0 0 0" />
+        <child link="laser_link" />
+        <origin xyz="0.06 0.0 0.2" rpy="0 0 0" />
     </joint>
     
 </robot>

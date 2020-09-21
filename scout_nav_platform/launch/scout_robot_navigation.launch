@@ -1,5 +1,5 @@
 <launch>
-    <arg name="map_file" default="$(find scout_ros_nav)/maps/webots_indoor.yaml"/> 
+    <arg name="map_file" default="$(find scout_ros_nav)/maps/weston_robots.yaml"/> 
     <arg name="port_name" value="can0" />
     <arg name="simulated_robot" value="false" />
     <arg name="model_xacro" default="$(find scout_nav_platform)/urdf/scout_v2_nav.xacro" />
@@ -8,7 +8,7 @@
         <arg name="model_xacro" default="$(arg model_xacro)" />
     </include>
 
-    <include file="$(find scout_nav_platform)/launch/sensors/rplidar.launch"/>
+   
     
     <include file="$(find scout_base)/launch/scout_base.launch">
         <arg name="port_name" default="$(arg port_name)" />
