@@ -59,6 +59,27 @@ $ catkin_make
     ```
     $ roslaunch scout_nav_platform scout_sim_navigation.launch
     ```
+### 4. Saving and Loading of maps
+
+* To save the map generated from mapping:
+    ```
+    rosrun map_server map_saver -f {YOUR_CATKIN_WORKSPACE}/src/scout_navigation/scout_ros_nav/maps/{YOUR_MAP_NAME}
+    ```
+    The map_server should be run after the map obtained is satisfactory and can be be used for navigation. The map will be saved as YOUR_MAP_NAME.yaml and YOUR_MAP_NAME.pgm
+
+
+* To select the .yaml map file, edit the map_file value in the launch file (scout_sim_navigation.launch or scout_robot_navigation.launch)
+
+    ```
+    <arg name="map_file" default="$(find scout_ros_nav)/maps/webots_indoor.yaml"/>  
+    ```
+
+    should be changed to
+
+    ```
+    <arg name="map_file" default="${YOUR_CATKIN_WORKSPACE}/src/scout_navigation/scout_ros_nav/maps/{YOUR_MAP_NAME}.yaml"/>
+    ```
+    
 
 ## Custom Development
 
