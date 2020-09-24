@@ -9,8 +9,6 @@
         <arg name="model_xacro" default="$(arg model_xacro)" />
     </include>
 
-   
-    
     <include file="$(find scout_base)/launch/scout_base.launch">
         <arg name="port_name" default="$(arg port_name)" />
         <arg name="simulated_robot" default="$(arg simulated_robot)" />
