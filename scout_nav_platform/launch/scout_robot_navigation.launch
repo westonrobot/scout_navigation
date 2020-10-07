@@ -13,10 +13,10 @@
         <arg name="simulated_robot" default="false" />
         <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
     </include>
-    <include file="$(find scout_ros_nav)/launch/scout_navigation.launch">    
+    <!-- <include file="$(find scout_ros_nav)/launch/scout_navigation.launch">    
         <arg name="map_file" default="$(arg map_file)"/>    
         <arg name="use_sim_time" value="false"/>
-    </include> />
+    </include> /> -->
 
 
 </launch>
