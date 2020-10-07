@@ -1,0 +1,3 @@
+base_station: 10.10.0.150
+onboard_computer: 10.10.0.10
+lslidar: 10.10.0.30
