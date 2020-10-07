@@ -3,7 +3,7 @@
     <arg name="simulated_robot" default="true" />
     <arg name="model_xacro" default="$(find scout_nav_platform)/urdf/scout_v2_sim_nav.xacro" />
     <arg name="odom_topic_name" default="odom" />
-    <include file="$(find scout_nav_platform)/launch/scout_sim_indoor.launch">
+    <include file="$(find scout_nav_platform)/launch/simulation/scout_sim_indoor.launch">
         <arg name="simulated_robot" default="$(arg simulated_robot)" />
         <arg name="model_xacro" default="$(arg model_xacro)" />
         <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
