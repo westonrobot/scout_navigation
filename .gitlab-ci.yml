@@ -3,7 +3,7 @@ melodic-catkin-build:
   stage: build
   image: rduweston/ubuntu-ci:melodic-bionic
   before_script:
-    - apt update && apt -y install libasio-dev ros-$ROS_DISTRO-teleop-twist-keyboard
+    - apt update && apt -y install ros-$ROS_DISTRO-teleop-twist-keyboard
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
     - apt install -y ros-$ROS_DISTRO-navigation ros-$ROS_DISTRO-teb-local-planner
     - apt install -y ros-$ROS_DISTRO-webots-ros ros-$ROS_DISTRO-pcl-ros
@@ -19,7 +19,7 @@ melodic-catkin-isolated-build:
   stage: build
   image: rduweston/ubuntu-ci:melodic-bionic
   before_script:
-    - apt update && apt -y install libasio-dev ros-$ROS_DISTRO-teleop-twist-keyboard
+    - apt update && apt -y install ros-$ROS_DISTRO-teleop-twist-keyboard
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
     - apt install -y ros-$ROS_DISTRO-navigation ros-$ROS_DISTRO-teb-local-planner
     - apt install -y ros-$ROS_DISTRO-webots-ros ros-$ROS_DISTRO-pcl-ros

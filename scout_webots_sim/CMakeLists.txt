@@ -178,7 +178,7 @@ install(TARGETS scout_webots_node
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
-install(DIRECTORY launch urdf worlds
+install(DIRECTORY launch webots_setup
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 # all install targets should use catkin DESTINATION variables
