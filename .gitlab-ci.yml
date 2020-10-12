@@ -1,3 +1,34 @@
+kinetic-catkin-build:
+  stage: build
+  image: rduweston/ubuntu-ci:kinetic-xenial
+  before_script:
+    - apt update && apt -y install ros-$ROS_DISTRO-teleop-twist-keyboard
+    - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
+    - apt install -y ros-$ROS_DISTRO-navigation ros-$ROS_DISTRO-teb-local-planner
+    - apt install -y ros-$ROS_DISTRO-webots-ros ros-$ROS_DISTRO-pcl-ros
+    - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
+  script:
+    - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
+    - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
+    - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make"
+
+kinetic-catkin-isolated-build:
+  stage: build
+  image: rduweston/ubuntu-ci:kinetic-xenial
+  before_script:
+    - apt update && apt -y install ros-$ROS_DISTRO-teleop-twist-keyboard
+    - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
+    - apt install -y ros-$ROS_DISTRO-navigation ros-$ROS_DISTRO-teb-local-planner
+    - apt install -y ros-$ROS_DISTRO-webots-ros ros-$ROS_DISTRO-pcl-ros
+    - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
+  script:
+    - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
+    - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
+    - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make_isolated --install"
 
 melodic-catkin-build:
   stage: build
@@ -31,3 +62,34 @@ melodic-catkin-isolated-build:
     - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
     - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make_isolated --install"
 
+noetic-catkin-build:
+  stage: build
+  image: rduweston/ubuntu-ci:noetic-focal
+  before_script:
+    - apt update && apt -y install ros-$ROS_DISTRO-teleop-twist-keyboard
+    - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
+    - apt install -y ros-$ROS_DISTRO-navigation ros-$ROS_DISTRO-teb-local-planner
+    - apt install -y ros-$ROS_DISTRO-webots-ros ros-$ROS_DISTRO-pcl-ros
+    - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
+  script:
+    - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
+    - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
+    - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make"
+
+noetic-catkin-isolated-build:
+  stage: build
+  image: rduweston/ubuntu-ci:noetic-focal
+  before_script:
+    - apt update && apt -y install ros-$ROS_DISTRO-teleop-twist-keyboard
+    - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
+    - apt install -y ros-$ROS_DISTRO-navigation ros-$ROS_DISTRO-teb-local-planner
+    - apt install -y ros-$ROS_DISTRO-webots-ros ros-$ROS_DISTRO-pcl-ros
+    - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
+  script:
+    - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
+    - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
+    - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make_isolated --install"
