@@ -14,7 +14,7 @@
         <arg name="simulated_robot" default="$(arg simulated_robot)" />
         <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
     </include>
-    <include file="$(find scout_ros_nav)/launch/scout_mapping.launch">
+    <include file="$(find scout_ros_nav)/launch/scout_v2_mapping.launch">
         <arg name="use_sim_time" value="false"/>
     </include> />
 
