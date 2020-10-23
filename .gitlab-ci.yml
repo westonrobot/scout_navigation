@@ -9,7 +9,7 @@ kinetic-catkin-build:
     - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
   script:
     - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
-    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone --recursive https://github.com/westonrobot/wrp_sdk.git
     - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
     - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
     - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make"
@@ -25,7 +25,7 @@ kinetic-catkin-isolated-build:
     - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
   script:
     - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
-    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone --recursive https://github.com/westonrobot/wrp_sdk.git
     - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
     - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
     - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make_isolated --install"
@@ -41,7 +41,7 @@ melodic-catkin-build:
     - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
   script:
     - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
-    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone --recursive https://github.com/westonrobot/wrp_sdk.git
     - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
     - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
     - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make"
@@ -57,7 +57,7 @@ melodic-catkin-isolated-build:
     - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
   script:
     - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
-    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone --recursive https://github.com/westonrobot/wrp_sdk.git
     - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
     - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
     - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make_isolated --install"
@@ -73,7 +73,7 @@ noetic-catkin-build:
     - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
   script:
     - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
-    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone --recursive https://github.com/westonrobot/wrp_sdk.git
     - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
     - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
     - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make"
@@ -89,7 +89,7 @@ noetic-catkin-isolated-build:
     - apt install -y ros-$ROS_DISTRO-pointcloud-to-laserscan
   script:
     - mkdir -p /catkin_ws/src && cd /catkin_ws/src && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_init_workspace"
-    - cd /catkin_ws/src && git clone https://github.com/westonrobot/wrp_sdk.git
+    - cd /catkin_ws/src && git clone --recursive https://github.com/westonrobot/wrp_sdk.git
     - cd /catkin_ws/src && git clone https://github.com/westonrobot/scout_base.git
     - cd /catkin_ws/src && cp -r $CI_BUILDS_DIR .
     - cd /catkin_ws && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; catkin_make_isolated --install"
