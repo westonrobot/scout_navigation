@@ -1,6 +1,6 @@
 kinetic-catkin-build:
   stage: build
-  image: rduweston/ubuntu-ci:kinetic-xenial
+  image: rduweston/ubuntu-ci:kinetic
   before_script:
     - apt update 
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
@@ -16,7 +16,7 @@ kinetic-catkin-build:
 
 kinetic-catkin-isolated-build:
   stage: build
-  image: rduweston/ubuntu-ci:kinetic-xenial
+  image: rduweston/ubuntu-ci:kinetic
   before_script:
     - apt update 
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
@@ -32,7 +32,7 @@ kinetic-catkin-isolated-build:
 
 melodic-catkin-build:
   stage: build
-  image: rduweston/ubuntu-ci:melodic-bionic
+  image: rduweston/ubuntu-ci:melodic
   before_script:
     - apt update 
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
@@ -48,7 +48,7 @@ melodic-catkin-build:
 
 melodic-catkin-isolated-build:
   stage: build
-  image: rduweston/ubuntu-ci:melodic-bionic
+  image: rduweston/ubuntu-ci:melodic
   before_script:
     - apt update 
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
@@ -64,7 +64,7 @@ melodic-catkin-isolated-build:
 
 noetic-catkin-build:
   stage: build
-  image: rduweston/ubuntu-ci:noetic-focal
+  image: rduweston/ubuntu-ci:noetic
   before_script:
     - apt update 
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
@@ -80,7 +80,7 @@ noetic-catkin-build:
 
 noetic-catkin-isolated-build:
   stage: build
-  image: rduweston/ubuntu-ci:noetic-focal
+  image: rduweston/ubuntu-ci:noetic
   before_script:
     - apt update 
     - apt install -y ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-joint-state-publisher-gui
