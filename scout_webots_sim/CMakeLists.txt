@@ -132,36 +132,23 @@ include_directories(
 )
 
 ## Declare a C++ library
-# set(SCOUT_WEBOTS_SRC
-#     src/scout_webots_interface.cpp
-# )
-## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
-
-# add_library(scout_webots_extension STATIC include/scout_webots_sim/scout_webots_extension.hpp)
-
-add_library(
-  scout_webots_runner STATIC include/scout_webots_sim/scout_webots_runner.hpp 
-  src/scout_webots_runner.cpp include/scout_webots_sim/scout_webots_interface.hpp 
-  src/scout_webots_interface.cpp include/scout_webots_sim/scout_webots_extension.hpp
+set(SCOUT_WEBOTS_RUNNER_SRC
+  src/scout_webots_runner.cpp
+  src/scout_webots_interface.cpp
 )
+add_library(scout_webots_runner STATIC ${SCOUT_WEBOTS_RUNNER_SRC})
 target_link_libraries(scout_webots_runner ${catkin_LIBRARIES})
 target_include_directories(scout_webots_runner PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
    $<INSTALL_INTERFACE:include>
    PRIVATE src)
 
-# target_link_libraries(scout_webots_interface scout_webots_extension)
 ## Declare a C++ executable
 add_executable(scout_webots_node src/scout_webots_basic_node.cpp)
 add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
 target_link_libraries(scout_webots_node scout_webots_runner ${catkin_LIBRARIES})
 
-
 # add_executable(scout_webots_indoor_nav_node src/scout_webots_indoor_nav_node.cpp)
-
 # target_link_libraries(scout_webots_indoor_nav_node scout_webots_runner scout_webots_extension_sample ${catkin_LIBRARIES})
 
 #############
@@ -170,7 +157,7 @@ target_link_libraries(scout_webots_node scout_webots_runner ${catkin_LIBRARIES})
 
 # roslaunch_add_file_check(launch)
 
-install(TARGETS scout_webots_node 
+install(TARGETS scout_webots_node scout_webots_runner
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
@@ -178,7 +165,7 @@ install(TARGETS scout_webots_node
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
-install(DIRECTORY launch urdf worlds
+install(DIRECTORY launch webots_setup
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 # all install targets should use catkin DESTINATION variables

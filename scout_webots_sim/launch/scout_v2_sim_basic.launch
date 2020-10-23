@@ -2,6 +2,8 @@
 <launch>
 
   <arg name="no-gui" default="false," doc="Start Webots with minimal GUI" />
+  <arg name="simulated_robot" default="true" />
+  <arg name="model_xacro" default="$(find scout_description)/urdf/scout_v2.xacro" />
   <arg name="odom_topic_name" default="odom" />
   <arg name="auto-close" default="false" doc="Startup mode" />
 

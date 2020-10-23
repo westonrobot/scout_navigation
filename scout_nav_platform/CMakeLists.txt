@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(scout_nav_platform)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++14)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -121,17 +121,12 @@ include_directories(
 ## Declare a C++ library
 add_library(scout_nav_sim_extensions 
     src/imu_extension.cpp 
-    src/lidar_extension.cpp 
-)
+    src/lidar_extension.cpp)
+target_link_libraries(scout_nav_sim_extensions ${catkin_LIBRARIES})
 
 ## Add executables
 add_executable(scout_nav_sim_node src/scout_nav_sim_node.cpp)
-add_dependencies(scout_nav_sim_node webots_ros_generate_messages_cpp scout_webots_runner)
-target_link_libraries(scout_nav_sim_node
-   ${catkin_LIBRARIES}
-   scout_webots_runner
-   scout_nav_sim_extensions
-)
+target_link_libraries(scout_nav_sim_node ${catkin_LIBRARIES} scout_nav_sim_extensions)
 
 #############
 ## Install ##
