@@ -1,0 +1,22 @@
+<launch>
+    <arg name="map_file" default="$(find scout_ros_nav)/maps/weston_robots.yaml"/> 
+    <arg name="port_name" value="can0" />
+    <arg name="model_xacro" default="$(find scout_nav_platform)/urdf/scout_v2_robot_nav.xacro" />
+    <arg name="odom_topic_name" default="odom" />
+
+    <include file="$(find scout_nav_platform)/launch/scout_v2_nav_platform_description.launch">
+        <arg name="model_xacro" default="$(arg model_xacro)" />
+    </include>
+
+    <include file="$(find scout_base)/launch/scout_base.launch">
+        <arg name="port_name" default="$(arg port_name)" />
+        <arg name="simulated_robot" default="false" />
+        <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
+    </include>
+    <include file="$(find scout_ros_nav)/launch/scout_v2_navigation.launch">    
+        <arg name="map_file" default="$(arg map_file)"/>    
+        <arg name="use_sim_time" value="false"/>
+    </include> />
+
+
+</launch>

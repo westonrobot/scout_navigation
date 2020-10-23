@@ -1,0 +1,6 @@
+<!-- -->
+<launch>
+    <arg name="use_sim_time"/>
+    <param name="/use_sim_time" type="bool" value="$(arg use_sim_time)"/>
+    <include file="$(find scout_ros_nav)/launch/configs/gmapping.launch" />
+</launch>
