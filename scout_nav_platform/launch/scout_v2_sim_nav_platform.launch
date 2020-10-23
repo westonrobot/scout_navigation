@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="simulated_robot" default="true" />
+  <arg name="no-gui" default="false," doc="Start Webots with minimal GUI" />
   <arg name="odom_topic_name" default="odom" />
   <arg name="auto-close" default="false" doc="Startup mode" />
   
-  <param name="/use_sim_time" value="true" />
+  <!-- Start Webots -->
+  <include file="$(find scout_webots_sim)/launch/webots.launch">
+    <arg name="mode" value="realtime" />
+    <arg name="no-gui" value="$(arg no-gui)" />
+    <arg name="world" value="$(find scout_nav_platform)/webots_setup/worlds/scout_indoor.wbt" />
+  </include> 
 
-
-  <node name="scout_webots_node" pkg="scout_webots_sim" type="scout_webots_node" required="$(arg auto-close)" output="screen">
+    <!-- Start Webots/ROS-Interface Node -->
+  <node name="scout_nav_sim" pkg="scout_nav_platform" type="scout_nav_sim_node" required="$(arg auto-close)" output="screen">
     <param name="use_sim_time" value="true" />
     <param name="clock" value="/clock" />
     <param name="odom_frame" type="string" value="odom" />
@@ -17,4 +22,5 @@
     <param name="simulated_robot" type="bool" value="true" />
     <param name="sim_control_rate" value="50" />
   </node>
+
 </launch>

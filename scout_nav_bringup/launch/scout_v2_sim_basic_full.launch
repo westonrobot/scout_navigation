@@ -12,17 +12,11 @@
     <arg name="model_xacro" default="$(arg model_xacro)" />
   </include>
 
-  <!-- start Webots -->
+  <!-- start Webots and Webots/ROS Interface-->
   <arg name="no-gui" default="false," doc="Start Webots with minimal GUI" />
-  <include file="$(find scout_webots_sim)/launch/webots.launch">
-    <arg name="mode" value="realtime" />
-    <arg name="no-gui" value="$(arg no-gui)" />
-    <arg name="world" value="$(find scout_webots_sim)/webots_setup/worlds/scout_v2.wbt" />
-  </include>
+  <include file="$(find scout_webots_sim)/launch/scout_v2_sim_basic.launch">
 
-  <!-- start scout webots node -->
-  <include file="$(find scout_webots_sim)/launch/scout_webots_node.launch">
-    <arg name="simulated_robot" default="$(arg simulated_robot)" />
+    <arg name="no-gui" value="$(arg no-gui)" />
     <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
     <arg name="auto-close" default="false" doc="Startup mode" />
   </include>
