@@ -23,7 +23,7 @@ class WebotsExtension {
   virtual ~WebotsExtension() = default;
 
   virtual void Setup(
-      ros::NodeHandle& nh, std::string robot_name,
+      ros::NodeHandle* nh, std::string robot_name,
       tf2_ros::StaticTransformBroadcaster& static_broadcaster) = 0;
 };
 

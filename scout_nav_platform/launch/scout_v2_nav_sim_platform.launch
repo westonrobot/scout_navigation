@@ -2,6 +2,8 @@
 <launch>
 
   <arg name="no-gui" default="false," doc="Start Webots with minimal GUI" />
+  <arg name="odom_frame" default="odom" />
+  <arg name="base_frame" default="base_link" />
   <arg name="odom_topic_name" default="odom" />
   <arg name="auto-close" default="false" doc="Startup mode" />
   
@@ -16,11 +18,17 @@
   <node name="scout_nav_sim" pkg="scout_nav_platform" type="scout_nav_sim_node" required="$(arg auto-close)" output="screen">
     <param name="use_sim_time" value="true" />
     <param name="clock" value="/clock" />
-    <param name="odom_frame" type="string" value="odom" />
-    <param name="odom_topic_name" type="string" value="$(arg odom_topic_name)" />
-    <param name="base_frame" type="string" value="base_link" />
+    <param name="is_scout_mini" type="bool" value="false" />
+    <param name="is_omni_wheel" type="bool" value="false" />
+    <param name="port_name" type="string" value="vcan0" />
     <param name="simulated_robot" type="bool" value="true" />
-    <param name="sim_control_rate" value="50" />
+    <param name="odom_frame" type="string" value="$(arg odom_frame)" />
+    <param name="base_frame" type="string" value="$(arg base_frame)" />
+    <param name="odom_topic_name" type="string" value="$(arg odom_topic_name)" />
   </node>
+
+  <param name="robot_description" command="$(find xacro)/xacro $(find scout_nav_platform)/urdf/scout_v2_nav_sim.xacro"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
 </launch>

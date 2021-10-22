@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(scout_webots_sim CXX)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++14)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -16,7 +16,6 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   message_generation 
-  tf
   webots_ros
   pcl_ros
   pointcloud_to_laserscan
@@ -116,7 +115,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
  INCLUDE_DIRS include
  LIBRARIES scout_webots_runner
- CATKIN_DEPENDS geometry_msgs roscpp rospy scout_base sensor_msgs std_msgs message_runtime tf webots_ros pcl_ros
+ CATKIN_DEPENDS geometry_msgs roscpp rospy scout_base sensor_msgs std_msgs message_runtime webots_ros pcl_ros
 #  DEPENDS system_lib
 )
 
@@ -133,9 +132,8 @@ include_directories(
 
 ## Declare a C++ library
 set(SCOUT_WEBOTS_RUNNER_SRC
-  src/scout_webots_runner.cpp
   src/scout_webots_interface.cpp
-)
+  src/scout_webots_runner.cpp)
 add_library(scout_webots_runner STATIC ${SCOUT_WEBOTS_RUNNER_SRC})
 target_link_libraries(scout_webots_runner ${catkin_LIBRARIES})
 target_include_directories(scout_webots_runner PUBLIC
@@ -144,9 +142,9 @@ target_include_directories(scout_webots_runner PUBLIC
    PRIVATE src)
 
 ## Declare a C++ executable
-add_executable(scout_webots_node src/scout_webots_basic_node.cpp)
-add_dependencies(scout_webots_node webots_ros_generate_messages_cpp)
-target_link_libraries(scout_webots_node scout_webots_runner ${catkin_LIBRARIES})
+add_executable(webots_scout_base_node src/webots_scout_base_node.cpp)
+add_dependencies(webots_scout_base_node webots_ros_generate_messages_cpp)
+target_link_libraries(webots_scout_base_node scout_webots_runner ${catkin_LIBRARIES})
 
 # add_executable(scout_webots_indoor_nav_node src/scout_webots_indoor_nav_node.cpp)
 # target_link_libraries(scout_webots_indoor_nav_node scout_webots_runner scout_webots_extension_sample ${catkin_LIBRARIES})
@@ -157,16 +155,16 @@ target_link_libraries(scout_webots_node scout_webots_runner ${catkin_LIBRARIES})
 
 # roslaunch_add_file_check(launch)
 
-install(TARGETS scout_webots_node scout_webots_runner
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+# install(TARGETS scout_webots_node scout_webots_runner
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
-install(DIRECTORY launch webots_setup
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+# install(DIRECTORY launch webots_setup
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html

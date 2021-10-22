@@ -55,7 +55,6 @@
   <build_depend>scout_base</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>tf</build_depend>
   <build_depend>message_runtime</build_depend>
   <build_depend>webots_ros</build_depend>
   <build_depend>pcl_ros</build_depend>
@@ -72,7 +71,6 @@
   <exec_depend>scout_base</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-  <exec_depend>tf</exec_depend>
   <exec_depend>message_runtime</exec_depend>
   <exec_depend>webots_ros</exec_depend>
   <exec_depend>pcl_ros</exec_depend>

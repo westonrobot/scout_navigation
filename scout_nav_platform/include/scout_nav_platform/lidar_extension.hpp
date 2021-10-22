@@ -20,7 +20,7 @@ class LidarExtension : public WebotsExtension {
   LidarExtension() = default;
   ~LidarExtension() = default;
 
-  void Setup(ros::NodeHandle &nh, std::string robot_name,
+  void Setup(ros::NodeHandle *nh, std::string robot_name,
              tf2_ros::StaticTransformBroadcaster &static_broadcaster) override;
 
  private:

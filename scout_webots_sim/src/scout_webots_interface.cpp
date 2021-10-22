@@ -12,32 +12,26 @@
 #include <webots_ros/set_float.h>
 #include <webots_ros/get_float.h>
 
-#include "scout_base/scout_params.hpp"
+#include "ugv_sdk/details/protocol_v1/robot_limits.hpp"
 
 namespace westonrobot {
-ScoutWebotsInterface::ScoutWebotsInterface(ros::NodeHandle *nh,
-                                           ScoutROSMessenger *msger,
-                                           uint32_t time_step)
-    : nh_(nh), messenger_(msger), time_step_(time_step) {}
+namespace {
+struct ScoutParams {
+  // Scout Parameters
+  static constexpr double track =
+      0.58306;  // in meter (left & right wheel distance)
+  static constexpr double wheelbase =
+      0.498;  // in meter (front & rear wheel distance)
+  static constexpr double wheel_radius = 0.165;  // in meter
+};
+}  // namespace
 
-void ScoutWebotsInterface::InitComponents(std::string controller_name) {
+ScoutWebotsInterface::ScoutWebotsInterface(ros::NodeHandle *nh) : nh_(nh) {}
+
+void ScoutWebotsInterface::Initialize(std::string controller_name) {
   // reset controller name
   robot_name_ = controller_name;
-  SetupRobot();
-}
 
-void ScoutWebotsInterface::InitExtensions() {
-  for (WebotsExtension *extension : extension_vector_) {
-    extension->Setup(*nh_, robot_name_, static_broadcaster_);
-  }
-}
-
-void ScoutWebotsInterface::AddExtensions(
-    std::vector<WebotsExtension *> extension_vector) {
-  extension_vector_ = extension_vector;
-}
-
-void ScoutWebotsInterface::SetupRobot() {
   // init motors
   for (int i = 0; i < 4; ++i) {
     // position
@@ -73,58 +67,15 @@ void ScoutWebotsInterface::SetupRobot() {
   }
 }
 
-void ScoutWebotsInterface::UpdateSimState() {
-  // constants for calculation
-  constexpr double rotation_radius =
-      std::hypot(ScoutParams::wheelbase / 2.0, ScoutParams::track / 2.0) * 2.0;
-  constexpr double rotation_theta =
-      std::atan2(ScoutParams::wheelbase, ScoutParams::track);
-
-  // update robot state
-  double wheel_speeds[4];
-  for (int i = 0; i < 4; ++i) {
-    webots_ros::get_float get_velocity_srv;
-    ros::ServiceClient get_velocity_client =
-        nh_->serviceClient<webots_ros::get_float>(robot_name_ + "/" +
-                                                  std::string(motor_names_[i]) +
-                                                  std::string("/get_velocity"));
-
-    if (get_velocity_client.call(get_velocity_srv)) {
-      wheel_speeds[i] = get_velocity_srv.response.value;
-    } else
-      ROS_ERROR("Failed to call service set_velocity on motor %s.",
-                motor_names_[i].c_str());
-  }
-  float left_speed =
-      (wheel_speeds[1] + wheel_speeds[2]) / 2.0 * ScoutParams::wheel_radius;
-  float right_speed =
-      (wheel_speeds[0] + wheel_speeds[3]) / 2.0 * ScoutParams::wheel_radius;
-  left_speed = -left_speed;
-  double linear_speed = (right_speed + left_speed) / 2.0;
-  //   double angular_speed = (right_speed - left_speed) /
-  //   ScoutParams::wheelbase;
-  double angular_speed =
-      (right_speed - left_speed) * std::cos(rotation_theta) / rotation_radius;
-
-  //   std::cout << "left: " << left_speed << " , right : " << right_speed
-  //             << " , linear: " << linear_speed << " , angular: " <<
-  //             angular_speed
-  //             << std::endl;
-  messenger_->PublishSimStateToROS(linear_speed, angular_speed);
-
+void ScoutWebotsInterface::SetMotionCommand(double linear, double angular) {
   // send robot command
-  double linear, angular;
-  messenger_->GetCurrentMotionCmdForSim(linear, angular);
+  if (linear > ScoutV2Limits::max_linear) linear = ScoutV2Limits::max_linear;
+  if (linear < ScoutV2Limits::min_linear) linear = ScoutV2Limits::min_linear;
 
-  if (linear > ScoutParams::max_linear_speed)
-    linear = ScoutParams::max_linear_speed;
-  if (linear < -ScoutParams::max_linear_speed)
-    linear = -ScoutParams::max_linear_speed;
-
-  if (angular > ScoutParams::max_angular_speed)
-    angular = ScoutParams::max_angular_speed;
-  if (angular < -ScoutParams::max_angular_speed)
-    angular = -ScoutParams::max_angular_speed;
+  if (angular > ScoutV2Limits::max_angular)
+    angular = ScoutV2Limits::max_angular;
+  if (angular < ScoutV2Limits::min_angular)
+    angular = ScoutV2Limits::min_angular;
 
   double vel_left_cmd = (linear - angular * ScoutParams::wheelbase / 2.0) /
                         ScoutParams::wheel_radius;
@@ -154,5 +105,89 @@ void ScoutWebotsInterface::UpdateSimState() {
                 motor_names_[i].c_str());
     }
   }
+}
+
+void ScoutWebotsInterface::SetLightCommand(AgxLightMode f_mode, uint8_t f_value,
+                                           AgxLightMode r_mode,
+                                           uint8_t r_value) {
+  // do nothing for the simulator
+}
+
+ScoutCoreState ScoutWebotsInterface::GetRobotState() {
+  // constants for calculation
+  constexpr double rotation_radius =
+      std::hypot(ScoutParams::wheelbase / 2.0, ScoutParams::track / 2.0) * 2.0;
+  constexpr double rotation_theta =
+      std::atan2(ScoutParams::wheelbase, ScoutParams::track);
+
+  // update robot state
+  double wheel_speeds[4];
+  for (int i = 0; i < 4; ++i) {
+    webots_ros::get_float get_velocity_srv;
+    ros::ServiceClient get_velocity_client =
+        nh_->serviceClient<webots_ros::get_float>(robot_name_ + "/" +
+                                                  std::string(motor_names_[i]) +
+                                                  std::string("/get_velocity"));
+
+    if (get_velocity_client.call(get_velocity_srv)) {
+      wheel_speeds[i] = get_velocity_srv.response.value;
+    } else
+      ROS_ERROR("Failed to call service set_velocity on motor %s.",
+                motor_names_[i].c_str());
+  }
+  float left_speed =
+      (wheel_speeds[1] + wheel_speeds[2]) / 2.0 * ScoutParams::wheel_radius;
+  float right_speed =
+      (wheel_speeds[0] + wheel_speeds[3]) / 2.0 * ScoutParams::wheel_radius;
+  left_speed = -left_speed;
+
+  double linear_speed = (right_speed + left_speed) / 2.0;
+  double angular_speed =
+      (right_speed - left_speed) * std::cos(rotation_theta) / rotation_radius;
+  //   double angular_speed = (right_speed - left_speed) /
+  //   ScoutV2Limits::wheelbase;
+
+  //   std::cout << "left: " << left_speed << " , right : " << right_speed
+  //             << " , linear: " << linear_speed << " , angular: " <<
+  //             angular_speed
+  //             << std::endl;
+
+  ScoutCoreState msg;
+  msg.motion_state.linear_velocity = linear_speed;
+  msg.motion_state.angular_velocity = angular_speed;
+
+  return msg;
+}
+
+ScoutActuatorState ScoutWebotsInterface::GetActuatorState() {
+  double wheel_speeds[4];
+  for (int i = 0; i < 4; ++i) {
+    webots_ros::get_float get_velocity_srv;
+    ros::ServiceClient get_velocity_client =
+        nh_->serviceClient<webots_ros::get_float>(robot_name_ + "/" +
+                                                  std::string(motor_names_[i]) +
+                                                  std::string("/get_velocity"));
+
+    if (get_velocity_client.call(get_velocity_srv)) {
+      wheel_speeds[i] = get_velocity_srv.response.value;
+    } else
+      ROS_ERROR("Failed to call service set_velocity on motor %s.",
+                motor_names_[i].c_str());
+  }
+
+  ScoutActuatorState msg;
+  for (int i = 0; i < 4; ++i) {
+    msg.actuator_hs_state[i].motor_id = i;
+    msg.actuator_hs_state[i].rpm = wheel_speeds[i];
+    msg.actuator_hs_state[i].current = 0;
+    msg.actuator_hs_state[i].pulse_count = 0;
+
+    msg.actuator_ls_state[i].motor_id = i;
+    msg.actuator_ls_state[i].driver_voltage = 26;
+    msg.actuator_ls_state[i].driver_temp = 25;
+    msg.actuator_ls_state[i].motor_temp = 25;
+    msg.actuator_ls_state[i].driver_state = 0;
+  }
+  return msg;
 }
 }  // namespace westonrobot

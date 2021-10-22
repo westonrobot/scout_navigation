@@ -15,13 +15,13 @@
 
 namespace westonrobot {
 void ImuExtension::Setup(
-    ros::NodeHandle &nh_, std::string robot_name_,
+    ros::NodeHandle *nh, std::string robot_name_,
     tf2_ros::StaticTransformBroadcaster &static_broadcaster_) {
-  gyro_sub_ = nh_.subscribe(robot_name_ + "/gyro/values", 1,
+  gyro_sub_ = nh->subscribe(robot_name_ + "/gyro/values", 1,
                             &ImuExtension::GyroNewDataCallback, this);
-  accel_sub_ = nh_.subscribe(robot_name_ + "/accel/values", 1,
+  accel_sub_ = nh->subscribe(robot_name_ + "/accel/values", 1,
                              &ImuExtension::AccelNewDataCallback, this);
-  imu_pub_ = nh_.advertise<sensor_msgs::Imu>("/imu", 1);
+  imu_pub_ = nh->advertise<sensor_msgs::Imu>("/imu", 1);
 
   std::string gyro_enable_srv_name = robot_name_ + "/gyro/enable";
   std::string accel_enable_srv_name = robot_name_ + "/accel/enable";
@@ -31,7 +31,7 @@ void ImuExtension::Setup(
     ros::ServiceClient enable_gyro_client;
     webots_ros::set_int enable_gyro_srv;
     enable_gyro_client =
-        nh_.serviceClient<webots_ros::set_int>(gyro_enable_srv_name);
+        nh->serviceClient<webots_ros::set_int>(gyro_enable_srv_name);
     enable_gyro_srv.request.value = 100;
     if (enable_gyro_client.call(enable_gyro_srv) &&
         enable_gyro_srv.response.success == 1)
@@ -43,7 +43,7 @@ void ImuExtension::Setup(
     ros::ServiceClient enable_accel_client;
     webots_ros::set_int enable_accel_srv;
     enable_accel_client =
-        nh_.serviceClient<webots_ros::set_int>(accel_enable_srv_name);
+        nh->serviceClient<webots_ros::set_int>(accel_enable_srv_name);
     enable_accel_srv.request.value = 100;
     if (enable_accel_client.call(enable_accel_srv) &&
         enable_accel_srv.response.success == 1) {

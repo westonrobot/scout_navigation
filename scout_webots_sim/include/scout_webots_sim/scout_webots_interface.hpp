@@ -13,39 +13,40 @@
 #include <string>
 #include <vector>
 
+#include "ugv_sdk/details/interface/scout_interface.hpp"
+
 #include <ros/ros.h>
+#include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 
-#include "scout_base/scout_messenger.hpp"
 #include "scout_webots_extension.hpp"
 
 namespace westonrobot {
-class ScoutWebotsInterface {
+class ScoutWebotsInterface : public ScoutInterface {
  public:
-  ScoutWebotsInterface(ros::NodeHandle* nh, ScoutROSMessenger* msger,
-                       uint32_t time_step);
+  ScoutWebotsInterface(ros::NodeHandle* nh);
 
-  void InitComponents(std::string controller_name);
-  void UpdateSimState();
+  void Initialize(std::string controller_name);
 
-  void AddExtensions(std::vector<WebotsExtension*> extension_vector);
-  void InitExtensions();
+  void SetMotionCommand(double linear, double angular) override;
+  void SetLightCommand(AgxLightMode f_mode, uint8_t f_value,
+                       AgxLightMode r_mode, uint8_t r_value) override;
+  void DisableLightControl() {}
+  ScoutCoreState GetRobotState() override;
+  ScoutActuatorState GetActuatorState() override;
 
  private:
-  uint32_t time_step_;
-  ScoutROSMessenger* messenger_;
-  std::vector<WebotsExtension*> extension_vector_;
   ros::NodeHandle* nh_;
-
   tf2_ros::StaticTransformBroadcaster static_broadcaster_;
 
+  uint32_t time_step_;
   std::string robot_name_ = "scout_v2";
   const std::vector<std::string> motor_names_{
       "front_right_wheel", "front_left_wheel", "rear_left_wheel",
       "rear_right_wheel"};
+  std::vector<WebotsExtension*> extensions_;
 
-  void SetupRobot();
-  void SetupLidar();
+  void Connect(std::string uart_name, uint32_t baudrate) override{};
 };
 }  // namespace westonrobot
 

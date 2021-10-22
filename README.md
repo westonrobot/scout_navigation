@@ -32,7 +32,7 @@ $ sudo apt-get install -y ros-$ROS_DISTRO-ros-controllers \
 
 ```
 $ cd ~/catkin_ws/src
-$ git clone https://github.com/westonrobot/scout_base.git
+$ git clone https://github.com/westonrobot/scout_ros.git
 $ git clone https://github.com/westonrobot/scout_navigation.git
 $ cd ..
 $ catkin_make

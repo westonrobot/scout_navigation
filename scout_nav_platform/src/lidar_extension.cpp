@@ -19,7 +19,7 @@
 
 namespace westonrobot {
 void LidarExtension::Setup(
-    ros::NodeHandle &nh_, std::string robot_name_,
+    ros::NodeHandle *nh, std::string robot_name_,
     tf2_ros::StaticTransformBroadcaster &static_broadcaster_) {
   std::string lidar_enable_srv_name = robot_name_ + "/rslidar/enable";
   if (ros::service::exists(lidar_enable_srv_name, true)) {
@@ -27,7 +27,7 @@ void LidarExtension::Setup(
     ros::ServiceClient enable_lidar_client;
     webots_ros::set_int enable_lidar_srv;
     enable_lidar_client =
-        nh_.serviceClient<webots_ros::set_int>(lidar_enable_srv_name);
+        nh->serviceClient<webots_ros::set_int>(lidar_enable_srv_name);
     enable_lidar_srv.request.value = 10;
     if (enable_lidar_client.call(enable_lidar_srv) &&
         enable_lidar_srv.response.success == 1) {
@@ -39,15 +39,15 @@ void LidarExtension::Setup(
       ros::ServiceClient enable_lidar_pc_client;
       webots_ros::set_bool enable_lidar_pc_srv;
       enable_lidar_pc_client =
-          nh_.serviceClient<webots_ros::set_bool>(lidar_enable_pc_srv_name);
+          nh->serviceClient<webots_ros::set_bool>(lidar_enable_pc_srv_name);
       enable_lidar_pc_srv.request.value = true;
       if (enable_lidar_pc_client.call(enable_lidar_pc_srv) &&
           enable_lidar_pc_srv.response.success == 1) {
         ROS_INFO("Lidar Pointcloud Enabled.");
 
-        sub = nh_.subscribe(robot_name_ + "/rslidar/point_cloud", 20,
+        sub = nh->subscribe(robot_name_ + "/rslidar/point_cloud", 20,
                             &LidarExtension::subscriber_callback, this);
-        pub = nh_.advertise<sensor_msgs::PointCloud2>("/rslidar_points", 1);
+        pub = nh->advertise<sensor_msgs::PointCloud2>("/rslidar_points", 1);
 
         // publish tf
         publish_TF(robot_name_, static_broadcaster_);

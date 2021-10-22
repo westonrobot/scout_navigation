@@ -14,7 +14,7 @@
 
   <!-- start Webots and Webots/ROS Interface-->
   <arg name="no-gui" default="false," doc="Start Webots with minimal GUI" />
-  <include file="$(find scout_webots_sim)/launch/scout_v2_sim_basic.launch">
+  <include file="$(find scout_webots_sim)/launch/scout_v2_base_sim.launch">
 
     <arg name="no-gui" value="$(arg no-gui)" />
     <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
@@ -22,6 +22,6 @@
   </include>
 
     <!-- start teleop -->
-    <include file="$(find scout_bringup)/launch/scout_teleop_keyboard.launch">
-    </include>
+    <!-- <include file="$(find scout_bringup)/launch/scout_teleop_keyboard.launch">
+    </include> -->
 </launch>

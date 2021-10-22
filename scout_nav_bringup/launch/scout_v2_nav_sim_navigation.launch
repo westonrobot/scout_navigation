@@ -6,13 +6,13 @@
   
     <!-- Publish Transforms -->
     <param name="/use_sim_time" value="true" />
-    <include file="$(find scout_nav_platform)/launch/scout_v2_nav_platform_description.launch">
+    <include file="$(find scout_nav_platform)/launch/scout_v2_nav_sim_description.launch">
       <arg name="model_xacro" default="$(arg model_xacro)" />
     </include>
   
     <!-- start Webots and Webots/ROS Interface-->
     <arg name="no-gui" default="false," doc="Start Webots with minimal GUI" />
-    <include file="$(find scout_nav_platform)/launch/scout_v2_sim_nav_platform.launch">
+    <include file="$(find scout_nav_platform)/launch/scout_v2_nav_sim_platform.launch">
       <arg name="no-gui" value="$(arg no-gui)" />
       <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
       <arg name="auto-close" default="false" doc="Startup mode" />
