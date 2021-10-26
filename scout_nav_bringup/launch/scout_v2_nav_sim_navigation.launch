@@ -1,46 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="simulated_robot" default="true" />
-    <arg name="model_xacro" default="$(find scout_nav_platform)/urdf/scout_v2_sim_nav.xacro" />
+    <arg name="use_sim_time" value="true"/>
     <arg name="odom_topic_name" default="odom" />
   
-    <!-- Publish Transforms -->
-    <param name="/use_sim_time" value="true" />
-    <include file="$(find scout_nav_platform)/launch/scout_v2_nav_sim_description.launch">
-      <arg name="model_xacro" default="$(arg model_xacro)" />
-    </include>
-  
     <!-- start Webots and Webots/ROS Interface-->
-    <arg name="no-gui" default="false," doc="Start Webots with minimal GUI" />
-    <include file="$(find scout_nav_platform)/launch/scout_v2_nav_sim_platform.launch">
-      <arg name="no-gui" value="$(arg no-gui)" />
-      <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
-      <arg name="auto-close" default="false" doc="Startup mode" />
+    <include file="$(find scout_nav_bringup)/launch/scout_v2_nav_sim.launch">
+        <arg name="odom_topic_name" default="$(arg odom_topic_name)" />
     </include>
-  
-    <!-- Condensing 3D point cloud into 2D scan -->
-    <node name="pointcloud_to_laserscan" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node">
-      <remap from="cloud_in" to="rslidar_points" />
-      <rosparam>
-          transform_tolerance: 0.01
-          min_height: -0.6
-          max_height: -0.1
-          
-          angle_min: -3.14
-          angle_max: 3.14
-          angle_increment: 0.00314
-          scan_time: 0.1
-          range_min: 0.2
-          range_max: 60.0
-          use_inf: true
-          
-          #concurrency_level affects number of pc queued for processing and the number of threadsused
-          # 0: Detect number of cores
-          # 1: Single threaded
-          # 2: inf : Parallelism level
-          concurrency_level: 1
-        </rosparam>
-    </node>
 
     <include file="$(find scout_ros_nav)/launch/scout_v2_navigation.launch">
         <arg name="map_file" default="$(find scout_ros_nav)/maps/webots_indoor.yaml"/>
